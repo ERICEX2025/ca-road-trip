@@ -236,6 +236,25 @@ section{padding:46px 0; position:relative;}
 .day-body > div{overflow:hidden;}
 .day-inner{padding:4px 22px 24px;}
 
+/* Per-day route map + button */
+.day-map{
+  height:clamp(190px,30vw,270px); border-radius:12px; overflow:hidden;
+  border:1px solid var(--line); margin:8px 0 12px; background:var(--sand-deep); position:relative; z-index:0;
+}
+.route-btn{
+  display:inline-flex; align-items:center; gap:8px; margin:0 0 18px;
+  font-size:.84rem; font-weight:700; letter-spacing:.01em; color:#fff;
+  background:var(--sunset); padding:9px 16px; border-radius:999px;
+  box-shadow:0 8px 18px -10px var(--sunset); transition:.2s;
+}
+.route-btn:hover{background:var(--ocean-deep); color:#fff; box-shadow:0 8px 18px -10px var(--ocean-deep);}
+.route-btn svg{width:15px; height:15px;}
+.pin.num{
+  width:25px; height:25px; border-radius:50%; transform:none;
+  display:grid; place-items:center; border:2px solid #fff; box-shadow:0 1px 5px rgba(0,0,0,.4);
+}
+.pin.num span{color:#fff; font:700 12px/1 var(--fbody);}
+
 /* Timeline of stops */
 .stop{
   display:grid; grid-template-columns:64px 104px 1fr; gap:16px;
@@ -409,6 +428,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
   /* Stop thumbnails are CSS backgrounds — won't print; drop the column */
   .stop-thumb{display:none !important;}
   .stop{grid-template-columns:64px 1fr !important;}
+  .day-map, .route-btn{display:none !important;}
   a{color:#000;}
 }
 </style>
@@ -661,6 +681,58 @@ function renderFlights(){
 }
 
 /* ============ RENDER: DAYS ============ */
+const CAR_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l1.5-4.5A2 2 0 0 1 8.4 7h7.2a2 2 0 0 1 1.9 1.5L19 13"/><path d="M5 13h14v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H8v1a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z"/><circle cx="7.5" cy="15.5" r="0.6"/><circle cx="16.5" cy="15.5" r="0.6"/></svg>';
+
+// Multi-stop Google Maps driving directions for a day's stops
+function gmapsRoute(stops){
+  if(!stops || !stops.length) return "#";
+  const pt = s => `${s.lat},${s.lng}`;
+  const origin = pt(stops[0]);
+  const dest = pt(stops[stops.length-1]);
+  const mids = stops.slice(1,-1).map(pt).join('|');
+  let u = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}&travelmode=driving`;
+  if(mids) u += `&waypoints=${encodeURIComponent(mids)}`;
+  return u;
+}
+
+// Draw a real driving route via OSRM; fall back to a straight dashed connector
+async function drawRoute(map, stops, color){
+  try{
+    const coords = stops.map(s => `${s.lng},${s.lat}`).join(';');
+    const r = await fetch(`https://router.project-osrm.org/route/v1/driving/${coords}?overview=full&geometries=geojson`);
+    if(r.ok){
+      const j = await r.json();
+      const geo = j.routes && j.routes[0] && j.routes[0].geometry;
+      if(geo){
+        const line = geo.coordinates.map(c => [c[1], c[0]]);
+        L.polyline(line, {color, weight:4, opacity:.85, lineJoin:'round'}).addTo(map);
+        return;
+      }
+    }
+  }catch(e){ /* offline or rate-limited — use fallback */ }
+  L.polyline(stops.map(s => [s.lat, s.lng]), {color, weight:3, opacity:.6, dashArray:'5,8'}).addTo(map);
+}
+
+function initDayMap(d, color){
+  const node = document.getElementById("map-day-" + d.day);
+  if(!node || node._leaflet_id) return null;
+  const map = L.map(node, {scrollWheelZoom:false, attributionControl:false})
+    .setView([d.stops[0].lat, d.stops[0].lng], 11);
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+    {subdomains:"abcd", maxZoom:19}).addTo(map);
+  const pts = [];
+  d.stops.forEach((s, idx) => {
+    const icon = L.divIcon({className:"", iconSize:[25,25], iconAnchor:[12,12],
+      html:`<div class="pin num" style="background:${color}"><span>${idx+1}</span></div>`});
+    L.marker([s.lat, s.lng], {icon}).addTo(map).bindPopup(
+      `<b>${s.name}</b>${s.time ? "<br>"+s.time : ""}<br><a href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener">Directions →</a>`);
+    pts.push([s.lat, s.lng]);
+  });
+  map.fitBounds(pts, {padding:[34,34], maxZoom:14});
+  drawRoute(map, d.stops, color);
+  return map;
+}
+
 function renderDays(){
   const list = $("#dayList");
   const openState = store.get("days_open", {1:true});
@@ -719,17 +791,29 @@ function renderDays(){
           </div>
         </div>
       </button>
-      <div class="day-body"><div><div class="day-inner"><p class="day-cap">${d.summary}</p>${stopsHtml}${extra}</div></div></div>`;
+      <div class="day-body"><div><div class="day-inner"><p class="day-cap">${d.summary}</p>
+        <div class="day-map" id="map-day-${d.day}"></div>
+        <a class="route-btn" href="${gmapsRoute(d.stops)}" target="_blank" rel="noopener">${CAR_SVG} Drive this route in Google Maps</a>
+        ${stopsHtml}${extra}</div></div></div>`;
+
+    // Lazy-init the day map (Leaflet needs a visible container to size correctly)
+    const ensureMap = ()=>{
+      if(!card._map){ card._map = initDayMap(d, color); }
+      if(card._map){ setTimeout(()=>card._map.invalidateSize(), 360); }
+    };
+    card._ensureMap = ensureMap;
 
     card.querySelector(".day-head").addEventListener("click", ()=>{
       const open = card.classList.toggle("is-open");
       card.querySelector(".day-head").setAttribute("aria-expanded", open);
       const st = store.get("days_open", {1:true});
       st[d.day] = open; store.set("days_open", st);
+      if(open) ensureMap();
       syncExpandLabel();
     });
 
     list.appendChild(card);
+    if(openState[d.day]) ensureMap();
   });
   syncExpandLabel();
 }
@@ -747,6 +831,7 @@ $("#expandAll").addEventListener("click", ()=>{
     c.classList.toggle("is-open", !allOpen);
     c.querySelector(".day-head").setAttribute("aria-expanded", !allOpen);
     st[c.dataset.day] = !allOpen;
+    if(!allOpen && c._ensureMap) c._ensureMap();
   });
   store.set("days_open", st);
   syncExpandLabel();
