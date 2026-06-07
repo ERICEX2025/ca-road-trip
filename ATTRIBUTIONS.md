@@ -23,3 +23,6 @@ Each is linked to its Commons source page where full license terms and author de
 | `images/stop-the-broad.jpg` | Dllu | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Nighttime_view_of_the_Broad_in_LA,_corner_dllu.jpg) |
 | `images/stop-grand-central-market.jpg` | Alossix | CC BY 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Grand_central_market.jpg) |
 | `images/stop-bestia.jpg` | kajikawa | CC BY 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Arts_District,_Los_Angeles,_CA,_USA_-_panoramio_(1).jpg) |
+| `images/stop-hollywood-sign.jpg` | Thomas Wolf, www.foto-tw.de | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Hollywood_Sign_(Zuschnitt).jpg) |
+| `images/stop-chinatown.jpg` | Christian Mehlführer, User:Chmehl | CC BY 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:San_Francisco_China_Town_MC.jpg) |
+| `images/stop-nata.jpg` | Addshore | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Pastel_de_natas_-_Lisbon_2021.jpg) |
