@@ -593,17 +593,8 @@ const DATA = {
         {name:"Nepenthe", time:"12:30 PM", dur:"~60 min", lat:36.2218365, lng:-121.7592895, img:"images/stop-nepenthe.jpg", note:"Cliffside lunch with a 40-mile ocean view — your one proper sit-down. If there's a wait, grab from Café Kevah just below and keep moving."},
         {name:"McWay Falls", time:"2:15 PM", dur:"~30 min", lat:36.1578259, lng:-121.6721628, img:"images/stop-mcway-falls.jpg", note:"80-ft waterfall onto a hidden beach — the road overlook is the famous view. Quick stop (~$10 day-use, cash), then push south toward US-101 and LA."}
       ]},
-    { day:3, date:"Wed Jul 29", title:"LA Westside: Getty + Beaches",
-      summary:"A tight Westside loop — art at the Getty, then Santa Monica and Venice back-to-back (they're 10 min apart), dinner in Venice.",
-      stops:[
-        {name:"The Getty", time:"10:30 AM", dur:"~2.5 hrs", lat:34.0773438, lng:-118.4732648, img:"images/day4-getty.jpg", note:"World-class art, architecture, gardens, city-to-ocean views. Free; parking ~$25; tram ride up."},
-        {name:"Santa Monica Pier", time:"1:30 PM", dur:"~90 min", lat:34.0082821, lng:-118.4987585, img:"images/stop-santa-monica-pier.jpg", note:"Ferris wheel, end of Route 66, beach + boardwalk. Just 10 min up the coast from Venice — do both in one afternoon."},
-        {name:"Venice Beach Boardwalk", time:"3:30 PM", dur:"~2 hrs", lat:33.9909254, lng:-118.4774439, img:"images/stop-venice-boardwalk.jpg", note:"Performers, murals, skate park — right down the sand from Santa Monica. Stroll inland to Abbot Kinney after."},
-        {name:"Gjelina", time:"6:30 PM", dur:"~90 min", lat:33.990497, lng:-118.4649651, img:"images/stop-gjelina.jpg", note:"Venice institution, wood-fired California cooking, on Abbot Kinney. Reserve ahead. Alt: RVR, chef Travis Lett's buzzy Japanese izakaya, is one block up the same street if you'd rather go that way.", book:true}
-      ]},
-    { day:4, date:"Thu Jul 30", title:"DTLA + Griffith Finale → Red-eye",
-      summary:"Downtown's historic core, a Michelin lunch at Holbox, then the Griffith sunset send-off — straight to LAX. The last day, so it's full.",
-      ends_with:"LAX → BOS 11:59 PM red-eye (AA miles) · arrive Boston Fri Jul 31",
+    { day:3, date:"Wed Jul 29", title:"DTLA Historic Core + Griffith Sunset",
+      summary:"Downtown's historic core, a Michelin lunch at Holbox, then the Hollywood Sign and the Griffith sunset — then back to the Westside for the night. The big day, but no flight pressure.",
       stops:[
         {name:"The Broad", time:"11:00 AM", dur:"~2 hrs", lat:34.0545021, lng:-118.2501802, img:"images/stop-the-broad.jpg", note:"Free modern art (Koons, Warhol, Infinity Mirror Room). Book timed tickets in advance; opens 11 AM.", book:true},
         {name:"Angels Flight Railway", time:"1:00 PM", dur:"~15 min", lat:34.0513631, lng:-118.2502211, img:"images/stop-angels-flight.jpg", note:"\"The shortest railway in the world\" — ride the little orange funicular down Bunker Hill; it drops you right into Grand Central Market (peek in). $1, and a La La Land cameo."},
@@ -611,7 +602,7 @@ const DATA = {
         {name:"Holbox", time:"2:00 PM", dur:"~75 min", lat:34.0173544, lng:-118.2783867, img:"images/stop-holbox.jpg", note:"Michelin-starred mariscos counter at Mercado La Paloma — tostadas, ceviche, aguachile. Just 8 min south of the Downtown walk; counter service, no reservation. The gem we made room for.", book:false},
         {name:"Bestia", time:"5:00 PM", dur:"~2 hrs", lat:34.0338338, lng:-118.2293287, img:"images/stop-bestia.jpg", note:"Arts District Italian, the dinner anchor. Book ~30 days out. Early seating leaves time for Griffith.", book:true},
         {name:"Hollywood Sign", time:"7:00 PM", dur:"~30 min", lat:34.1341222, lng:-118.3215281, img:"images/stop-hollywood-sign.jpg", note:"The 45-ft white letters on Mt. Lee, up since 1923. Catch it in daylight before sunset — the best free view is from Griffith (next stop); for a closer shot, detour to Lake Hollywood Park."},
-        {name:"Griffith Observatory", time:"7:30 PM", dur:"~2 hrs", lat:34.1184341, lng:-118.3003935, img:"images/day5-griffith.jpg", note:"Sunset + city-lights finale, Hollywood Sign in view — and the La La Land planetarium itself. (The film's Cathy's Corner overlook is a short hike up Mt. Hollywood Dr nearby if you've got the energy.) Free; open till 10 PM Thu. Then ~45 min to LAX."}
+        {name:"Griffith Observatory", time:"7:30 PM", dur:"~2 hrs", lat:34.1184341, lng:-118.3003935, img:"images/day5-griffith.jpg", note:"Sunset + city-lights finale, Hollywood Sign in view — and the La La Land planetarium itself. (Cathy's Corner, the film's overlook, is a short hike up Mt. Hollywood Dr nearby.) Free; open till 10 PM. Then ~45 min back to the Westside hotel — no flight to catch tonight."}
       ],
       food_crawl_options:[
         {name:"Grand Central Market", lat:34.050872, lng:-118.2490552, note:"Historic 1917 food hall at the foot of Angels Flight — peek in on the walk even if Holbox is lunch"},
@@ -620,6 +611,15 @@ const DATA = {
         {name:"Howlin' Ray's", lat:34.0615425, lng:-118.2397141, note:"Nashville hot chicken, Chinatown (line)"},
         {name:"Sushi Gen", lat:34.0467107, lng:-118.238617, note:"Little Tokyo sashimi"},
         {name:"Langer's", lat:34.0561783, lng:-118.2767993, note:"Pastrami #19, lunch only"}
+      ]},
+    { day:4, date:"Thu Jul 30", title:"Westside Finale → Red-eye",
+      summary:"An easy last day right by the hotel — the Getty, both beaches, a Venice dinner and sunset, then a short 20-min hop to LAX. A calm sendoff.",
+      ends_with:"LAX → BOS 11:59 PM red-eye (AA miles) · arrive Boston Fri Jul 31",
+      stops:[
+        {name:"The Getty", time:"10:30 AM", dur:"~2.5 hrs", lat:34.0773438, lng:-118.4732648, img:"images/day4-getty.jpg", note:"World-class art, architecture, gardens, city-to-ocean views. Free; parking ~$25; tram ride up. (Luggage stays in the car — you've checked out.)"},
+        {name:"Santa Monica Pier", time:"1:30 PM", dur:"~90 min", lat:34.0082821, lng:-118.4987585, img:"images/stop-santa-monica-pier.jpg", note:"Ferris wheel, end of Route 66, beach + boardwalk. Just 10 min up the coast from Venice — do both in one afternoon."},
+        {name:"Venice Beach Boardwalk", time:"3:30 PM", dur:"~2 hrs", lat:33.9909254, lng:-118.4774439, img:"images/stop-venice-boardwalk.jpg", note:"Performers, murals, skate park — right down the sand from Santa Monica. Stroll inland to Abbot Kinney, and catch the sunset on the sand."},
+        {name:"Gjelina", time:"6:30 PM", dur:"~90 min", lat:33.990497, lng:-118.4649651, img:"images/stop-gjelina.jpg", note:"Venice institution, wood-fired California cooking, on Abbot Kinney. Reserve ahead. (Alt: RVR, Travis Lett's Japanese izakaya, a block up the same street.) Then it's just ~20 min to LAX for the red-eye.", book:true}
       ]}
   ]
 };
@@ -640,7 +640,7 @@ const LODGING = [
   { loc:"San Francisco", title:"Central waterfront base", nights:"Sun + Mon nights",
     hint:"Near the waterfront / downtown so Day 1 is walkable. (Conference nights you'll sort separately.)" },
   { loc:"Los Angeles", title:"Santa Monica / Venice (Westside)", nights:"Tue + Wed — 2 nights",
-    hint:"Land here off the coast dash, and Wednesday's Getty + beaches + Gjelina are all right here (walk back from dinner). Thursday you check out and head east — DTLA → Griffith → LAX — so the only cost is a ~35-min morning drive downtown. The Thu red-eye covers the last night." }
+    hint:"Land here off the coast dash. Wednesday you head east for DTLA + Griffith and drive back here to sleep; Thursday stays local — Getty, beaches, Gjelina — then a 20-min hop to LAX for the red-eye. The Thu red-eye covers the last night." }
 ];
 
 const CHECKLIST = [
@@ -665,8 +665,8 @@ const DAY_COLORS = ["#e7642d", "#1f6f86", "#c0492b", "#7a9a6e", "#caa23a"];
 const DAY_COVERS = [
   { img:"images/day1-goldengate.jpg", cap:"Golden Gate Bridge from the city side" },
   { img:"images/day2-bixby.jpg",      cap:"Bixby Creek Bridge, Highway 1" },
-  { img:"images/day4-getty.jpg",      cap:"The Getty Center, Brentwood" },
-  { img:"images/day5-griffith.jpg",   cap:"Griffith Observatory above LA" }
+  { img:"images/day5-griffith.jpg",   cap:"Griffith Observatory above LA" },
+  { img:"images/day4-getty.jpg",      cap:"The Getty Center, Brentwood" }
 ];
 
 /* ============ HELPERS ============ */
