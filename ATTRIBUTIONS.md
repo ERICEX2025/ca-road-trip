@@ -26,3 +26,5 @@ Each is linked to its Commons source page where full license terms and author de
 | `images/stop-hollywood-sign.jpg` | Thomas Wolf, www.foto-tw.de | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Hollywood_Sign_(Zuschnitt).jpg) |
 | `images/stop-chinatown.jpg` | Christian Mehlführer, User:Chmehl | CC BY 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:San_Francisco_China_Town_MC.jpg) |
 | `images/stop-nata.jpg` | Addshore | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Pastel_de_natas_-_Lisbon_2021.jpg) |
+| `images/stop-point-lobos.jpg` | Diliff | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Whaler%27s_Cove,_Point_Lobos,_CA,_US_-_May_2013.jpg) |
+| `images/stop-carmel.jpg` | McGhiever | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Carmel_Mission_Church.jpg) |
