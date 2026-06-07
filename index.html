@@ -562,7 +562,7 @@ const DATA = {
     { day:1, date:"Mon Jul 27", title:"San Francisco Waterfront",
       summary:"One relaxed waterfront day. No timed tickets — easy pace.",
       stops:[
-        {name:"Golden Gate Bridge", time:"10:00 AM", dur:"~90 min", lat:37.8199109, lng:-122.4785598, note:"Battery Spencer overlook (Marin side) for the classic shot; Crissy Field on the city side. July mornings can be foggy — part of the look."},
+        {name:"Golden Gate Bridge", time:"10:00 AM", dur:"~90 min", lat:37.8199109, lng:-122.4785598, img:"images/day1-goldengate.jpg", note:"Battery Spencer overlook (Marin side) for the classic shot; Crissy Field on the city side. July mornings can be foggy — part of the look."},
         {name:"Fisherman's Wharf", time:"12:00 PM", dur:"~2.5 hrs", lat:37.8085771, lng:-122.4125282, img:"images/stop-fishermans-wharf.jpg", note:"Lunch: Dungeness crab + clam chowder in sourdough. Walk to the Pier 39 sea lion deck (free)."},
         {name:"Ferry Building", time:"3:30 PM", dur:"~90 min", lat:37.7954425, lng:-122.3936136, img:"images/stop-ferry-building.jpg", note:"Embarcadero stroll, artisan food + coffee. Optional if everyone's worn out."}
       ]},
@@ -570,7 +570,7 @@ const DATA = {
       summary:"The iconic Highway 1 drive. Unhurried. Overnight in Big Sur or Cambria so you're not on the cliffs after dark.",
       overnight:"Big Sur or Cambria",
       stops:[
-        {name:"Bixby Creek Bridge", time:"11:30 AM", dur:"~30 min", lat:36.3714835, lng:-121.901924, note:"The most photographed bridge on the coast; pull-outs both sides."},
+        {name:"Bixby Creek Bridge", time:"11:30 AM", dur:"~30 min", lat:36.3714835, lng:-121.901924, img:"images/day2-bixby.jpg", note:"The most photographed bridge on the coast; pull-outs both sides."},
         {name:"Nepenthe", time:"1:00 PM", dur:"~90 min", lat:36.2218365, lng:-121.7592895, img:"images/stop-nepenthe.jpg", note:"Cliffside lunch, 40-mile ocean view. Worth the wait for a terrace table."},
         {name:"McWay Falls", time:"3:00 PM", dur:"~45 min", lat:36.1578259, lng:-121.6721628, img:"images/stop-mcway-falls.jpg", note:"80-ft waterfall onto a hidden beach; the road overlook is the famous view."},
         {name:"Pfeiffer Beach", time:null, dur:"optional", lat:36.2376, lng:-121.8159, img:"images/stop-pfeiffer-beach.jpg", note:"Purple-tinged sand + Keyhole Rock arch. Tiny lot, $15, fills up — arrive before 11 AM."}
@@ -578,14 +578,14 @@ const DATA = {
     { day:3, date:"Wed Jul 29", title:"Hearst Castle → Coast → LA",
       summary:"Tour the castle, then the coast run into LA, landing on a Santa Monica sunset.",
       stops:[
-        {name:"Hearst Castle", time:"9:00 AM", dur:"~2 hrs", lat:35.6849825, lng:-121.1699716, note:"Pre-book the Grand Rooms tour. Free elephant seal vista point 5 min north — hundreds on the beach.", book:true},
+        {name:"Hearst Castle", time:"9:00 AM", dur:"~2 hrs", lat:35.6849825, lng:-121.1699716, img:"images/day3-hearst.jpg", note:"Pre-book the Grand Rooms tour. Free elephant seal vista point 5 min north — hundreds on the beach.", book:true},
         {name:"El Matador State Beach (Malibu)", time:"4:30 PM", dur:"~60 min", lat:34.0380426, lng:-118.874663, img:"images/stop-el-matador.jpg", note:"Sea caves + rock arches; short steep walk down. Last coastal stop before the city."},
         {name:"Santa Monica Pier", time:"6:30 PM", dur:"~2 hrs", lat:34.0082821, lng:-118.4987585, img:"images/stop-santa-monica-pier.jpg", note:"Sunset arrival into LA — Ferris wheel, end of Route 66, dinner by the water."}
       ]},
     { day:4, date:"Thu Jul 30", title:"LA Westside: Getty + Venice",
       summary:"A tight Westside cluster — art, beach, dinner within a few miles.",
       stops:[
-        {name:"The Getty", time:"10:30 AM", dur:"~2.5 hrs", lat:34.0773438, lng:-118.4732648, note:"World-class art, architecture, gardens, city-to-ocean views. Free; parking ~$25; tram ride up."},
+        {name:"The Getty", time:"10:30 AM", dur:"~2.5 hrs", lat:34.0773438, lng:-118.4732648, img:"images/day4-getty.jpg", note:"World-class art, architecture, gardens, city-to-ocean views. Free; parking ~$25; tram ride up."},
         {name:"Venice Beach Boardwalk", time:"2:30 PM", dur:"~2 hrs", lat:33.9909254, lng:-118.4774439, img:"images/stop-venice-boardwalk.jpg", note:"Performers, murals, skate park. Stroll inland to Abbot Kinney after."},
         {name:"Gjelina", time:"6:30 PM", dur:"~90 min", lat:33.990497, lng:-118.4649651, img:"images/stop-gjelina.jpg", note:"Venice institution, wood-fired California cooking, on Abbot Kinney. Reserve ahead.", book:true}
       ]},
@@ -596,7 +596,8 @@ const DATA = {
         {name:"The Broad", time:"11:00 AM", dur:"~2 hrs", lat:34.0545021, lng:-118.2501802, img:"images/stop-the-broad.jpg", note:"Free modern art (Koons, Warhol, Infinity Mirror Room). Book timed tickets in advance. Opens 11 AM Fri.", book:true},
         {name:"Grand Central Market", time:"1:00 PM", dur:"~2 hrs", lat:34.050872, lng:-118.2490552, img:"images/stop-grand-central-market.jpg", note:"Downtown food hall, 2 blocks from The Broad."},
         {name:"Bestia", time:"5:00 PM", dur:"~2 hrs", lat:34.0338338, lng:-118.2293287, img:"images/stop-bestia.jpg", note:"Arts District Italian, the dinner anchor. Book ~30 days out. Early seating leaves time for Griffith.", book:true},
-        {name:"Griffith Observatory", time:"7:30 PM", dur:"~2 hrs", lat:34.1184341, lng:-118.3003935, note:"Sunset + city-lights finale. Free; open till 10 PM Fri. Then ~45 min to LAX."}
+        {name:"Hollywood Sign", time:"7:00 PM", dur:"~30 min", lat:34.1341222, lng:-118.3215281, img:"images/stop-hollywood-sign.jpg", note:"The 45-ft white letters on Mt. Lee, up since 1923. Catch it in daylight before sunset — the best free view is from Griffith (next stop); for a closer shot, detour to Lake Hollywood Park."},
+        {name:"Griffith Observatory", time:"7:30 PM", dur:"~2 hrs", lat:34.1184341, lng:-118.3003935, img:"images/day5-griffith.jpg", note:"Sunset + city-lights finale, with the Hollywood Sign in view. Free; open till 10 PM Fri. Then ~45 min to LAX."}
       ],
       food_crawl_options:[
         {name:"Sonoratown", lat:34.041615, lng:-118.2521844, note:"Sonoran tacos, $"},
