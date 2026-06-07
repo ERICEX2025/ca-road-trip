@@ -249,6 +249,8 @@ section{padding:46px 0; position:relative;}
 }
 .route-btn:hover{background:var(--ocean-deep); color:#fff; box-shadow:0 8px 18px -10px var(--ocean-deep);}
 .route-btn svg{width:15px; height:15px;}
+.route-stats{display:inline-block; margin-left:12px; font-size:.84rem; font-style:italic;
+  color:var(--ink-faint); vertical-align:middle;}
 .pin.num{
   width:25px; height:25px; border-radius:50%; transform:none;
   display:grid; place-items:center; border:2px solid #fff; box-shadow:0 1px 5px rgba(0,0,0,.4);
@@ -696,21 +698,25 @@ function gmapsRoute(stops){
 }
 
 // Draw a real driving route via OSRM; fall back to a straight dashed connector
-async function drawRoute(map, stops, color){
+async function drawRoute(map, stops, color, weight=4){
   try{
     const coords = stops.map(s => `${s.lng},${s.lat}`).join(';');
     const r = await fetch(`https://router.project-osrm.org/route/v1/driving/${coords}?overview=full&geometries=geojson`);
     if(r.ok){
       const j = await r.json();
-      const geo = j.routes && j.routes[0] && j.routes[0].geometry;
-      if(geo){
-        const line = geo.coordinates.map(c => [c[1], c[0]]);
-        L.polyline(line, {color, weight:4, opacity:.85, lineJoin:'round'}).addTo(map);
-        return;
+      const route = j.routes && j.routes[0];
+      if(route && route.geometry){
+        const line = route.geometry.coordinates.map(c => [c[1], c[0]]);
+        L.polyline(line, {color, weight, opacity:.85, lineJoin:'round'}).addTo(map);
+        const mi = Math.round(route.distance / 1609);
+        const mins = Math.round(route.duration / 60);
+        const label = mins >= 60 ? `${Math.floor(mins/60)} hr ${String(mins%60).padStart(2,'0')} min` : `${mins} min`;
+        return {mi, mins, label};
       }
     }
   }catch(e){ /* offline or rate-limited — use fallback */ }
-  L.polyline(stops.map(s => [s.lat, s.lng]), {color, weight:3, opacity:.6, dashArray:'5,8'}).addTo(map);
+  L.polyline(stops.map(s => [s.lat, s.lng]), {color, weight:Math.max(2,weight-1), opacity:.55, dashArray:'5,8'}).addTo(map);
+  return null;
 }
 
 function initDayMap(d, color){
@@ -729,7 +735,11 @@ function initDayMap(d, color){
     pts.push([s.lat, s.lng]);
   });
   map.fitBounds(pts, {padding:[34,34], maxZoom:14});
-  drawRoute(map, d.stops, color);
+  drawRoute(map, d.stops, color).then(info => {
+    if(!info) return;
+    const lbl = document.getElementById("stats-day-" + d.day);
+    if(lbl) lbl.textContent = `≈ ${info.mi} mi · ${info.label} driving`;
+  });
   return map;
 }
 
@@ -793,7 +803,7 @@ function renderDays(){
       </button>
       <div class="day-body"><div><div class="day-inner"><p class="day-cap">${d.summary}</p>
         <div class="day-map" id="map-day-${d.day}"></div>
-        <a class="route-btn" href="${gmapsRoute(d.stops)}" target="_blank" rel="noopener">${CAR_SVG} Drive this route in Google Maps</a>
+        <a class="route-btn" href="${gmapsRoute(d.stops)}" target="_blank" rel="noopener">${CAR_SVG} Drive this route in Google Maps</a><span class="route-stats" id="stats-day-${d.day}"></span>
         ${stopsHtml}${extra}</div></div></div>`;
 
     // Lazy-init the day map (Leaflet needs a visible container to size correctly)
@@ -917,6 +927,15 @@ function renderMap(){
     });
   });
   if(bounds.length) map.fitBounds(bounds, {padding:[40,40]});
+
+  // Full trip route: each day's driving path in its own color...
+  DATA.days.forEach((d,i)=> drawRoute(map, d.stops, DAY_COLORS[i], 3));
+  // ...plus dashed connectors between the end of one day and the start of the next
+  for(let i=0; i<DATA.days.length-1; i++){
+    const a = DATA.days[i].stops[DATA.days[i].stops.length-1];
+    const b = DATA.days[i+1].stops[0];
+    L.polyline([[a.lat,a.lng],[b.lat,b.lng]], {color:'#8a98a0', weight:2, opacity:.5, dashArray:'2,7'}).addTo(map);
+  }
 
   const legend = $("#mapLegend");
   DATA.days.forEach((d,i)=>{
