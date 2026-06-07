@@ -604,12 +604,15 @@ const DATA = {
         {name:"Lake Hollywood Park", time:"7:00 PM", dur:"~30 min", lat:34.1268907, lng:-118.3259167, img:"images/stop-hollywood-sign.jpg", note:"The best no-hike, close-up view of the Hollywood Sign — a grassy park looking straight up at the 1923 letters. Free, easy, great for photos while there's still daylight; then it's ~15 min over to Griffith for the sunset."},
         {name:"Griffith Observatory", time:"7:30 PM", dur:"~2 hrs", lat:34.1184341, lng:-118.3003935, img:"images/day5-griffith.jpg", note:"Sunset + city-lights finale, Hollywood Sign in view — and the La La Land planetarium itself. (Cathy's Corner, the film's overlook, is a short hike up Mt. Hollywood Dr nearby.) Free; open till 10 PM. Then ~45 min back to the Westside hotel — no flight to catch tonight."}
       ],
+      crawlTitle:"🍽️ Dinner picks near Griffith (Los Feliz / Thai Town)",
+      crawlIntro:"Eat around 6 PM ~10 min from the observatory, then head up for sunset. Pick one.",
       food_crawl_options:[
-        {name:"Pizzeria Bianco", lat:34.0347284, lng:-118.2398848, note:"Chris Bianco's legendary pizza at The Row DTLA — easy, family-friendly dinner option"},
-        {name:"Sonoratown", lat:34.041615, lng:-118.2521844, note:"Sonoran tacos, $"},
-        {name:"Howlin' Ray's", lat:34.0615425, lng:-118.2397141, note:"Nashville hot chicken, Chinatown (line)"},
-        {name:"Sushi Gen", lat:34.0467107, lng:-118.238617, note:"Little Tokyo sashimi"},
-        {name:"Langer's", lat:34.0561783, lng:-118.2767993, note:"Pastrami #19, lunch only"}
+        {name:"Little Dom's", lat:34.1108665, lng:-118.2872699, note:"Beloved Los Feliz Italian-American — cozy, family-friendly (the easy pick)"},
+        {name:"Messhall Kitchen", lat:34.111298, lng:-118.2875992, note:"Closest to the park entrance — camp-themed, burgers/BBQ, big crowd-pleasing menu"},
+        {name:"Encanto", lat:34.1038563, lng:-118.2916784, note:"Wood-fired Baja-coastal Mexican — ceviche + asada, indoor-outdoor"},
+        {name:"Kismet", lat:34.1002762, lng:-118.2906774, note:"Acclaimed California-Mediterranean — bright, herby, a step up"},
+        {name:"Sapp Coffee Shop", lat:34.1020795, lng:-118.3032657, note:"Thai Town legend — boat noodles, cash-cheap, no frills"},
+        {name:"Pa Ord Noodle", lat:34.0985106, lng:-118.3438446, note:"Thai Town gem — roasted duck + noodles, strip-mall classic"}
       ]},
     { day:4, date:"Thu Jul 30", title:"Westside Finale → Red-eye",
       summary:"An easy last day right by the hotel — the Getty, both beaches, a Venice dinner and sunset, then a short 20-min hop to LAX. A calm sendoff.",
@@ -792,8 +795,10 @@ function renderDays(){
 
     let extra = "";
     if(d.food_crawl_options){
-      extra += `<div class="crawl"><h4>🌮 Optional Downtown food crawl</h4>
-        <p class="intro">More Downtown bites if you've got room — pick one or two.</p><ul>` +
+      const ct = d.crawlTitle || "🌮 Optional Downtown food crawl";
+      const ci = d.crawlIntro || "More Downtown bites if you've got room — pick one or two.";
+      extra += `<div class="crawl"><h4>${ct}</h4>
+        <p class="intro">${ci}</p><ul>` +
         d.food_crawl_options.map(o=>`<li><b>${o.name}</b> — <span>${o.note}</span> · <a href="${mapsUrl(o.lat,o.lng)}" target="_blank" rel="noopener">map</a></li>`).join("") +
         `</ul></div>`;
     }
