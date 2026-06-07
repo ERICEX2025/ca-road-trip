@@ -32,3 +32,5 @@ Each is linked to its Commons source page where full license terms and author de
 | `images/stop-angels-flight.jpg` | Difference engine | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Angels_Flight_after_reopening_in_September_2017.jpg) |
 | `images/stop-bradbury.jpg` | Carol M. Highsmith | Public domain | [Commons](https://commons.wikimedia.org/wiki/File:Bradbury_building_Los_Angeles_c2005_01383u_crop.jpg) |
 | `images/stop-nhm.jpg` | Steven Lek | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Natural_History_Museum_of_Los_Angeles_County_2019.jpg) |
+| `images/stop-rose-garden.jpg` | Los Angeles | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Exposition_Park_Rose_Garden,_Los_Angeles.JPG) |
+| `images/stop-walk-of-fame.jpg` | Fabio Achilli | CC BY 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:Walk_of_Fame,_Hollywood_(20986072759).jpg) |
