@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>San Francisco → Big Sur → Los Angeles · July 2026</title>
+<meta name="description" content="A coastal California road trip: SF waterfront, the Big Sur cliffs, and Los Angeles. July 2026 family itinerary." />
+
+<!-- Fonts: Fraunces (editorial display) + Hanken Grotesk (refined body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<!-- Leaflet (overview map, OSM tiles, no API key) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<style>
+:root{
+  /* Coastal California palette */
+  --sand:        #f5ecdd;
+  --sand-deep:   #efe3cf;
+  --paper:       #fbf6ec;
+  --ink:         #16313f;   /* deep ocean ink */
+  --ink-soft:    #3c5562;
+  --ink-faint:   #6f8089;
+  --ocean:       #1f6f86;
+  --ocean-deep:  #134a5c;
+  --sunset:      #e7642d;   /* primary accent */
+  --sunset-soft: #f3a23f;   /* golden hour */
+  --sage:        #7a9a6e;
+  --line:        #d9c9ac;
+  --shadow:      rgba(22,49,63,.12);
+
+  --maxw: 1080px;
+  --r: 16px;
+
+  --fdisp: "Fraunces", Georgia, serif;
+  --fbody: "Hanken Grotesk", system-ui, sans-serif;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:var(--fbody);
+  color:var(--ink);
+  background:var(--sand);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.55;
+  overflow-x:hidden;
+}
+
+/* Subtle grain + warm gradient atmosphere */
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgba(243,162,63,.22), transparent 60%),
+    radial-gradient(900px 700px at -10% 20%, rgba(31,111,134,.14), transparent 55%);
+  pointer-events:none; z-index:0;
+}
+body::after{
+  content:"";
+  position:fixed; inset:0;
+  opacity:.05; pointer-events:none; z-index:0; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.wrap{position:relative; z-index:1; max-width:var(--maxw); margin:0 auto; padding:0 22px;}
+
+a{color:var(--ocean); text-decoration:none;}
+a:hover{color:var(--sunset);}
+
+/* ---------- Sticky top nav ---------- */
+.topbar{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter:saturate(1.2) blur(8px);
+  background:rgba(245,236,221,.82);
+  border-bottom:1px solid var(--line);
+}
+.topbar .row{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:11px 0;}
+.brand{font-family:var(--fdisp); font-weight:600; font-size:1.02rem; letter-spacing:.01em; white-space:nowrap;}
+.brand b{color:var(--sunset); font-weight:600;}
+.navlinks{display:flex; gap:4px; flex-wrap:wrap; justify-content:flex-end;}
+.navlinks a{
+  font-size:.8rem; font-weight:600; letter-spacing:.04em; text-transform:uppercase;
+  color:var(--ink-soft); padding:6px 10px; border-radius:999px;
+}
+.navlinks a:hover{background:var(--sand-deep); color:var(--ink);}
+
+/* ---------- Hero ---------- */
+.hero{padding:64px 0 40px; position:relative;}
+.kicker{
+  font-size:.78rem; font-weight:700; letter-spacing:.32em; text-transform:uppercase;
+  color:var(--sunset); margin:0 0 18px;
+}
+.hero h1{
+  font-family:var(--fdisp);
+  font-weight:600; font-size:clamp(2.7rem, 8vw, 5.6rem);
+  line-height:.98; letter-spacing:-.015em; margin:0;
+  font-variation-settings:"opsz" 144;
+}
+.hero h1 em{font-style:italic; color:var(--ocean);}
+.hero h1 .amp{color:var(--sunset); font-style:italic; padding:0 .04em;}
+.lede{
+  font-family:var(--fdisp); font-style:italic; font-weight:400;
+  font-size:clamp(1.1rem,2.6vw,1.5rem); color:var(--ink-soft);
+  max-width:42ch; margin:24px 0 0;
+}
+
+/* Route ribbon */
+.route{
+  margin:40px 0 6px; display:flex; align-items:center; gap:0; flex-wrap:wrap;
+  font-family:var(--fdisp); font-weight:500;
+}
+.route .node{display:flex; align-items:center; gap:10px;}
+.route .dot{width:11px; height:11px; border-radius:50%; background:var(--sunset); box-shadow:0 0 0 4px rgba(231,100,45,.18);}
+.route .node:nth-child(3) .dot{background:var(--ocean); box-shadow:0 0 0 4px rgba(31,111,134,.18);}
+.route .node:nth-child(5) .dot{background:var(--sage); box-shadow:0 0 0 4px rgba(122,154,110,.2);}
+.route .place{font-size:clamp(1rem,2.4vw,1.35rem);}
+.route .seg{flex:1 1 28px; min-width:28px; height:2px; margin:0 14px;
+  background:repeating-linear-gradient(90deg,var(--line) 0 7px,transparent 7px 13px);}
+.hero .meta{
+  margin-top:26px; display:flex; gap:24px 34px; flex-wrap:wrap;
+  font-size:.92rem; color:var(--ink-soft);
+}
+.hero .meta b{color:var(--ink); font-weight:700;}
+
+/* Hero image */
+.hero-figure{margin:40px 0 0; position:relative;}
+.hero-figure img{
+  width:100%; height:clamp(240px,42vw,460px); object-fit:cover;
+  border-radius:var(--r); border:1px solid var(--line);
+  box-shadow:0 30px 60px -34px rgba(22,49,63,.55);
+  display:block;
+}
+.hero-figure figcaption{
+  font-family:var(--fdisp); font-style:italic; font-size:.86rem; color:var(--ink-faint);
+  margin-top:10px; padding-left:2px;
+}
+
+/* ---------- Section scaffolding ---------- */
+section{padding:46px 0; position:relative;}
+.sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:26px;}
+.sec-num{font-family:var(--fdisp); font-weight:600; color:var(--sunset); font-size:1rem;}
+.sec-head h2{
+  font-family:var(--fdisp); font-weight:600; font-size:clamp(1.7rem,4.4vw,2.5rem);
+  letter-spacing:-.01em; margin:0; line-height:1;
+}
+.sec-sub{color:var(--ink-faint); font-size:.95rem; margin:-12px 0 26px; max-width:60ch;}
+.divider{height:1px; background:var(--line); border:0; margin:0;}
+
+/* ---------- Flights ---------- */
+.cards{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
+.card{
+  background:var(--paper); border:1px solid var(--line); border-radius:var(--r);
+  padding:20px 20px 18px; box-shadow:0 1px 0 var(--shadow);
+  position:relative; overflow:hidden;
+}
+.flight .tag{
+  font-size:.72rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-faint);
+}
+.flight .leg{
+  font-family:var(--fdisp); font-weight:600; font-size:1.35rem; margin:8px 0 2px;
+  display:flex; align-items:center; gap:10px;
+}
+.flight .leg .arr{color:var(--sunset);}
+.flight .when{font-size:.86rem; color:var(--ink-soft); margin-bottom:10px;}
+.flight p{margin:8px 0 0; font-size:.9rem; color:var(--ink-soft);}
+.flight.warn{border-color:#e7a23d; background:linear-gradient(180deg,#fdf3e2,var(--paper));}
+.flight.warn .leg .arr{color:#c25a1c;}
+.pill{
+  display:inline-block; font-size:.72rem; font-weight:700; letter-spacing:.04em;
+  padding:3px 9px; border-radius:999px; margin-top:12px;
+}
+.pill.alert{background:#f8dcc4; color:#9c3d10;}
+.pill.ok{background:#dcebd9; color:#3f6a37;}
+.pill.info{background:#d6e7ec; color:#1a5468;}
+
+/* ---------- Day cards ---------- */
+.day{
+  background:var(--paper); border:1px solid var(--line); border-radius:var(--r);
+  margin-bottom:18px; box-shadow:0 2px 14px -10px var(--shadow); overflow:hidden;
+}
+.day-head{
+  position:relative; width:100%; text-align:left; cursor:pointer; border:0; padding:0;
+  display:block; font-family:inherit; color:#fff; overflow:hidden;
+  min-height:clamp(168px,30vw,232px); background:var(--ink-soft);
+}
+.cover-img{
+  position:absolute; inset:0; background-size:cover; background-position:center;
+  transform:scale(1.02); transition:transform .6s ease; filter:saturate(1.05);
+}
+.day-head:hover .cover-img{transform:scale(1.07);}
+.cover-scrim{
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(16,38,50,.05) 0%, rgba(16,38,50,.18) 45%, rgba(13,33,44,.82) 100%);
+}
+.cover-text{
+  position:absolute; left:0; right:0; bottom:0; padding:18px 22px;
+  display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:end;
+}
+.day-no{
+  font-family:var(--fdisp); font-weight:700; line-height:.82;
+  font-size:clamp(2.4rem,7vw,3.2rem); color:#fff; text-shadow:0 2px 16px rgba(0,0,0,.4);
+  font-variation-settings:"opsz" 144;
+}
+.day-no small{display:block; font-size:.6rem; letter-spacing:.26em; font-weight:700;
+  font-family:var(--fbody); margin-bottom:5px; color:var(--sunset-soft);}
+.day-title h3{font-family:var(--fdisp); font-weight:600; font-size:clamp(1.25rem,3.5vw,1.55rem);
+  margin:0; line-height:1.08; text-shadow:0 2px 14px rgba(0,0,0,.45);}
+.day-title .date{font-size:.85rem; color:rgba(255,255,255,.85); margin-top:4px; text-shadow:0 1px 8px rgba(0,0,0,.4);}
+.day-title .badges{display:flex; gap:7px; flex-wrap:wrap; margin-top:9px;}
+.minibadge{font-size:.7rem; font-weight:600; letter-spacing:.02em; padding:3px 10px; border-radius:999px;
+  background:rgba(255,255,255,.92); color:var(--ink); backdrop-filter:blur(2px);}
+.minibadge.moon{background:rgba(214,231,236,.95); color:var(--ocean-deep);}
+.minibadge.plane{background:rgba(245,220,200,.95); color:#9c3d10;}
+.chev{
+  position:absolute; top:14px; right:14px; z-index:2;
+  width:34px; height:34px; border-radius:50%; display:grid; place-items:center;
+  background:rgba(255,255,255,.22); color:#fff; backdrop-filter:blur(4px);
+  border:1px solid rgba(255,255,255,.35);
+  transition:transform .3s ease, background .2s; font-size:1.2rem; line-height:1;
+}
+.day-head:hover .chev{background:rgba(255,255,255,.34);}
+.day[open] .chev, .day.is-open .chev{transform:rotate(90deg);}
+.day-cap{font-family:var(--fdisp); font-style:italic; font-size:.82rem; color:var(--ink-faint);
+  margin:0 0 12px; padding-bottom:12px; border-bottom:1px dashed var(--line);}
+
+.day-body{
+  display:grid; grid-template-rows:0fr; transition:grid-template-rows .35s ease;
+}
+.day.is-open .day-body{grid-template-rows:1fr;}
+.day-body > div{overflow:hidden;}
+.day-inner{padding:4px 22px 24px;}
+
+/* Timeline of stops */
+.stop{
+  display:grid; grid-template-columns:64px 104px 1fr; gap:16px;
+  padding:18px 0; border-top:1px dashed var(--line); position:relative;
+}
+.stop:first-child{border-top:0;}
+.stop-thumb{
+  display:block; width:104px; height:78px; border-radius:11px; overflow:hidden;
+  background-size:cover; background-position:center; background-color:var(--sand-deep);
+  border:1px solid var(--line); box-shadow:0 4px 12px -8px var(--shadow);
+  transition:transform .35s ease, box-shadow .25s ease; position:relative;
+}
+.stop-thumb::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg,transparent 55%,rgba(16,38,50,.18));
+}
+.stop-thumb:hover{transform:scale(1.04); box-shadow:0 8px 18px -10px var(--shadow);}
+.stop .time{
+  font-family:var(--fdisp); font-weight:600; font-size:.92rem; color:var(--ocean);
+  text-align:right; padding-top:1px; white-space:nowrap;
+}
+.stop .time.tba{color:var(--ink-faint); font-style:italic;}
+.stop .body .name{
+  font-family:var(--fdisp); font-weight:600; font-size:1.12rem; line-height:1.2;
+  display:flex; align-items:center; gap:9px; flex-wrap:wrap;
+}
+.stop .note{color:var(--ink-soft); font-size:.92rem; margin:4px 0 0;}
+.book-badge{
+  font-size:.68rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase;
+  background:var(--sunset); color:#fff; padding:3px 9px; border-radius:999px;
+  box-shadow:0 2px 8px -3px var(--sunset);
+}
+.dir{
+  display:inline-flex; align-items:center; gap:6px; margin-top:9px;
+  font-size:.8rem; font-weight:600; color:var(--ocean);
+  border:1px solid var(--line); padding:5px 11px; border-radius:999px;
+  background:var(--sand); transition:.2s;
+}
+.dir:hover{background:var(--ink); color:#fff; border-color:var(--ink);}
+.dir svg{width:13px; height:13px;}
+
+.crawl{
+  margin-top:18px; padding:16px 18px; border-radius:12px;
+  background:var(--sand); border:1px dashed var(--line);
+}
+.crawl h4{margin:0 0 4px; font-family:var(--fdisp); font-weight:600; font-size:1rem;}
+.crawl p.intro{margin:0 0 10px; font-size:.85rem; color:var(--ink-faint);}
+.crawl ul{margin:0; padding:0; list-style:none; display:grid; gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));}
+.crawl li{font-size:.86rem;}
+.crawl li b{font-family:var(--fdisp); font-weight:600;}
+.crawl li span{color:var(--ink-faint);}
+.endswith{margin-top:16px; font-size:.9rem; color:var(--ink-soft);
+  display:flex; align-items:center; gap:8px;}
+.endswith b{color:var(--ink);}
+
+.expand-all{
+  margin-bottom:18px; font-size:.78rem; font-weight:600; letter-spacing:.05em;
+  text-transform:uppercase; color:var(--ink-soft); background:transparent;
+  border:1px solid var(--line); border-radius:999px; padding:7px 16px; cursor:pointer;
+  transition:.2s; font-family:var(--fbody);
+}
+.expand-all:hover{background:var(--ink); color:#fff; border-color:var(--ink);}
+
+/* ---------- Map ---------- */
+#map{height:440px; width:100%; border-radius:var(--r); border:1px solid var(--line);
+  box-shadow:0 3px 20px -14px var(--shadow); z-index:1;}
+.map-legend{display:flex; gap:14px 18px; flex-wrap:wrap; margin-top:14px; font-size:.83rem; color:var(--ink-soft);}
+.map-legend span{display:inline-flex; align-items:center; gap:7px;}
+.map-legend i{width:12px; height:12px; border-radius:50%; display:inline-block; box-shadow:0 0 0 3px rgba(0,0,0,.06);}
+.leaflet-popup-content{font-family:var(--fbody); margin:12px 14px;}
+.leaflet-popup-content b{font-family:var(--fdisp); font-size:1rem;}
+.pin{border-radius:50% 50% 50% 0; transform:rotate(-45deg);
+  border:2px solid #fff; box-shadow:0 2px 5px rgba(0,0,0,.35);}
+
+/* ---------- Lodging ---------- */
+.lodge{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+.lodge .card{display:flex; flex-direction:column;}
+.lodge .loc{font-size:.72rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--sunset);}
+.lodge h3{font-family:var(--fdisp); font-weight:600; font-size:1.3rem; margin:6px 0 2px;}
+.lodge .nights{font-size:.84rem; color:var(--ink-soft);}
+.lodge .hint{font-size:.86rem; color:var(--ink-soft); margin:10px 0 14px; flex:1;}
+.lodge .status{font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-faint); margin-bottom:8px;}
+.lodge textarea{
+  width:100%; min-height:64px; resize:vertical; font-family:var(--fbody); font-size:.88rem;
+  color:var(--ink); background:var(--sand); border:1px solid var(--line); border-radius:10px;
+  padding:9px 11px;
+}
+.lodge textarea:focus{outline:2px solid var(--sunset); outline-offset:1px; background:#fff;}
+.lodge label{font-size:.7rem; color:var(--ink-faint); display:block; margin-bottom:5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase;}
+
+/* ---------- Checklist ---------- */
+.check-grid{display:grid; gap:26px; grid-template-columns:1fr 1fr;}
+@media(max-width:760px){.check-grid{grid-template-columns:1fr;}}
+.check-col h3{font-family:var(--fdisp); font-weight:600; font-size:1.15rem; margin:0 0 6px;
+  display:flex; align-items:center; gap:9px;}
+.check-col.priority h3{color:var(--sunset);}
+.check-col .colsub{font-size:.82rem; color:var(--ink-faint); margin:0 0 14px;}
+.task{
+  display:flex; gap:13px; align-items:flex-start; padding:12px 14px; border-radius:12px;
+  background:var(--paper); border:1px solid var(--line); margin-bottom:9px; cursor:pointer;
+  transition:.18s; user-select:none;
+}
+.task:hover{border-color:var(--ink-faint);}
+.task.priority{border-left:3px solid var(--sunset);}
+.box{
+  flex:0 0 22px; height:22px; margin-top:1px; border-radius:7px; border:2px solid var(--ink-faint);
+  display:grid; place-items:center; transition:.18s; background:#fff;
+}
+.box svg{width:13px; height:13px; opacity:0; transform:scale(.4); transition:.18s; stroke:#fff;}
+.task.done .box{background:var(--sage); border-color:var(--sage);}
+.task.done .box svg{opacity:1; transform:scale(1);}
+.task.done .label{text-decoration:line-through; color:var(--ink-faint);}
+.task .label{font-size:.94rem; line-height:1.4;}
+.task .label .meta{display:block; font-size:.78rem; color:var(--ink-faint); margin-top:2px; font-style:italic;}
+.task.priority .label .meta{color:var(--sunset);}
+.progress{display:flex; align-items:center; gap:12px; margin-bottom:22px; font-size:.9rem; color:var(--ink-soft);}
+.bar{flex:1; height:8px; background:var(--sand-deep); border-radius:999px; overflow:hidden; max-width:280px;}
+.bar i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--sunset-soft),var(--sunset)); transition:width .4s ease;}
+
+/* ---------- Good to know ---------- */
+.notes{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(230px,1fr));}
+.note-card{background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:18px 20px;}
+.note-card h4{font-family:var(--fdisp); font-weight:600; font-size:1.05rem; margin:0 0 6px;
+  display:flex; align-items:center; gap:8px;}
+.note-card p{margin:0; font-size:.88rem; color:var(--ink-soft);}
+.note-card .ic{font-size:1.1rem;}
+.note-card a{font-weight:600;}
+
+/* ---------- Footer ---------- */
+footer{padding:48px 0 60px; text-align:center; color:var(--ink-faint);}
+footer .sig{font-family:var(--fdisp); font-style:italic; font-size:1.25rem; color:var(--ink-soft);}
+footer .small{font-size:.8rem; margin-top:8px;}
+
+/* ---------- Reveal animation ---------- */
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
+.reveal.in{opacity:1; transform:none;}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1; transform:none; transition:none;}}
+
+/* ---------- Responsive ---------- */
+@media(max-width:560px){
+  .stop{grid-template-columns:44px 70px 1fr; gap:11px;}
+  .stop .time{white-space:normal; font-size:.8rem; line-height:1.15;}
+  .stop-thumb{width:70px; height:60px;}
+  .day-inner{padding:2px 16px 20px;}
+  .navlinks{display:none;}
+  .hero{padding:46px 0 30px;}
+}
+
+/* ---------- Print: clean one-pager ---------- */
+@media print{
+  :root{--sand:#fff; --paper:#fff;}
+  body{background:#fff; color:#000; font-size:11px;}
+  body::before, body::after{display:none;}
+  .topbar, .expand-all, .dir, #map, .map-legend, footer .small, .navlinks, .hero-figure, .chev{display:none !important;}
+  /* Cover photos are CSS backgrounds and won't print — fall back to dark text on white */
+  .day-head{min-height:auto !important; background:#fff !important; color:#000 !important; overflow:visible;}
+  .cover-img, .cover-scrim{display:none !important;}
+  .cover-text{position:static !important; padding:12px 14px 2px !important; color:#000 !important;}
+  .day-no, .day-no small, .day-title h3, .day-title .date{color:#000 !important; text-shadow:none !important;}
+  .minibadge{background:#eee !important; color:#000 !important;}
+  section{padding:14px 0; break-inside:avoid;}
+  .wrap{max-width:100%; padding:0 12px;}
+  .hero{padding:8px 0;}
+  .day, .card, .note-card{break-inside:avoid; box-shadow:none; border:1px solid #ccc;}
+  .day-body{grid-template-rows:1fr !important;}
+  .day-body > div{overflow:visible !important;}
+  .chev{display:none;}
+  .reveal{opacity:1 !important; transform:none !important;}
+  /* Stop thumbnails are CSS backgrounds — won't print; drop the column */
+  .stop-thumb{display:none !important;}
+  .stop{grid-template-columns:64px 1fr !important;}
+  a{color:#000;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Top bar ===== -->
+<nav class="topbar">
+  <div class="wrap row">
+    <div class="brand">SF <b>&amp;</b> Big Sur <b>&amp;</b> LA</div>
+    <div class="navlinks">
+      <a href="#flights">Flights</a>
+      <a href="#days">Itinerary</a>
+      <a href="#map">Map</a>
+      <a href="#lodging">Stays</a>
+      <a href="#checklist">Checklist</a>
+      <a href="#notes">Good to know</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<header class="hero wrap">
+  <p class="kicker reveal">A California Coast Road Trip · July 2026</p>
+  <h1 class="reveal">San&nbsp;Francisco <span class="amp">&amp;</span> <em>Big&nbsp;Sur</em> <span class="amp">&amp;</span> Los&nbsp;Angeles</h1>
+  <p class="lede reveal">Conference first, then the family flies in — one fog-lit city day, the great Highway&nbsp;1 cliff drive, and two days loose in LA before the red-eye home.</p>
+
+  <div class="route reveal">
+    <span class="node"><span class="dot"></span><span class="place">San Francisco</span></span>
+    <span class="seg"></span>
+    <span class="node"><span class="dot"></span><span class="place">Big Sur</span></span>
+    <span class="seg"></span>
+    <span class="node"><span class="dot"></span><span class="place">Los Angeles</span></span>
+  </div>
+
+  <div class="meta reveal">
+    <span><b>5 days</b> · Mon Jul 27 – Fri Jul 31</span>
+    <span><b>1</b> one-way coast drive</span>
+    <span>Home <b>Sat Aug 1</b> (red-eye)</span>
+  </div>
+
+  <figure class="hero-figure reveal">
+    <img src="images/hero-bigsur.jpg" alt="The Big Sur coastline along California's Highway 1" loading="eager" />
+    <figcaption>Highway&nbsp;1 along the Big&nbsp;Sur coast — the heart of the drive</figcaption>
+  </figure>
+</header>
+
+<main>
+
+<!-- ===== Flights ===== -->
+<section id="flights" class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">01</span><h2>Flights</h2></div>
+  <p class="sec-sub reveal">Three legs to lock in. Book the two family legs as separate one-ways — award pricing is dynamic, so secure the return first.</p>
+  <div class="cards" id="flightCards"></div>
+</section>
+
+<hr class="divider wrap" />
+
+<!-- ===== Itinerary ===== -->
+<section id="days" class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">02</span><h2>Day by day</h2></div>
+  <p class="sec-sub reveal">Tap any day to expand. Times are easygoing anchors, not a schedule — adjust to the fog and the traffic.</p>
+  <button class="expand-all reveal" id="expandAll">Expand all</button>
+  <div id="dayList"></div>
+</section>
+
+<hr class="divider wrap" />
+
+<!-- ===== Map ===== -->
+<section id="map-sec" class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">03</span><h2>The whole route</h2></div>
+  <p class="sec-sub reveal">Every stop, pinned and colored by day. Tap a pin for directions.</p>
+  <div id="map" class="reveal"></div>
+  <div class="map-legend reveal" id="mapLegend"></div>
+</section>
+
+<hr class="divider wrap" />
+
+<!-- ===== Lodging ===== -->
+<section id="lodging" class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">04</span><h2>Where we sleep</h2></div>
+  <p class="sec-sub reveal">Three stays, none booked yet. Jot your picks below — notes save in this browser.</p>
+  <div class="lodge" id="lodgeCards"></div>
+</section>
+
+<hr class="divider wrap" />
+
+<!-- ===== Checklist ===== -->
+<section id="checklist" class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">05</span><h2>Booking checklist</h2></div>
+  <div class="progress reveal">
+    <span id="progressLabel">0 of 0 booked</span>
+    <span class="bar"><i id="progressBar"></i></span>
+  </div>
+  <div class="check-grid">
+    <div class="check-col priority reveal">
+      <h3>🔖 Priority &amp; time-sensitive</h3>
+      <p class="colsub">Dynamic pricing or limited supply — do these first.</p>
+      <div id="priorityList"></div>
+    </div>
+    <div class="check-col reveal">
+      <h3>Everything else</h3>
+      <p class="colsub">Still needed, but a little more forgiving.</p>
+      <div id="otherList"></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider wrap" />
+
+<!-- ===== Good to know ===== -->
+<section id="notes" class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">06</span><h2>Good to know</h2></div>
+  <div class="notes" id="noteCards"></div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <p class="sig">Drive slow. Pull over often.</p>
+  <p class="small">SF → Big Sur → LA · July 2026 · checklist &amp; stay notes save to this browser</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ============ DATA ============ */
+const DATA = {
+  days: [
+    { day:1, date:"Mon Jul 27", title:"San Francisco Waterfront",
+      summary:"One relaxed waterfront day. No timed tickets — easy pace.",
+      stops:[
+        {name:"Golden Gate Bridge", time:"10:00 AM", dur:"~90 min", lat:37.8199109, lng:-122.4785598, note:"Battery Spencer overlook (Marin side) for the classic shot; Crissy Field on the city side. July mornings can be foggy — part of the look."},
+        {name:"Fisherman's Wharf", time:"12:00 PM", dur:"~2.5 hrs", lat:37.8085771, lng:-122.4125282, img:"images/stop-fishermans-wharf.jpg", note:"Lunch: Dungeness crab + clam chowder in sourdough. Walk to the Pier 39 sea lion deck (free)."},
+        {name:"Ferry Building", time:"3:30 PM", dur:"~90 min", lat:37.7954425, lng:-122.3936136, img:"images/stop-ferry-building.jpg", note:"Embarcadero stroll, artisan food + coffee. Optional if everyone's worn out."}
+      ]},
+    { day:2, date:"Tue Jul 28", title:"Big Sur Coast Drive",
+      summary:"The iconic Highway 1 drive. Unhurried. Overnight in Big Sur or Cambria so you're not on the cliffs after dark.",
+      overnight:"Big Sur or Cambria",
+      stops:[
+        {name:"Bixby Creek Bridge", time:"11:30 AM", dur:"~30 min", lat:36.3714835, lng:-121.901924, note:"The most photographed bridge on the coast; pull-outs both sides."},
+        {name:"Nepenthe", time:"1:00 PM", dur:"~90 min", lat:36.2218365, lng:-121.7592895, img:"images/stop-nepenthe.jpg", note:"Cliffside lunch, 40-mile ocean view. Worth the wait for a terrace table."},
+        {name:"McWay Falls", time:"3:00 PM", dur:"~45 min", lat:36.1578259, lng:-121.6721628, img:"images/stop-mcway-falls.jpg", note:"80-ft waterfall onto a hidden beach; the road overlook is the famous view."},
+        {name:"Pfeiffer Beach", time:null, dur:"optional", lat:36.2376, lng:-121.8159, img:"images/stop-pfeiffer-beach.jpg", note:"Purple-tinged sand + Keyhole Rock arch. Tiny lot, $15, fills up — arrive before 11 AM."}
+      ]},
+    { day:3, date:"Wed Jul 29", title:"Hearst Castle → Coast → LA",
+      summary:"Tour the castle, then the coast run into LA, landing on a Santa Monica sunset.",
+      stops:[
+        {name:"Hearst Castle", time:"9:00 AM", dur:"~2 hrs", lat:35.6849825, lng:-121.1699716, note:"Pre-book the Grand Rooms tour. Free elephant seal vista point 5 min north — hundreds on the beach.", book:true},
+        {name:"El Matador State Beach (Malibu)", time:"4:30 PM", dur:"~60 min", lat:34.0380426, lng:-118.874663, img:"images/stop-el-matador.jpg", note:"Sea caves + rock arches; short steep walk down. Last coastal stop before the city."},
+        {name:"Santa Monica Pier", time:"6:30 PM", dur:"~2 hrs", lat:34.0082821, lng:-118.4987585, img:"images/stop-santa-monica-pier.jpg", note:"Sunset arrival into LA — Ferris wheel, end of Route 66, dinner by the water."}
+      ]},
+    { day:4, date:"Thu Jul 30", title:"LA Westside: Getty + Venice",
+      summary:"A tight Westside cluster — art, beach, dinner within a few miles.",
+      stops:[
+        {name:"The Getty", time:"10:30 AM", dur:"~2.5 hrs", lat:34.0773438, lng:-118.4732648, note:"World-class art, architecture, gardens, city-to-ocean views. Free; parking ~$25; tram ride up."},
+        {name:"Venice Beach Boardwalk", time:"2:30 PM", dur:"~2 hrs", lat:33.9909254, lng:-118.4774439, img:"images/stop-venice-boardwalk.jpg", note:"Performers, murals, skate park. Stroll inland to Abbot Kinney after."},
+        {name:"Gjelina", time:"6:30 PM", dur:"~90 min", lat:33.990497, lng:-118.4649651, img:"images/stop-gjelina.jpg", note:"Venice institution, wood-fired California cooking, on Abbot Kinney. Reserve ahead.", book:true}
+      ]},
+    { day:5, date:"Fri Jul 31", title:"LA Downtown Food + Griffith Finale",
+      summary:"Downtown food day, Griffith sunset send-off, then LAX.",
+      ends_with:"LAX → BOS 11:59 PM red-eye (AA miles) · arrive Boston Sat Aug 1",
+      stops:[
+        {name:"The Broad", time:"11:00 AM", dur:"~2 hrs", lat:34.0545021, lng:-118.2501802, img:"images/stop-the-broad.jpg", note:"Free modern art (Koons, Warhol, Infinity Mirror Room). Book timed tickets in advance. Opens 11 AM Fri.", book:true},
+        {name:"Grand Central Market", time:"1:00 PM", dur:"~2 hrs", lat:34.050872, lng:-118.2490552, img:"images/stop-grand-central-market.jpg", note:"Downtown food hall, 2 blocks from The Broad."},
+        {name:"Bestia", time:"5:00 PM", dur:"~2 hrs", lat:34.0338338, lng:-118.2293287, img:"images/stop-bestia.jpg", note:"Arts District Italian, the dinner anchor. Book ~30 days out. Early seating leaves time for Griffith.", book:true},
+        {name:"Griffith Observatory", time:"7:30 PM", dur:"~2 hrs", lat:34.1184341, lng:-118.3003935, note:"Sunset + city-lights finale. Free; open till 10 PM Fri. Then ~45 min to LAX."}
+      ],
+      food_crawl_options:[
+        {name:"Sonoratown", lat:34.041615, lng:-118.2521844, note:"Sonoran tacos, $"},
+        {name:"Howlin' Ray's", lat:34.0615425, lng:-118.2397141, note:"Nashville hot chicken, Chinatown (line)"},
+        {name:"Sushi Gen", lat:34.0467107, lng:-118.238617, note:"Little Tokyo sashimi"},
+        {name:"Langer's", lat:34.0561783, lng:-118.2767993, note:"Pastrami #19, lunch only"}
+      ]}
+  ]
+};
+
+const FLIGHTS = [
+  { tag:"My outbound · one-way", from:"PVD / BOS", to:"SFO", when:"~Thu–Fri, Jul 23–24",
+    note:"On a $500 YC travel credit — must be a clean one-way into SF for the credit to apply.",
+    pill:{cls:"info", text:"YC travel credit"} },
+  { tag:"Family outbound", from:"BOS", to:"SFO", when:"Sun Jul 26", warn:true,
+    note:"American does NOT fly this nonstop (confirmed — none on miles or cash that day). Book a cash nonstop on JetBlue, United, or Alaska. Expect peak-summer Sunday pricing.",
+    pill:{cls:"alert", text:"No AA nonstop — book cash"} },
+  { tag:"Family return · award", from:"LAX", to:"BOS", when:"Fri Jul 31, 11:59 PM red-eye",
+    note:"Nonstop award seats on AA miles. Seen: 11:59 PM ≈ 27K · 3:05 PM ≈ 32.5K · 8:00 AM ≈ 33.5K. Plan uses the red-eye so Day 5 stays full. Lock it early — pricing is dynamic.",
+    pill:{cls:"ok", text:"AA miles · ~27K"} }
+];
+
+const LODGING = [
+  { loc:"San Francisco", title:"Central waterfront base", nights:"Sun + Mon nights",
+    hint:"Near the waterfront / downtown so Day 1 is walkable." },
+  { loc:"Big Sur / Cambria", title:"On or just off Highway 1", nights:"Tue night",
+    hint:"Limited & pricey — book early. Anywhere you're off the cliffs by dark." },
+  { loc:"Los Angeles", title:"Westside beach vs. Downtown food", nights:"Thu night (red-eye covers Fri)",
+    hint:"Westside near the beach, or Downtown near the food halls — pick your trade-off." }
+];
+
+const CHECKLIST = [
+  { id:"ret",   text:"Family return award flight LAX→BOS", meta:"AA miles · book ASAP, dynamic pricing", priority:true },
+  { id:"out",   text:"Family outbound nonstop BOS→SFO", meta:"Cash on JetBlue / United / Alaska", priority:true },
+  { id:"bigsur",text:"Big Sur / Cambria hotel (Tue night)", meta:"Limited — book early", priority:true },
+  { id:"broad", text:"The Broad timed tickets", meta:"Free, but reserve in advance", priority:true },
+  { id:"bestia",text:"Bestia reservation", meta:"Book ~30 days out", priority:true },
+  { id:"hearst",text:"Hearst Castle Grand Rooms tour", meta:"Pre-book the tour", priority:false },
+  { id:"gjelina",text:"Gjelina reservation", meta:"Reserve ahead", priority:false },
+  { id:"car",   text:"One-way rental car · SF pickup → LAX drop", meta:"Expect a one-way drop fee", priority:false },
+  { id:"sfla",  text:"SF hotel + LA hotel", meta:"The two open city stays", priority:false }
+];
+
+const NOTES = [
+  { ic:"🚗", h:"The car", html:"One-way rental, SF → LAX. Only needed from Day 2 onward." },
+  { ic:"🗓️", h:"Monday closures", html:"The Getty, The Broad, and Griffith all close Mondays — we hit them Thu/Fri, so we're fine." },
+  { ic:"⏱️", h:"Drive times", html:"SF→Big Sur ≈ 2.5 hrs to Bixby; Big Sur→LA ≈ 5 hrs. Don't drive Highway 1 after dark." },
+  { ic:"🚧", h:"Road conditions", html:'Check Caltrans <a href="https://quickmap.dot.ca.gov" target="_blank" rel="noopener">QuickMap</a> or dial 511 before the coast drive.' },
+  { ic:"⛴️", h:"Deliberately skipped", html:"Alcatraz (not interested) and the La La Land / Cathy's Corner hike (too much for the red-eye day)." }
+];
+
+const DAY_COLORS = ["#e7642d", "#1f6f86", "#c0492b", "#7a9a6e", "#caa23a"];
+const DAY_COVERS = [
+  { img:"images/day1-goldengate.jpg", cap:"Golden Gate Bridge from the city side" },
+  { img:"images/day2-bixby.jpg",      cap:"Bixby Creek Bridge, Highway 1" },
+  { img:"images/day3-hearst.jpg",     cap:"Hearst Castle, San Simeon" },
+  { img:"images/day4-getty.jpg",      cap:"The Getty Center, Brentwood" },
+  { img:"images/day5-griffith.jpg",   cap:"Griffith Observatory above LA" }
+];
+
+/* ============ HELPERS ============ */
+const $ = (s, r=document) => r.querySelector(s);
+const el = (tag, cls, html) => { const n=document.createElement(tag); if(cls)n.className=cls; if(html!=null)n.innerHTML=html; return n; };
+const mapsUrl = (lat,lng) => `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+const DIR_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.3 12.7 2A1 1 0 0 0 11.3 2L2 11.3a1 1 0 0 0 0 1.4L11.3 22a1 1 0 0 0 1.4 0L22 12.7a1 1 0 0 0 0-1.4Z"/><path d="m9 12 2.5 2.5L16 10"/></svg>';
+const store = {
+  get:(k,d)=>{ try{ const v=localStorage.getItem(k); return v==null?d:JSON.parse(v);}catch(e){return d;} },
+  set:(k,v)=>{ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+};
+
+/* ============ RENDER: FLIGHTS ============ */
+function renderFlights(){
+  const wrap = $("#flightCards");
+  FLIGHTS.forEach(f=>{
+    const c = el("div", "card flight reveal" + (f.warn?" warn":""));
+    c.innerHTML = `
+      <div class="tag">${f.tag}</div>
+      <div class="leg">${f.from} <span class="arr">→</span> ${f.to}</div>
+      <div class="when">${f.when}</div>
+      <p>${f.note}</p>
+      ${f.pill?`<span class="pill ${f.pill.cls}">${f.pill.text}</span>`:""}`;
+    wrap.appendChild(c);
+  });
+}
+
+/* ============ RENDER: DAYS ============ */
+function renderDays(){
+  const list = $("#dayList");
+  const openState = store.get("days_open", {1:true});
+  DATA.days.forEach((d,i)=>{
+    const color = DAY_COLORS[i];
+    const cover = DAY_COVERS[i];
+    const card = el("article", "day reveal");
+    card.dataset.day = d.day;
+    if(openState[d.day]) card.classList.add("is-open");
+
+    const badges = [];
+    if(d.overnight) badges.push(`<span class="minibadge moon">🌙 Overnight · ${d.overnight}</span>`);
+    if(d.ends_with) badges.push(`<span class="minibadge plane">✈ Red-eye home</span>`);
+
+    const stopsHtml = d.stops.map(s=>{
+      const timeHtml = s.time
+        ? `<div class="time">${s.time}<br><span style="font-weight:400;color:var(--ink-faint);font-size:.78rem">${s.dur||""}</span></div>`
+        : `<div class="time tba">flex<br><span style="font-weight:400;font-size:.78rem">${s.dur||""}</span></div>`;
+      const thumb = s.img
+        ? `<a class="stop-thumb" href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener" style="background-image:url('${s.img}')" aria-label="${s.name} — open in maps"></a>`
+        : `<span class="stop-thumb" aria-hidden="true"></span>`;
+      return `
+        <div class="stop">
+          ${timeHtml}
+          ${thumb}
+          <div class="body">
+            <div class="name">${s.name} ${s.book?'<span class="book-badge">Book ahead 🔖</span>':""}</div>
+            <p class="note">${s.note}</p>
+            <a class="dir" href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener">${DIR_SVG} Directions</a>
+          </div>
+        </div>`;
+    }).join("");
+
+    let extra = "";
+    if(d.food_crawl_options){
+      extra += `<div class="crawl"><h4>🌮 Optional Downtown food crawl</h4>
+        <p class="intro">Swap in around Grand Central Market — pick one or two.</p><ul>` +
+        d.food_crawl_options.map(o=>`<li><b>${o.name}</b> — <span>${o.note}</span> · <a href="${mapsUrl(o.lat,o.lng)}" target="_blank" rel="noopener">map</a></li>`).join("") +
+        `</ul></div>`;
+    }
+    if(d.ends_with){
+      extra += `<div class="endswith">✈ <span><b>Ends with:</b> ${d.ends_with}</span></div>`;
+    }
+
+    card.innerHTML = `
+      <button class="day-head" aria-expanded="${!!openState[d.day]}" aria-label="Day ${d.day}: ${d.title}">
+        <div class="cover-img" style="background-image:url('${cover.img}')" role="img" aria-label="${cover.cap}"></div>
+        <div class="cover-scrim"></div>
+        <div class="chev">›</div>
+        <div class="cover-text">
+          <div class="day-no"><small>DAY</small>${d.day}</div>
+          <div class="day-title">
+            <h3>${d.title}</h3>
+            <div class="date">${d.date}</div>
+            ${badges.length?`<div class="badges">${badges.join("")}</div>`:""}
+          </div>
+        </div>
+      </button>
+      <div class="day-body"><div><div class="day-inner"><p class="day-cap">${d.summary}</p>${stopsHtml}${extra}</div></div></div>`;
+
+    card.querySelector(".day-head").addEventListener("click", ()=>{
+      const open = card.classList.toggle("is-open");
+      card.querySelector(".day-head").setAttribute("aria-expanded", open);
+      const st = store.get("days_open", {1:true});
+      st[d.day] = open; store.set("days_open", st);
+      syncExpandLabel();
+    });
+
+    list.appendChild(card);
+  });
+  syncExpandLabel();
+}
+
+function syncExpandLabel(){
+  const cards = [...document.querySelectorAll(".day")];
+  const allOpen = cards.every(c=>c.classList.contains("is-open"));
+  $("#expandAll").textContent = allOpen ? "Collapse all" : "Expand all";
+}
+$("#expandAll").addEventListener("click", ()=>{
+  const cards = [...document.querySelectorAll(".day")];
+  const allOpen = cards.every(c=>c.classList.contains("is-open"));
+  const st = {};
+  cards.forEach(c=>{
+    c.classList.toggle("is-open", !allOpen);
+    c.querySelector(".day-head").setAttribute("aria-expanded", !allOpen);
+    st[c.dataset.day] = !allOpen;
+  });
+  store.set("days_open", st);
+  syncExpandLabel();
+});
+
+/* ============ RENDER: LODGING ============ */
+function renderLodging(){
+  const wrap = $("#lodgeCards");
+  LODGING.forEach((l,i)=>{
+    const c = el("div","card reveal");
+    const key = "lodge_"+i;
+    c.innerHTML = `
+      <div class="status">⬜ To be booked</div>
+      <div class="loc">${l.loc}</div>
+      <h3>${l.title}</h3>
+      <div class="nights">${l.nights}</div>
+      <p class="hint">${l.hint}</p>
+      <label for="${key}">My pick / notes</label>
+      <textarea id="${key}" placeholder="Hotel name, confirmation #, price…"></textarea>`;
+    wrap.appendChild(c);
+    const ta = c.querySelector("textarea");
+    ta.value = store.get(key, "");
+    ta.addEventListener("input", ()=> store.set(key, ta.value));
+  });
+}
+
+/* ============ RENDER: CHECKLIST ============ */
+const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+function renderChecklist(){
+  const done = store.get("checklist", {});
+  const pr = $("#priorityList"), ot = $("#otherList");
+  CHECKLIST.forEach(t=>{
+    const row = el("div","task"+(t.priority?" priority":"")+(done[t.id]?" done":""));
+    row.innerHTML = `
+      <div class="box">${CHECK_SVG}</div>
+      <div class="label">${t.text}<span class="meta">${t.meta}</span></div>`;
+    row.addEventListener("click", ()=>{
+      const isDone = row.classList.toggle("done");
+      const d = store.get("checklist", {}); d[t.id]=isDone; store.set("checklist", d);
+      updateProgress();
+    });
+    (t.priority?pr:ot).appendChild(row);
+  });
+  updateProgress();
+}
+function updateProgress(){
+  const done = store.get("checklist", {});
+  const total = CHECKLIST.length;
+  const n = CHECKLIST.filter(t=>done[t.id]).length;
+  $("#progressLabel").textContent = `${n} of ${total} booked`;
+  $("#progressBar").style.width = (n/total*100)+"%";
+}
+
+/* ============ RENDER: NOTES ============ */
+function renderNotes(){
+  const wrap = $("#noteCards");
+  NOTES.forEach(n=>{
+    const c = el("div","note-card reveal");
+    c.innerHTML = `<h4><span class="ic">${n.ic}</span>${n.h}</h4><p>${n.html}</p>`;
+    wrap.appendChild(c);
+  });
+}
+
+/* ============ MAP ============ */
+function renderMap(){
+  const map = L.map("map", {scrollWheelZoom:false}).setView([36.5, -120.5], 6);
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+    attribution:'&copy; OpenStreetMap &copy; CARTO', subdomains:"abcd", maxZoom:19
+  }).addTo(map);
+
+  const bounds = [];
+  DATA.days.forEach((d,i)=>{
+    const color = DAY_COLORS[i];
+    d.stops.forEach(s=>{
+      const icon = L.divIcon({
+        className:"", iconSize:[20,20], iconAnchor:[10,18],
+        html:`<div class="pin" style="width:18px;height:18px;background:${color}"></div>`
+      });
+      const m = L.marker([s.lat,s.lng], {icon}).addTo(map);
+      m.bindPopup(`<b>${s.name}</b><br>Day ${d.day}${s.time?" · "+s.time:""}<br>
+        <a href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener">Directions →</a>`);
+      bounds.push([s.lat,s.lng]);
+    });
+  });
+  if(bounds.length) map.fitBounds(bounds, {padding:[40,40]});
+
+  const legend = $("#mapLegend");
+  DATA.days.forEach((d,i)=>{
+    legend.appendChild(el("span", null, `<i style="background:${DAY_COLORS[i]}"></i>Day ${d.day} · ${d.title}`));
+  });
+}
+
+/* ============ REVEAL ON SCROLL ============ */
+function initReveal(){
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
+  }, {threshold:.12, rootMargin:"0px 0px -40px 0px"});
+  document.querySelectorAll(".reveal").forEach((n,i)=>{
+    n.style.transitionDelay = Math.min(i%6*60, 300)+"ms";
+    io.observe(n);
+  });
+}
+
+/* ============ INIT ============ */
+renderFlights();
+renderDays();
+renderLodging();
+renderChecklist();
+renderNotes();
+renderMap();
+initReveal();
+</script>
+</body>
+</html>
