@@ -476,9 +476,9 @@ footer .small{font-size:.8rem; margin-top:8px;}
   </div>
 
   <div class="meta reveal">
-    <span><b>5 days</b> · Mon Jul 27 – Fri Jul 31</span>
+    <span><b>4 days</b> · Mon Jul 27 – Thu Jul 30</span>
     <span><b>1</b> one-way coast drive</span>
-    <span>Home <b>Sat Aug 1</b> (red-eye)</span>
+    <span>Home <b>Fri Jul 31</b> (red-eye)</span>
   </div>
 
   <figure class="hero-figure reveal">
@@ -593,19 +593,7 @@ const DATA = {
         {name:"Nepenthe", time:"12:30 PM", dur:"~60 min", lat:36.2218365, lng:-121.7592895, img:"images/stop-nepenthe.jpg", note:"Cliffside lunch with a 40-mile ocean view — your one proper sit-down. If there's a wait, grab from Café Kevah just below and keep moving."},
         {name:"McWay Falls", time:"2:15 PM", dur:"~30 min", lat:36.1578259, lng:-121.6721628, img:"images/stop-mcway-falls.jpg", note:"80-ft waterfall onto a hidden beach — the road overlook is the famous view. Quick stop (~$10 day-use, cash), then push south toward US-101 and LA."}
       ]},
-    { day:3, date:"Wed Jul 29", title:"Bonus LA Day",
-      summary:"Your flex day — a Michelin lunch at Holbox, then choose your own afternoon. (The beaches are folded into Thursday now.)",
-      tipsTitle:"🌴 Make it your own",
-      tips:[
-        "🪐 Morning near Holbox: the Natural History Museum or California Science Center in Exposition Park (heads-up: the Space Shuttle's new hall isn't open to the public yet).",
-        "🎢 Or go big — Universal Studios (~30 min) or Disneyland in Anaheim (~45 min, a whole day).",
-        "🌳 Or Pasadena — the Huntington Library & Gardens plus Old Town, a calmer culture day.",
-        "😎 Or just recover from the drive — pool, a stroll, take it easy."
-      ],
-      stops:[
-        {name:"Holbox", time:"12:30 PM", dur:"~75 min", lat:34.0173544, lng:-118.2783867, img:"images/stop-holbox.jpg", note:"The Michelin-starred mariscos counter at Mercado La Paloma — tostadas, ceviche, aguachile. Open 11:30 AM Wed, counter service, no reservation. The gem we didn't want to lose.", book:false}
-      ]},
-    { day:4, date:"Thu Jul 30", title:"LA Westside: Getty + Beaches",
+    { day:3, date:"Wed Jul 29", title:"LA Westside: Getty + Beaches",
       summary:"A tight Westside loop — art at the Getty, then Santa Monica and Venice back-to-back (they're 10 min apart), dinner in Venice.",
       stops:[
         {name:"The Getty", time:"10:30 AM", dur:"~2.5 hrs", lat:34.0773438, lng:-118.4732648, img:"images/day4-getty.jpg", note:"World-class art, architecture, gardens, city-to-ocean views. Free; parking ~$25; tram ride up."},
@@ -613,19 +601,20 @@ const DATA = {
         {name:"Venice Beach Boardwalk", time:"3:30 PM", dur:"~2 hrs", lat:33.9909254, lng:-118.4774439, img:"images/stop-venice-boardwalk.jpg", note:"Performers, murals, skate park — right down the sand from Santa Monica. Stroll inland to Abbot Kinney after."},
         {name:"Gjelina", time:"6:30 PM", dur:"~90 min", lat:33.990497, lng:-118.4649651, img:"images/stop-gjelina.jpg", note:"Venice institution, wood-fired California cooking, on Abbot Kinney. Reserve ahead. Alt: RVR, chef Travis Lett's buzzy Japanese izakaya, is one block up the same street if you'd rather go that way.", book:true}
       ]},
-    { day:5, date:"Fri Jul 31", title:"LA Downtown Food + Griffith Finale",
-      summary:"Downtown food day, Griffith sunset send-off, then LAX.",
-      ends_with:"LAX → BOS 11:59 PM red-eye (AA miles) · arrive Boston Sat Aug 1",
+    { day:4, date:"Thu Jul 30", title:"DTLA + Griffith Finale → Red-eye",
+      summary:"Downtown's historic core, a Michelin lunch at Holbox, then the Griffith sunset send-off — straight to LAX. The last day, so it's full.",
+      ends_with:"LAX → BOS 11:59 PM red-eye (AA miles) · arrive Boston Fri Jul 31",
       stops:[
-        {name:"The Broad", time:"11:00 AM", dur:"~2 hrs", lat:34.0545021, lng:-118.2501802, img:"images/stop-the-broad.jpg", note:"Free modern art (Koons, Warhol, Infinity Mirror Room). Book timed tickets in advance. Opens 11 AM Fri.", book:true},
-        {name:"Angels Flight Railway", time:"1:00 PM", dur:"~15 min", lat:34.0513631, lng:-118.2502211, img:"images/stop-angels-flight.jpg", note:"\"The shortest railway in the world\" — ride the little orange funicular down Bunker Hill from beside The Broad to Grand Central Market. $1, two minutes, and a La La Land cameo."},
-        {name:"Grand Central Market", time:"1:15 PM", dur:"~75 min", lat:34.050872, lng:-118.2490552, img:"images/stop-grand-central-market.jpg", note:"Historic 1917 food hall at the foot of Angels Flight — tacos, eggs, coffee, whatever you want. Lunch right in the walk."},
-        {name:"Bradbury Building", time:"2:45 PM", dur:"~20 min", lat:34.0504755, lng:-118.2478075, img:"images/stop-bradbury.jpg", note:"Right across Broadway from the market — step into the 1893 atrium of wrought-iron staircases and golden light (Blade Runner, 500 Days of Summer). Lobby + first landing open to visitors."},
+        {name:"The Broad", time:"11:00 AM", dur:"~2 hrs", lat:34.0545021, lng:-118.2501802, img:"images/stop-the-broad.jpg", note:"Free modern art (Koons, Warhol, Infinity Mirror Room). Book timed tickets in advance; opens 11 AM.", book:true},
+        {name:"Angels Flight Railway", time:"1:00 PM", dur:"~15 min", lat:34.0513631, lng:-118.2502211, img:"images/stop-angels-flight.jpg", note:"\"The shortest railway in the world\" — ride the little orange funicular down Bunker Hill; it drops you right into Grand Central Market (peek in). $1, and a La La Land cameo."},
+        {name:"Bradbury Building", time:"1:20 PM", dur:"~20 min", lat:34.0504755, lng:-118.2478075, img:"images/stop-bradbury.jpg", note:"Right across Broadway from the market — step into the 1893 atrium of wrought-iron staircases and golden light (Blade Runner, 500 Days of Summer). Lobby + first landing open to visitors."},
+        {name:"Holbox", time:"2:00 PM", dur:"~75 min", lat:34.0173544, lng:-118.2783867, img:"images/stop-holbox.jpg", note:"Michelin-starred mariscos counter at Mercado La Paloma — tostadas, ceviche, aguachile. Just 8 min south of the Downtown walk; counter service, no reservation. The gem we made room for.", book:false},
         {name:"Bestia", time:"5:00 PM", dur:"~2 hrs", lat:34.0338338, lng:-118.2293287, img:"images/stop-bestia.jpg", note:"Arts District Italian, the dinner anchor. Book ~30 days out. Early seating leaves time for Griffith.", book:true},
         {name:"Hollywood Sign", time:"7:00 PM", dur:"~30 min", lat:34.1341222, lng:-118.3215281, img:"images/stop-hollywood-sign.jpg", note:"The 45-ft white letters on Mt. Lee, up since 1923. Catch it in daylight before sunset — the best free view is from Griffith (next stop); for a closer shot, detour to Lake Hollywood Park."},
-        {name:"Griffith Observatory", time:"7:30 PM", dur:"~2 hrs", lat:34.1184341, lng:-118.3003935, img:"images/day5-griffith.jpg", note:"Sunset + city-lights finale, Hollywood Sign in view — and the La La Land planetarium itself. (The film's Cathy's Corner overlook is a short hike up Mt. Hollywood Dr nearby if you've got the energy.) Free; open till 10 PM Fri. Then ~45 min to LAX."}
+        {name:"Griffith Observatory", time:"7:30 PM", dur:"~2 hrs", lat:34.1184341, lng:-118.3003935, img:"images/day5-griffith.jpg", note:"Sunset + city-lights finale, Hollywood Sign in view — and the La La Land planetarium itself. (The film's Cathy's Corner overlook is a short hike up Mt. Hollywood Dr nearby if you've got the energy.) Free; open till 10 PM Thu. Then ~45 min to LAX."}
       ],
       food_crawl_options:[
+        {name:"Grand Central Market", lat:34.050872, lng:-118.2490552, note:"Historic 1917 food hall at the foot of Angels Flight — peek in on the walk even if Holbox is lunch"},
         {name:"Pizzeria Bianco", lat:34.0347284, lng:-118.2398848, note:"Chris Bianco's legendary pizza at The Row DTLA — family-friendly, near Bestia"},
         {name:"Sonoratown", lat:34.041615, lng:-118.2521844, note:"Sonoran tacos, $"},
         {name:"Howlin' Ray's", lat:34.0615425, lng:-118.2397141, note:"Nashville hot chicken, Chinatown (line)"},
@@ -642,16 +631,16 @@ const FLIGHTS = [
   { tag:"Family outbound", from:"BOS", to:"SFO", when:"Sun Jul 26", warn:true,
     note:"American does NOT fly this nonstop (confirmed — none on miles or cash that day). Book a cash nonstop on JetBlue, United, or Alaska. Expect peak-summer Sunday pricing.",
     pill:{cls:"alert", text:"No AA nonstop — book cash"} },
-  { tag:"Family return · award", from:"LAX", to:"BOS", when:"Fri Jul 31, 11:59 PM red-eye",
-    note:"Nonstop award seats on AA miles. Seen: 11:59 PM ≈ 27K · 3:05 PM ≈ 32.5K · 8:00 AM ≈ 33.5K. Plan uses the red-eye so Day 5 stays full. Lock it early — pricing is dynamic.",
-    pill:{cls:"ok", text:"AA miles · ~27K"} }
+  { tag:"Family return · award", from:"LAX", to:"BOS", when:"Thu Jul 30, 11:59 PM red-eye",
+    note:"Nonstop award seats on AA miles. The trip now ends Thursday night — re-check award availability for Thu Jul 30 (the ~27K seat noted earlier was Friday's). Arrive Boston Fri Jul 31. Lock it early — pricing is dynamic.",
+    pill:{cls:"ok", text:"AA miles · Thu red-eye"} }
 ];
 
 const LODGING = [
   { loc:"San Francisco", title:"Central waterfront base", nights:"Sun + Mon nights",
     hint:"Near the waterfront / downtown so Day 1 is walkable. (Conference nights you'll sort separately.)" },
-  { loc:"Los Angeles", title:"Westside beach vs. Downtown food", nights:"Tue, Wed + Thu — 3 nights",
-    hint:"You roll in Tue evening off the coast dash. One base for all three nights — Westside is closer to the beach + LAX; Downtown is better for the Day 5 food." }
+  { loc:"Los Angeles", title:"Westside beach vs. Downtown food", nights:"Tue + Wed — 2 nights",
+    hint:"You roll in Tue evening off the coast dash; the Thu red-eye covers the last night. Westside is closer to the beaches + LAX; Downtown is better for Thursday's food + sights." }
 ];
 
 const CHECKLIST = [
@@ -666,7 +655,7 @@ const CHECKLIST = [
 
 const NOTES = [
   { ic:"🚗", h:"The car", html:"One-way rental, SF → LAX. Only needed from Day 2 onward." },
-  { ic:"🗓️", h:"Monday closures", html:"The Getty, The Broad, and Griffith all close Mondays — we hit them Thu/Fri, so we're fine." },
+  { ic:"🗓️", h:"Monday closures", html:"The Getty, The Broad, and Griffith all close Mondays — we hit them Wed/Thu, so we're fine." },
   { ic:"⏱️", h:"Drive times", html:"The one-day coast dash is ~9 hrs of driving — SF→Bixby ≈ 2.5 hrs, Big Sur→LA ≈ 5 hrs. Leave by 8 AM and don't be on Highway 1 after dark." },
   { ic:"🚧", h:"Road conditions", html:'Check Caltrans <a href="https://quickmap.dot.ca.gov" target="_blank" rel="noopener">QuickMap</a> or dial 511 before the coast drive.' },
   { ic:"⛴️", h:"Deliberately skipped", html:"Alcatraz (not interested) and the La La Land / Cathy's Corner hike (too much for the red-eye day)." }
@@ -676,7 +665,6 @@ const DAY_COLORS = ["#e7642d", "#1f6f86", "#c0492b", "#7a9a6e", "#caa23a"];
 const DAY_COVERS = [
   { img:"images/day1-goldengate.jpg", cap:"Golden Gate Bridge from the city side" },
   { img:"images/day2-bixby.jpg",      cap:"Bixby Creek Bridge, Highway 1" },
-  { img:"images/day3-hearst.jpg",     cap:"Hearst Castle, San Simeon" },
   { img:"images/day4-getty.jpg",      cap:"The Getty Center, Brentwood" },
   { img:"images/day5-griffith.jpg",   cap:"Griffith Observatory above LA" }
 ];
