@@ -614,12 +614,13 @@ const DATA = {
       ends_with:"LAX → BOS 11:59 PM red-eye (AA miles) · arrive Boston Sat Aug 1",
       stops:[
         {name:"The Broad", time:"11:00 AM", dur:"~2 hrs", lat:34.0545021, lng:-118.2501802, img:"images/stop-the-broad.jpg", note:"Free modern art (Koons, Warhol, Infinity Mirror Room). Book timed tickets in advance. Opens 11 AM Fri.", book:true},
-        {name:"Grand Central Market", time:"1:00 PM", dur:"~2 hrs", lat:34.050872, lng:-118.2490552, img:"images/stop-grand-central-market.jpg", note:"Downtown food hall, 2 blocks from The Broad."},
+        {name:"Holbox", time:"1:15 PM", dur:"~75 min", lat:34.0173544, lng:-118.2783867, img:"images/stop-holbox.jpg", note:"Michelin-starred Mexican-seafood counter inside the Mercado La Paloma food hall — tostadas, ceviche, aguachile. Order at the counter (no reservation for the à-la-carte menu on Fridays); ~10 min south of Downtown, worth the detour.", book:false},
         {name:"Bestia", time:"5:00 PM", dur:"~2 hrs", lat:34.0338338, lng:-118.2293287, img:"images/stop-bestia.jpg", note:"Arts District Italian, the dinner anchor. Book ~30 days out. Early seating leaves time for Griffith.", book:true},
         {name:"Hollywood Sign", time:"7:00 PM", dur:"~30 min", lat:34.1341222, lng:-118.3215281, img:"images/stop-hollywood-sign.jpg", note:"The 45-ft white letters on Mt. Lee, up since 1923. Catch it in daylight before sunset — the best free view is from Griffith (next stop); for a closer shot, detour to Lake Hollywood Park."},
         {name:"Griffith Observatory", time:"7:30 PM", dur:"~2 hrs", lat:34.1184341, lng:-118.3003935, img:"images/day5-griffith.jpg", note:"Sunset + city-lights finale, with the Hollywood Sign in view. Free; open till 10 PM Fri. Then ~45 min to LAX."}
       ],
       food_crawl_options:[
+        {name:"Grand Central Market", lat:34.050872, lng:-118.2490552, note:"Iconic DTLA food hall, 2 blocks from The Broad — the closer backup"},
         {name:"Sonoratown", lat:34.041615, lng:-118.2521844, note:"Sonoran tacos, $"},
         {name:"Howlin' Ray's", lat:34.0615425, lng:-118.2397141, note:"Nashville hot chicken, Chinatown (line)"},
         {name:"Sushi Gen", lat:34.0467107, lng:-118.238617, note:"Little Tokyo sashimi"},
@@ -804,7 +805,7 @@ function renderDays(){
     let extra = "";
     if(d.food_crawl_options){
       extra += `<div class="crawl"><h4>🌮 Optional Downtown food crawl</h4>
-        <p class="intro">Swap in around Grand Central Market — pick one or two.</p><ul>` +
+        <p class="intro">More Downtown bites if you've got room — pick one or two.</p><ul>` +
         d.food_crawl_options.map(o=>`<li><b>${o.name}</b> — <span>${o.note}</span> · <a href="${mapsUrl(o.lat,o.lng)}" target="_blank" rel="noopener">map</a></li>`).join("") +
         `</ul></div>`;
     }
