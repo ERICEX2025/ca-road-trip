@@ -1,7 +1,7 @@
 # California Coast Road Trip — July 2026
 
 A mobile-first, single-page itinerary site for a family trip:
-**San Francisco → Monterey/Big Sur → Los Angeles**, July 26–31, 2026 (home Aug 1).
+**San Francisco → Big Sur → Los Angeles**, July 26–31, 2026 (home Aug 1).
 
 Built as one self-contained `index.html` (no build step) plus local images.
 
