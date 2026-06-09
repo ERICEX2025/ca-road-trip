@@ -141,7 +141,7 @@ a:hover{color:var(--sunset);}
 }
 
 /* ---------- Section scaffolding ---------- */
-section{padding:46px 0; position:relative;}
+section{padding:46px 0; position:relative; scroll-margin-top:64px;}
 .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:26px;}
 .sec-num{font-family:var(--fdisp); font-weight:600; color:var(--sunset); font-size:1rem;}
 .sec-head h2{
@@ -408,12 +408,25 @@ footer .small{font-size:.8rem; margin-top:8px;}
 
 /* ---------- Responsive ---------- */
 @media(max-width:560px){
+  .wrap{padding:0 18px;}
   .stop{grid-template-columns:44px 70px 1fr; gap:11px;}
   .stop .time{white-space:normal; font-size:.8rem; line-height:1.15;}
   .stop-thumb{width:70px; height:60px;}
   .day-inner{padding:2px 16px 20px;}
   .navlinks{display:none;}
-  .hero{padding:46px 0 30px;}
+
+  /* Tighter, calmer vertical rhythm on phones */
+  section{padding:34px 0;}
+  .sec-head{gap:12px; margin-bottom:14px;}
+  .sec-sub{margin:-6px 0 22px;}
+
+  /* Hero: less towering, route ribbon that wraps cleanly (no dangling dashes) */
+  .hero{padding:40px 0 26px;}
+  .lede{margin-top:18px;}
+  .route{margin:26px 0 4px; gap:9px 16px;}
+  .route .seg{display:none;}
+  .route .node{gap:9px;}
+  .hero .meta{gap:9px 20px; margin-top:20px;}
 }
 
 /* ---------- Print: clean one-pager ---------- */
@@ -451,7 +464,6 @@ footer .small{font-size:.8rem; margin-top:8px;}
   <div class="wrap row">
     <div class="brand">SF <b>&amp;</b> Big Sur <b>&amp;</b> LA</div>
     <div class="navlinks">
-      <a href="#flights">Flights</a>
       <a href="#days">Itinerary</a>
       <a href="#map">Map</a>
       <a href="#lodging">Stays</a>
@@ -489,18 +501,9 @@ footer .small{font-size:.8rem; margin-top:8px;}
 
 <main>
 
-<!-- ===== Flights ===== -->
-<section id="flights" class="wrap">
-  <div class="sec-head reveal"><span class="sec-num">01</span><h2>Flights</h2></div>
-  <p class="sec-sub reveal">Three legs to lock in. Book the two family legs as separate one-ways — award pricing is dynamic, so secure the return first.</p>
-  <div class="cards" id="flightCards"></div>
-</section>
-
-<hr class="divider wrap" />
-
 <!-- ===== Itinerary ===== -->
 <section id="days" class="wrap">
-  <div class="sec-head reveal"><span class="sec-num">02</span><h2>Day by day</h2></div>
+  <div class="sec-head reveal"><span class="sec-num">01</span><h2>Day by day</h2></div>
   <p class="sec-sub reveal">Tap any day to expand. Times are easygoing anchors, not a schedule — adjust to the fog and the traffic.</p>
   <button class="expand-all reveal" id="expandAll">Expand all</button>
   <div id="dayList"></div>
@@ -510,7 +513,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
 
 <!-- ===== Map ===== -->
 <section id="map-sec" class="wrap">
-  <div class="sec-head reveal"><span class="sec-num">03</span><h2>The whole route</h2></div>
+  <div class="sec-head reveal"><span class="sec-num">02</span><h2>The whole route</h2></div>
   <p class="sec-sub reveal">Every stop, pinned and colored by day. Tap a pin for directions.</p>
   <div id="map" class="reveal"></div>
   <div class="map-legend reveal" id="mapLegend"></div>
@@ -520,7 +523,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
 
 <!-- ===== Lodging ===== -->
 <section id="lodging" class="wrap">
-  <div class="sec-head reveal"><span class="sec-num">04</span><h2>Where we sleep</h2></div>
+  <div class="sec-head reveal"><span class="sec-num">03</span><h2>Where we sleep</h2></div>
   <p class="sec-sub reveal">Two stays, none booked yet. Jot your picks below — notes save in this browser.</p>
   <div class="lodge" id="lodgeCards"></div>
 </section>
@@ -529,7 +532,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
 
 <!-- ===== Checklist ===== -->
 <section id="checklist" class="wrap">
-  <div class="sec-head reveal"><span class="sec-num">05</span><h2>Booking checklist</h2></div>
+  <div class="sec-head reveal"><span class="sec-num">04</span><h2>Booking checklist</h2></div>
   <div class="progress reveal">
     <span id="progressLabel">0 of 0 booked</span>
     <span class="bar"><i id="progressBar"></i></span>
@@ -552,7 +555,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
 
 <!-- ===== Good to know ===== -->
 <section id="notes" class="wrap">
-  <div class="sec-head reveal"><span class="sec-num">06</span><h2>Good to know</h2></div>
+  <div class="sec-head reveal"><span class="sec-num">05</span><h2>Good to know</h2></div>
   <div class="notes" id="noteCards"></div>
 </section>
 
@@ -691,18 +694,6 @@ const DATA = {
   ]
 };
 
-const FLIGHTS = [
-  { tag:"My outbound · one-way", from:"PVD / BOS", to:"SFO", when:"~Thu–Fri, Jul 23–24",
-    note:"On a $500 YC travel credit — must be a clean one-way into SF for the credit to apply.",
-    pill:{cls:"info", text:"YC travel credit"} },
-  { tag:"Family outbound", from:"BOS", to:"SFO", when:"Sun Jul 26", warn:true,
-    note:"American does NOT fly this nonstop (confirmed — none on miles or cash that day). Book a cash nonstop on JetBlue, United, or Alaska. Expect peak-summer Sunday pricing.",
-    pill:{cls:"alert", text:"No AA nonstop — book cash"} },
-  { tag:"Family return · award", from:"LAX", to:"BOS", when:"Fri Jul 31, 11:59 PM red-eye",
-    note:"Nonstop award seats on AA miles — the red-eye out Friday night, arriving Boston Sat Aug 1. This extra day is what lets the coast drive split across two days without losing any LA time. Lock it early — award pricing is dynamic.",
-    pill:{cls:"ok", text:"AA miles · Fri red-eye"} }
-];
-
 const LODGING = [
   { loc:"San Francisco", title:"Hotel Triton — at the Dragon Gate", nights:"Sun + Mon — 2 nights",
     hint:"342 Grant Ave, right where Union Square, the FiDi and Chinatown meet — walk to dinner Night 1. Pick up the rental car Monday morning. (Conference nights you'll sort separately.)" },
@@ -753,21 +744,6 @@ const store = {
   get:(k,d)=>{ try{ const v=localStorage.getItem(k); return v==null?d:JSON.parse(v);}catch(e){return d;} },
   set:(k,v)=>{ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
 };
-
-/* ============ RENDER: FLIGHTS ============ */
-function renderFlights(){
-  const wrap = $("#flightCards");
-  FLIGHTS.forEach(f=>{
-    const c = el("div", "card flight reveal" + (f.warn?" warn":""));
-    c.innerHTML = `
-      <div class="tag">${f.tag}</div>
-      <div class="leg">${f.from} <span class="arr">→</span> ${f.to}</div>
-      <div class="when">${f.when}</div>
-      <p>${f.note}</p>
-      ${f.pill?`<span class="pill ${f.pill.cls}">${f.pill.text}</span>`:""}`;
-    wrap.appendChild(c);
-  });
-}
 
 /* ============ RENDER: DAYS ============ */
 const CAR_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l1.5-4.5A2 2 0 0 1 8.4 7h7.2a2 2 0 0 1 1.9 1.5L19 13"/><path d="M5 13h14v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H8v1a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z"/><circle cx="7.5" cy="15.5" r="0.6"/><circle cx="16.5" cy="15.5" r="0.6"/></svg>';
@@ -1048,7 +1024,6 @@ function initReveal(){
 }
 
 /* ============ INIT ============ */
-renderFlights();
 renderDays();
 renderLodging();
 renderChecklist();
