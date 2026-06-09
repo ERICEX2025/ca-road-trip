@@ -465,7 +465,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
 <header class="hero wrap">
   <p class="kicker reveal">A California Coast Road Trip · July 2026</p>
   <h1 class="reveal">San&nbsp;Francisco <span class="amp">&amp;</span> <em>Big&nbsp;Sur</em> <span class="amp">&amp;</span> Los&nbsp;Angeles</h1>
-  <p class="lede reveal">Conference first, then the family flies in — one fog-lit city day, the great Highway&nbsp;1 cliff drive, and two days loose in LA before the red-eye home.</p>
+  <p class="lede reveal">Conference first, then the family flies in — a Chinatown arrival night and a full fog-lit city day, the great Highway&nbsp;1 coast drive savored over two days with a Monterey overnight, and two days loose in LA before the red-eye home.</p>
 
   <div class="route reveal">
     <span class="node"><span class="dot"></span><span class="place">San Francisco</span></span>
@@ -476,9 +476,9 @@ footer .small{font-size:.8rem; margin-top:8px;}
   </div>
 
   <div class="meta reveal">
-    <span><b>4 days</b> · Mon Jul 27 – Thu Jul 30</span>
-    <span><b>1</b> one-way coast drive</span>
-    <span>Home <b>Fri Jul 31</b> (red-eye)</span>
+    <span><b>6 days</b> · Sun Jul 26 – Fri Jul 31</span>
+    <span><b>2-day</b> coast drive</span>
+    <span>Home <b>Sat Aug 1</b> (red-eye)</span>
   </div>
 
   <figure class="hero-figure reveal">
@@ -568,32 +568,70 @@ footer .small{font-size:.8rem; margin-top:8px;}
 /* ============ DATA ============ */
 const DATA = {
   days: [
-    { day:1, date:"Mon Jul 27", title:"San Francisco Waterfront",
-      summary:"One relaxed waterfront day. No timed tickets — easy pace.",
+    { day:1, date:"Sun Jul 26", title:"Land in SF · Chinatown Night",
+      summary:"Family lands ~4 PM. Check into Hotel Triton — right at Chinatown's Dragon Gate — drop the bags and walk straight into Chinatown for an easy first evening. No car tonight.",
       stops:[
-        {name:"Golden Gate Bridge", time:"10:00 AM", dur:"~90 min", lat:37.8199109, lng:-122.4785598, img:"images/day1-goldengate.jpg", note:"Battery Spencer overlook (Marin side) for the classic shot; Crissy Field on the city side. July mornings can be foggy — part of the look."},
-        {name:"Fisherman's Wharf", time:"12:00 PM", dur:"~2 hrs", lat:37.8085771, lng:-122.4125282, img:"images/stop-fishermans-wharf.jpg", note:"Lunch: Dungeness crab + clam chowder in sourdough. Walk to the Pier 39 sea lion deck (free)."},
-        {name:"Chinatown", time:"1:30 PM", dur:"~75 min", lat:37.7906877, lng:-122.4055936, img:"images/stop-chinatown.jpg", note:"Enter under the Dragon Gate at Grant & Bush — the oldest Chinatown in North America. Grant Ave shops, Ross Alley, dim sum, and the fortune-cookie factory."},
-        {name:"Ferry Building", time:"3:30 PM", dur:"~90 min", lat:37.7954425, lng:-122.3936136, img:"images/stop-ferry-building.jpg", note:"Embarcadero stroll, artisan food + coffee. Optional if everyone's worn out."}
+        {name:"Hotel Triton", time:"4:30 PM", dur:"check in", lat:37.7903, lng:-122.4053, note:"Boutique hotel at 342 Grant Ave, on the corner where Union Square, the FiDi and Chinatown meet — literally at the Dragon Gate. Drop the bags; everything tonight is on foot."},
+        {name:"Chinatown — Dragon Gate & Grant Ave", time:"5:15 PM", dur:"~90 min", lat:37.7941, lng:-122.4065, img:"images/stop-chinatown.jpg", note:"Step under the Dragon Gate (Grant & Bush) into the oldest Chinatown in North America — lantern-strung Grant Ave shops, Ross Alley, and the Golden Gate Fortune Cookie Factory (watch them folded by hand)."},
+        {name:"Dinner in Chinatown", time:"6:45 PM", dur:"~90 min", lat:37.7956, lng:-122.4047, note:"R&G Lounge is the local institution — salt-and-pepper Dungeness crab. The other big names: Z&Y (fiery Szechuan) and Mister Jiu's (Michelin — book ahead). Then it's a two-minute walk back to the hotel."}
       ]},
-    { day:2, date:"Tue Jul 28", title:"SF → LA Coast Dash",
-      summary:"The whole coast in one push — SF down Highway 1 through Big Sur, then inland on US-101 into LA by evening. Long but glorious; quick stops only.",
+    { day:2, date:"Mon Jul 27", title:"SF City Day — Bridge, Beach & Park",
+      summary:"Pick up the rental, then a full loop of the city: the waterfront, the Palace of Fine Arts and the Presidio, across to the Golden Gate Bridge, out the coast to Ocean Beach for the famous fish & chips, then Golden Gate Park and Haight-Ashbury.",
+      tipsTitle:"🚗 Before you set out",
+      tips:[
+        "🔑 Pick up the rental car this morning (a downtown SF branch near Union Square) — you'll want it for the whole western loop.",
+        "🧥 Dress in layers: July fog hangs over the western half (Presidio, Lands End, Ocean Beach) and it stays cold even midday.",
+        "🅿️ SF street parking is brutal — use garages. Overnight parking at the Triton runs ~$60; ask the hotel about a discounted lot.",
+        "🦀 Big eating day: a wharf snack midday, then the real meal is fish & chips out at Ocean Beach mid-afternoon."
+      ],
+      stops:[
+        {name:"Breakfast — Ferry Building", time:"8:30 AM", dur:"~60 min", lat:37.7954425, lng:-122.3936136, img:"images/stop-ferry-building.jpg", note:"Start at the Embarcadero's grand marketplace — coffee and pastries (Blue Bottle, Acme bread, local stalls) with a bay view before you grab the car."},
+        {name:"Fisherman's Wharf & Pier 39", time:"10:00 AM", dur:"~90 min", lat:37.8085771, lng:-122.4125282, img:"images/stop-fishermans-wharf.jpg", note:"The barking sea lions on the Pier 39 deck (free), the wharf bustle, and a first taste of clam chowder in sourdough. Then drive west toward the Marina."},
+        {name:"Palace of Fine Arts", time:"11:45 AM", dur:"~40 min", lat:37.8029, lng:-122.4484, note:"The lone survivor of the 1915 World's Fair — a Roman-style rotunda mirrored in its lagoon, with swans. A quick, gorgeous photo stop on the way into the Presidio."},
+        {name:"Presidio — Tunnel Tops", time:"12:30 PM", dur:"~75 min", lat:37.8005, lng:-122.4662, note:"Walk around the Presidio — a former army post turned national park of forest, trails and lawns. The new Tunnel Tops park frames the bridge; grab lunch from the food trucks or the Presidio Pickup."},
+        {name:"Golden Gate Bridge", time:"2:00 PM", dur:"~45 min", lat:37.8199109, lng:-122.4785598, img:"images/day1-goldengate.jpg", note:"Walk out onto the span or shoot it from the Welcome Center / Battery East. (Baker Beach, just south, gives the postcard bridge-over-the-sand view.) Then drive the coastal rim south."},
+        {name:"Lands End & Sutro Baths", time:"2:45 PM", dur:"~45 min", lat:37.7800, lng:-122.5118, note:"The wild northwestern corner — cliff trails with bridge views and the haunting Sutro Baths ruins below the old Cliff House. This is the 'top of the city' edge of the drive."},
+        {name:"Ocean Beach — Hook Fish Co.", time:"3:45 PM", dur:"~75 min", lat:37.7635, lng:-122.5067, note:"The famous beach fish & chips: Hook Fish Co. (4542 Irving) is the cult counter-service spot a few blocks off the sand — incredibly light fried fish, with the boat each catch came from listed. Then walk the wide expanse of Ocean Beach."},
+        {name:"Golden Gate Park", time:"5:15 PM", dur:"~75 min", lat:37.7715, lng:-122.4686, note:"From Ocean Beach the great park runs straight inland — pick a couple: the Japanese Tea Garden, the Botanical Garden, the de Young tower (free observation deck), or Stow Lake."},
+        {name:"Haight-Ashbury", time:"6:45 PM", dur:"~75 min", lat:37.7700, lng:-122.4469, note:"End at the famous corner — 1960s counterculture HQ. Vintage shops, record stores, Victorian rows, and Amoeba Music. Dinner around here or back downtown before an early night — big drive tomorrow."}
+      ]},
+    { day:3, date:"Tue Jul 28", title:"Coast Drive I · Monterey & Carmel",
+      summary:"An easy first leg south to the Monterey Peninsula — the aquarium and Cannery Row, the 17-Mile Drive, and storybook Carmel-by-the-Sea — then overnight before the big Big Sur day. Short driving, lots to see.",
+      overnight:"Monterey / Carmel",
       tipsTitle:"🧭 Before you drive",
       tips:[
-        "🚗 Big day — about 9 hrs of driving. Leave SF by 8 AM sharp and keep every stop quick.",
-        "⛽ Fill up in Carmel or Monterey — Big Sur gas is sparse (~$6/gal) with a long stretch of none.",
-        "📵 No cell service through Big Sur — download offline maps before you go.",
-        "🌅 Clear the southern cliffs (past San Simeon) before dusk; after that it's freeway (US-101) the rest of the way.",
-        "🦭 Quick free leg-stretch: the elephant-seal vista at San Simeon, right off Hwy 1 (you'll pass Hearst Castle but skip the tour on this run)."
+        "🚗 Short, easy day — about 2 hrs SF → Monterey on US-101. Leave after a relaxed breakfast; no rush.",
+        "🎟️ Book Monterey Bay Aquarium timed tickets ahead — it's the Peninsula's must-do and sells out in summer.",
+        "💵 The 17-Mile Drive is a private scenic toll road (~$12/car) — the fee is refunded with a Pebble Beach restaurant purchase.",
+        "🛏️ Tonight you sleep in Monterey or Carmel — fill the tank before bed so you can roll into Big Sur early tomorrow."
       ],
-      ends_with:"Roll into LA around 7:30–8 PM — check in and keep dinner easy.",
+      ends_with:"Overnight on the Monterey Peninsula — early night before the Big Sur cliffs.",
       stops:[
-        {name:"Holy Nata", time:"8:00 AM", dur:"~20 min", lat:37.7902251, lng:-122.4025393, img:"images/stop-nata.jpg", note:"Breakfast on the move — warm Portuguese pastéis de nata in the FiDi. Opens 8 AM Tue; grab a box for the road and go."},
-        {name:"Bixby Creek Bridge", time:"11:00 AM", dur:"~20 min", lat:36.3714835, lng:-121.901924, img:"images/day2-bixby.jpg", note:"The most photographed bridge on the coast — a quick photo from the dirt pullout on the north end (parking right at the bridge is restricted; don't stop on the span)."},
-        {name:"Nepenthe", time:"12:30 PM", dur:"~60 min", lat:36.2218365, lng:-121.7592895, img:"images/stop-nepenthe.jpg", note:"Cliffside lunch with a 40-mile ocean view — your one proper sit-down. If there's a wait, grab from Café Kevah just below and keep moving."},
-        {name:"McWay Falls", time:"2:15 PM", dur:"~30 min", lat:36.1578259, lng:-121.6721628, img:"images/stop-mcway-falls.jpg", note:"80-ft waterfall onto a hidden beach — the road overlook is the famous view. Quick stop (~$10 day-use, cash), then push south toward US-101 and LA."}
+        {name:"Monterey Bay Aquarium", time:"11:00 AM", dur:"~2.5 hrs", lat:36.6182, lng:-121.9018, note:"World-class aquarium on Cannery Row — the three-story kelp forest, sea otters, and the mesmerizing jelly gallery. The Peninsula's headline stop; go in on the timed ticket.", book:true},
+        {name:"Cannery Row", time:"1:45 PM", dur:"~75 min", lat:36.6166, lng:-121.8995, note:"Steinbeck's old sardine-canning waterfront, now shops and seafood. Lunch here — clam chowder, calamari — and a stroll along the water."},
+        {name:"17-Mile Drive · Lone Cypress", time:"3:15 PM", dur:"~90 min", lat:36.5683, lng:-121.9658, note:"The famous private scenic loop through Pebble Beach — the lone Monterey cypress on its rock, mansions, and surf-pounded coves. ~$12/car at the gate."},
+        {name:"Carmel-by-the-Sea", time:"5:00 PM", dur:"~2 hrs", lat:36.5552, lng:-121.9233, img:"images/stop-carmel.jpg", note:"Storybook village — fairy-tale cottages, art galleries, and white-sand Carmel Beach at the foot of Ocean Ave. Wander, then dinner here."},
+        {name:"Point Lobos (if there's light)", dur:"flex", lat:36.5158, lng:-121.9398, img:"images/stop-point-lobos.jpg", note:"Optional: the 'crown jewel' of the state reserves just south of Carmel — sea lions, hidden coves, cypress headlands. Worth it if you have daylight and energy; otherwise save it and rest up."}
       ]},
-    { day:3, date:"Wed Jul 29", title:"DTLA Historic Core + Griffith Sunset",
+    { day:4, date:"Wed Jul 29", title:"Coast Drive II · Big Sur to LA",
+      summary:"The headline drive — the Big Sur cliffs at a relaxed pace now that they get a full fresh day, the elephant seals at San Simeon, then inland on US-101 into LA by evening.",
+      tipsTitle:"🧭 Before you drive",
+      tips:[
+        "🚗 A full but glorious day — about 6 hrs of driving plus stops. Leave Monterey by ~8:30 AM.",
+        "⛽ Fill up in Monterey or Carmel — Big Sur gas is sparse (~$6/gal) with a long stretch of none.",
+        "📵 No cell service through most of Big Sur — download offline maps before you go.",
+        "🌅 Clear the southern cliffs (past San Simeon) before dusk; after that it's freeway (US-101) the rest of the way.",
+        "🏰 You'll pass Hearst Castle at San Simeon — skip the tour on this run (the elephant seals just up the road are the free, quick stop)."
+      ],
+      ends_with:"Roll into LA around 7:30–8 PM — check in on the Westside and keep dinner easy.",
+      stops:[
+        {name:"Bixby Creek Bridge", time:"9:30 AM", dur:"~20 min", lat:36.3714835, lng:-121.901924, img:"images/day2-bixby.jpg", note:"The most photographed bridge on the coast — a quick photo from the dirt pullout on the north end (parking right at the bridge is restricted; don't stop on the span)."},
+        {name:"Pfeiffer Beach", dur:"flex", lat:36.2378, lng:-121.8159, img:"images/stop-pfeiffer-beach.jpg", note:"Optional detour down a narrow, unmarked road (Sycamore Canyon Rd): purple-tinged sand and the Keyhole Rock arch the sun blazes through at the right hour. A Big Sur secret; ~$12 day-use."},
+        {name:"Nepenthe", time:"11:30 AM", dur:"~75 min", lat:36.2218365, lng:-121.7592895, img:"images/stop-nepenthe.jpg", note:"Cliffside lunch with a 40-mile ocean view — your one proper sit-down. If there's a wait, grab from Café Kevah just below."},
+        {name:"McWay Falls", time:"1:15 PM", dur:"~30 min", lat:36.1578259, lng:-121.6721628, img:"images/stop-mcway-falls.jpg", note:"An 80-ft waterfall onto a hidden beach — the road overlook is the famous view. Quick stop (~$10 day-use, cash)."},
+        {name:"Elephant Seal Vista · San Simeon", time:"3:00 PM", dur:"~30 min", lat:35.6612, lng:-121.2566, img:"images/day3-hearst.jpg", note:"Free boardwalk right off Hwy 1 at Piedras Blancas — hundreds of elephant seals lounging on the sand. The perfect last leg-stretch before US-101 turns inland toward LA."}
+      ]},
+    { day:5, date:"Thu Jul 30", title:"DTLA Historic Core + Griffith Sunset",
       summary:"Downtown's historic core with a Michelin lunch at Holbox, then the Hollywood Sign and Griffith sunset — and a casual dinner back near the hotel. The big day, but no flight pressure.",
       stops:[
         {name:"Grand Central Market", time:"10:00 AM", dur:"~40 min", lat:34.050872, lng:-118.2490552, img:"images/stop-grand-central-market.jpg", note:"Leave Santa Monica ~9:15; ~45 min downtown, arrive ~10. The historic 1917 food hall opens early — start with breakfast/coffee here (a pastry, eggs, an agua fresca) since The Broad doesn't open till 11."},
@@ -616,9 +654,9 @@ const DATA = {
         {name:"Sapp Coffee Shop", lat:34.1020795, lng:-118.3032657, note:"Thai Town legend — boat noodles, cash-cheap, no frills"},
         {name:"Pa Ord Noodle", lat:34.0985106, lng:-118.3438446, note:"Thai Town gem — roasted duck + noodles, strip-mall classic"}
       ]},
-    { day:4, date:"Thu Jul 30", title:"Westside Finale → Red-eye",
+    { day:6, date:"Fri Jul 31", title:"Westside Finale → Red-eye",
       summary:"An easy last day right by the hotel — the Getty, both beaches, a Venice dinner and sunset, then a short 20-min hop to LAX. A calm sendoff.",
-      ends_with:"LAX → BOS 11:59 PM red-eye (AA miles) · arrive Boston Fri Jul 31",
+      ends_with:"LAX → BOS 11:59 PM red-eye (AA miles) · arrive Boston Sat Aug 1",
       stops:[
         {name:"The Getty", time:"10:30 AM", dur:"~2.5 hrs", lat:34.0773438, lng:-118.4732648, img:"images/day4-getty.jpg", note:"World-class art, architecture, gardens, city-to-ocean views. Free; parking ~$25; tram ride up. (Luggage stays in the car — you've checked out.)"},
         {name:"Santa Monica Pier", time:"1:30 PM", dur:"~90 min", lat:34.0082821, lng:-118.4987585, img:"images/stop-santa-monica-pier.jpg", note:"Ferris wheel, end of Route 66, beach + boardwalk. Just 10 min up the coast from Venice — do both in one afternoon."},
@@ -643,39 +681,47 @@ const FLIGHTS = [
   { tag:"Family outbound", from:"BOS", to:"SFO", when:"Sun Jul 26", warn:true,
     note:"American does NOT fly this nonstop (confirmed — none on miles or cash that day). Book a cash nonstop on JetBlue, United, or Alaska. Expect peak-summer Sunday pricing.",
     pill:{cls:"alert", text:"No AA nonstop — book cash"} },
-  { tag:"Family return · award", from:"LAX", to:"BOS", when:"Thu Jul 30, 11:59 PM red-eye",
-    note:"Nonstop award seats on AA miles. The trip now ends Thursday night — re-check award availability for Thu Jul 30 (the ~27K seat noted earlier was Friday's). Arrive Boston Fri Jul 31. Lock it early — pricing is dynamic.",
-    pill:{cls:"ok", text:"AA miles · Thu red-eye"} }
+  { tag:"Family return · award", from:"LAX", to:"BOS", when:"Fri Jul 31, 11:59 PM red-eye",
+    note:"Nonstop award seats on AA miles — the red-eye out Friday night, arriving Boston Sat Aug 1. This extra day is what lets the coast drive split across two days without losing any LA time. Lock it early — award pricing is dynamic.",
+    pill:{cls:"ok", text:"AA miles · Fri red-eye"} }
 ];
 
 const LODGING = [
-  { loc:"San Francisco", title:"Central waterfront base", nights:"Sun + Mon nights",
-    hint:"Near the waterfront / downtown so Day 1 is walkable. (Conference nights you'll sort separately.)" },
-  { loc:"Los Angeles", title:"Santa Monica / Venice (Westside)", nights:"Tue + Wed — 2 nights",
-    hint:"Land here off the coast dash. Wednesday you head east for DTLA + Griffith and drive back here to sleep; Thursday stays local — Getty, beaches, Gjelina — then a 20-min hop to LAX for the red-eye. The Thu red-eye covers the last night." }
+  { loc:"San Francisco", title:"Hotel Triton — at the Dragon Gate", nights:"Sun + Mon — 2 nights",
+    hint:"342 Grant Ave, right where Union Square, the FiDi and Chinatown meet — walk to dinner Night 1. Pick up the rental car Monday morning. (Conference nights you'll sort separately.)" },
+  { loc:"Monterey Peninsula", title:"Coast-drive overnight", nights:"Tue — 1 night",
+    hint:"The halfway point after Day 1 of the drive. Stay in Monterey (near the aquarium / Cannery Row) or Carmel-by-the-Sea. Book ahead — peak summer on the Peninsula." },
+  { loc:"Los Angeles", title:"Santa Monica / Venice (Westside)", nights:"Wed + Thu — 2 nights",
+    hint:"Land here off the coast drive Wed evening. Thursday you head east for DTLA + Griffith and drive back here to sleep; Friday stays local — Getty, beaches, Venice dinner — then a 20-min hop to LAX for the red-eye. The Fri red-eye covers the last night." }
 ];
 
 const CHECKLIST = [
-  { id:"ret",   text:"Family return award flight LAX→BOS", meta:"AA miles · book ASAP, dynamic pricing", priority:true },
-  { id:"out",   text:"Family outbound nonstop BOS→SFO", meta:"Cash on JetBlue / United / Alaska", priority:true },
+  { id:"ret",   text:"Family return award flight LAX→BOS", meta:"AA miles · Fri Jul 31 red-eye · book ASAP, dynamic pricing", priority:true },
+  { id:"out",   text:"Family outbound nonstop BOS→SFO", meta:"Cash on JetBlue / United / Alaska · Sun Jul 26", priority:true },
+  { id:"aqua",  text:"Monterey Bay Aquarium timed tickets", meta:"Timed entry · sells out in summer", priority:true },
   { id:"broad", text:"The Broad timed tickets", meta:"Free, but reserve in advance", priority:true },
-  { id:"gjelina",text:"Gjelina (or RVR) reservation", meta:"Reserve ahead", priority:false },
-  { id:"car",   text:"One-way rental car · SF pickup → LAX drop", meta:"Expect a one-way drop fee", priority:false },
-  { id:"sfla",  text:"SF hotel (2 nts) + LA hotel (3 nts)", meta:"The open city stays", priority:false }
+  { id:"car",   text:"One-way rental car · SF pickup → LAX drop", meta:"Pick up Mon AM in SF · expect a one-way drop fee", priority:false },
+  { id:"triton",text:"Hotel Triton — SF, 2 nights (Sun + Mon)", meta:"At Chinatown's Dragon Gate", priority:false },
+  { id:"mid",   text:"Monterey / Carmel overnight — 1 night (Tue)", meta:"The coast-drive midpoint", priority:false },
+  { id:"la",    text:"LA hotel — Westside, 2 nights (Wed + Thu)", meta:"Santa Monica / Venice", priority:false },
+  { id:"gjelina",text:"Gjelina (or RVR) reservation", meta:"Reserve ahead", priority:false }
 ];
 
 const NOTES = [
-  { ic:"🚗", h:"The car", html:"One-way rental, SF → LAX. Only needed from Day 2 onward." },
-  { ic:"🗓️", h:"Monday closures", html:"The Getty, The Broad, and Griffith all close Mondays — we hit them Wed/Thu, so we're fine." },
-  { ic:"⏱️", h:"Drive times", html:"The one-day coast dash is ~9 hrs of driving — SF→Bixby ≈ 2.5 hrs, Big Sur→LA ≈ 5 hrs. Leave by 8 AM and don't be on Highway 1 after dark." },
-  { ic:"🚧", h:"Road conditions", html:'Check Caltrans <a href="https://quickmap.dot.ca.gov" target="_blank" rel="noopener">QuickMap</a> or dial 511 before the coast drive.' },
-  { ic:"⛴️", h:"Deliberately skipped", html:"Alcatraz (not interested) and the La La Land / Cathy's Corner hike (too much for the red-eye day)." }
+  { ic:"🚗", h:"The car", html:"One-way rental, SF → LAX. Pick it up Monday morning in SF — you'll want it for the western city loop — and keep it the rest of the trip." },
+  { ic:"🌁", h:"SF fog & parking", html:"July mornings are foggy and cold, especially the western half (Presidio, Lands End, Ocean Beach) — bring layers. Downtown parking at the Triton runs ~$60/night; use garages, not the street." },
+  { ic:"🗓️", h:"Monday closures", html:"The Getty, The Broad, and Griffith all close Mondays — we're in SF on Monday and hit them Thu/Fri, so we're fine." },
+  { ic:"⏱️", h:"Drive, over two days", html:"The coast is now split in two: SF→Monterey ≈ 2 hrs (easy Day 1), then Monterey→LA ≈ 6 hrs through Big Sur (Day 2). Leave Monterey by 8:30 and don't be on Highway 1 after dark." },
+  { ic:"🚧", h:"Road conditions", html:'Check Caltrans <a href="https://quickmap.dot.ca.gov" target="_blank" rel="noopener">QuickMap</a> or dial 511 before the Big Sur drive.' },
+  { ic:"⛴️", h:"Deliberately skipped", html:"Alcatraz (not interested), the Hearst Castle tour (we pass it — elephant seals instead), and the La La Land / Cathy's Corner hike (too much for the red-eye day)." }
 ];
 
-const DAY_COLORS = ["#e7642d", "#1f6f86", "#c0492b", "#7a9a6e", "#caa23a"];
+const DAY_COLORS = ["#c0492b", "#1f6f86", "#caa23a", "#e7642d", "#7a9a6e", "#9a6a9c"];
 const DAY_COVERS = [
+  { img:"images/stop-chinatown.jpg",  cap:"Chinatown's Grant Avenue" },
   { img:"images/day1-goldengate.jpg", cap:"Golden Gate Bridge from the city side" },
-  { img:"images/day2-bixby.jpg",      cap:"Bixby Creek Bridge, Highway 1" },
+  { img:"images/stop-carmel.jpg",     cap:"Carmel-by-the-Sea, Monterey Peninsula" },
+  { img:"images/day2-bixby.jpg",      cap:"Bixby Creek Bridge, Big Sur" },
   { img:"images/day5-griffith.jpg",   cap:"Griffith Observatory above LA" },
   { img:"images/day4-getty.jpg",      cap:"The Getty Center, Brentwood" }
 ];
