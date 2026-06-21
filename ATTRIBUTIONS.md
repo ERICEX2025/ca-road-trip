@@ -37,6 +37,7 @@ promotional photo, used here for personal, non-commercial trip planning.
 | `images/stop-rose-garden.jpg` | Los Angeles | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Exposition_Park_Rose_Garden,_Los_Angeles.JPG) |
 | `images/stop-walk-of-fame.jpg` | Fabio Achilli | CC BY 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:Walk_of_Fame,_Hollywood_(20986072759).jpg) |
 | `images/stop-hotel-triton.jpg` | Hotel Triton | Promotional image (© Hotel Triton) | hoteltriton.com |
+| `images/stop-khao-tiew.jpg` | Andy Li | CC0 | [Commons](https://commons.wikimedia.org/wiki/File:Roast_Duck_Red_Curry_-_Siam_Siam_2025-09-07.jpg) |
 | `images/stop-chinatown-dinner.jpg` | Yuhui | CC BY-SA 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:Chilli_crab-03.jpg) |
 | `images/stop-palace-fine-arts.jpg` | King of Hearts | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Palace_of_Fine_Arts_San_Francisco_January_2014_003.jpg) |
 | `images/stop-presidio.jpg` | Dicklyon | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Tunnel_Tops_Park_with_Alcatraz.jpg) |

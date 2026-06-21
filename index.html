@@ -125,7 +125,7 @@ a:hover{color:var(--sunset);}
 .route .seg{flex:1 1 28px; min-width:28px; height:2px; margin:0 14px;
   background:repeating-linear-gradient(90deg,var(--line) 0 7px,transparent 7px 13px);}
 .hero .meta{
-  margin:4px 0 30px; display:flex; gap:10px 34px; flex-wrap:wrap;
+  margin-top:26px; display:flex; gap:24px 34px; flex-wrap:wrap;
   font-size:.92rem; color:var(--ink-soft);
 }
 .hero .meta b{color:var(--ink); font-weight:700;}
@@ -486,11 +486,6 @@ footer .small{font-size:.8rem; margin-top:8px;}
 <!-- ===== Hero ===== -->
 <header class="hero wrap">
   <p class="kicker reveal">A California Coast Road Trip · July 2026</p>
-  <div class="meta reveal">
-    <span><b>6 days</b> · Sun Jul 26 – Fri Jul 31</span>
-    <span><b>2-day</b> coast drive</span>
-    <span>Home <b>Sat Aug 1</b> (red-eye)</span>
-  </div>
   <h1 class="reveal"><span class="ln a">San&nbsp;Francisco</span><span class="ln b"><span class="amp">&amp;</span> <em>Big&nbsp;Sur</em> <span class="amp">&amp;</span></span><span class="ln c">Los&nbsp;Angeles</span></h1>
 
   <div class="route reveal">
@@ -499,6 +494,12 @@ footer .small{font-size:.8rem; margin-top:8px;}
     <span class="node"><span class="dot"></span><span class="place">Big Sur</span></span>
     <span class="seg"></span>
     <span class="node"><span class="dot"></span><span class="place">Los Angeles</span></span>
+  </div>
+
+  <div class="meta reveal">
+    <span><b>6 days</b> · Sun Jul 26 – Fri Jul 31</span>
+    <span><b>2-day</b> coast drive</span>
+    <span>Home <b>Sat Aug 1</b> (red-eye)</span>
   </div>
 
   <figure class="hero-figure reveal">
@@ -596,13 +597,13 @@ const DATA = {
         {name:"Dinner in Chinatown", time:"6:45 PM", dur:"~90 min", lat:37.7956, lng:-122.4047, img:"images/stop-chinatown-dinner.jpg", note:"R&G Lounge is the local institution — salt-and-pepper Dungeness crab. The other big names: Z&Y (fiery Szechuan) and Mister Jiu's (Michelin — book ahead). Then it's a two-minute walk back to the hotel."}
       ]},
     { day:2, date:"Mon Jul 27", title:"SF City Day — Bridge, Beach & Park",
-      summary:"Pick up the rental, then a full loop of the city: the waterfront, the Palace of Fine Arts and the Presidio, across to the Golden Gate Bridge, out the coast to Ocean Beach for the famous fish & chips, then Golden Gate Park and Haight-Ashbury.",
+      summary:"Pick up the rental, then a full loop of the city: the waterfront, the Palace of Fine Arts and the Presidio, across to the Golden Gate Bridge, out the coast to Ocean Beach for fish & chips, then Golden Gate Park, a West Portal Thai dinner at Khao Tiew, and a golden-hour close at Haight-Ashbury.",
       tipsTitle:"🚗 Before you set out",
       tips:[
         "🔑 Pick up the rental car this morning (a downtown SF branch near Union Square) — you'll want it for the whole western loop.",
         "🧥 Dress in layers: July fog hangs over the western half (Presidio, Lands End, Ocean Beach) and it stays cold even midday.",
         "🅿️ SF street parking is brutal — use garages. Overnight parking at the Triton runs ~$60; ask the hotel about a discounted lot.",
-        "🦀 Big eating day: a wharf snack midday, then the real meal is fish & chips out at Ocean Beach mid-afternoon."
+        "🦀 Two-meal day: a wharf snack midday and a light fish & chips at Ocean Beach mid-afternoon, then the real dinner is Thai at Khao Tiew in West Portal — book ahead; the kitchen closes 8:30."
       ],
       stops:[
         {name:"Breakfast — Ferry Building", time:"8:30 AM", dur:"~60 min", lat:37.7954425, lng:-122.3936136, img:"images/stop-ferry-building.jpg", note:"Start at the Embarcadero's grand marketplace — coffee and pastries (Blue Bottle, Acme bread, local stalls) with a bay view before you grab the car."},
@@ -611,9 +612,10 @@ const DATA = {
         {name:"Presidio — Tunnel Tops", time:"12:30 PM", dur:"~75 min", lat:37.8005, lng:-122.4662, img:"images/stop-presidio.jpg", note:"Walk around the Presidio — a former army post turned national park of forest, trails and lawns. The new Tunnel Tops park frames the bridge; grab lunch from the food trucks or the Presidio Pickup."},
         {name:"Golden Gate Bridge", time:"2:00 PM", dur:"~45 min", lat:37.8199109, lng:-122.4785598, img:"images/day1-goldengate.jpg", note:"Walk out onto the span or shoot it from the Welcome Center / Battery East. (Baker Beach, just south, gives the postcard bridge-over-the-sand view.) Then drive the coastal rim south."},
         {name:"Lands End & Sutro Baths", time:"2:45 PM", dur:"~45 min", lat:37.7800, lng:-122.5118, img:"images/stop-sutro-baths.jpg", note:"The wild northwestern corner — cliff trails with bridge views and the haunting Sutro Baths ruins below the old Cliff House. This is the 'top of the city' edge of the drive."},
-        {name:"Ocean Beach — Hook Fish Co.", time:"3:45 PM", dur:"~75 min", lat:37.7635, lng:-122.5067, img:"images/stop-ocean-beach.jpg", note:"The famous beach fish & chips: Hook Fish Co. (4542 Irving) is the cult counter-service spot a few blocks off the sand — incredibly light fried fish, with the boat each catch came from listed. Then walk the wide expanse of Ocean Beach."},
-        {name:"Golden Gate Park", time:"5:15 PM", dur:"~75 min", lat:37.7715, lng:-122.4686, img:"images/stop-golden-gate-park.jpg", note:"From Ocean Beach the great park runs straight inland — pick a couple: the Japanese Tea Garden, the Botanical Garden, the de Young tower (free observation deck), or Stow Lake."},
-        {name:"Haight-Ashbury", time:"6:45 PM", dur:"~75 min", lat:37.7700, lng:-122.4469, img:"images/stop-haight-ashbury.jpg", note:"End at the famous corner — 1960s counterculture HQ. Vintage shops, record stores, Victorian rows, and Amoeba Music. Dinner around here or back downtown before an early night — big drive tomorrow."}
+        {name:"Ocean Beach — Hook Fish Co.", time:"3:15 PM", dur:"~60 min", lat:37.7635, lng:-122.5067, img:"images/stop-ocean-beach.jpg", note:"The famous beach fish & chips: Hook Fish Co. (4542 Irving) is the cult counter-service spot a few blocks off the sand — incredibly light fried fish, with the boat each catch came from listed. Keep it a snack today (Thai dinner later), then walk the wide expanse of Ocean Beach."},
+        {name:"Golden Gate Park", time:"4:30 PM", dur:"~90 min", lat:37.7715, lng:-122.4686, img:"images/stop-golden-gate-park.jpg", note:"From Ocean Beach the great park runs straight inland — pick a couple: the Japanese Tea Garden, the Botanical Garden, the de Young tower (free observation deck), or Stow Lake."},
+        {name:"Khao Tiew", time:"6:30 PM", dur:"~75 min", lat:37.7411, lng:-122.4650, img:"images/stop-khao-tiew.jpg", note:"Dip south to West Portal for dinner — a beloved neighborhood Thai spot (an Infatuation pick) known for roast-duck red curry and a tom-yum seafood hotpot, in a fun room of 70s Thai posters. Small and popular, and the kitchen closes at 8:30 — so it's an early sit-down. Book ahead.", book:true},
+        {name:"Haight-Ashbury", time:"8:00 PM", dur:"~45 min", lat:37.7700, lng:-122.4469, img:"images/stop-haight-ashbury.jpg", note:"Close at the famous corner — 1960s counterculture HQ. Vintage shops, record stores, Victorian rows, and Amoeba Music (open till 10). A golden-hour evening stroll (late-July sunset is ~8:25) before an early night — big drive tomorrow."}
       ]},
     { day:3, date:"Tue Jul 28", title:"Coast Drive I · The Big Sur Cliffs",
       summary:"The big scenic push — straight down Highway 1 through Big Sur to an overnight in Cambria, so tomorrow's run into LA is short and you reach the beaches by afternoon. Long but unforgettable.",
