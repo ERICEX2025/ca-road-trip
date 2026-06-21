@@ -93,7 +93,7 @@ a:hover{color:var(--sunset);}
   background:rgba(245,236,221,.82);
   border-bottom:1px solid var(--line);
 }
-.topbar .row{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:11px 0;}
+.topbar .row{display:flex; align-items:center; justify-content:space-between; gap:14px; padding-block:11px;}
 .brand{font-family:var(--fdisp); font-weight:600; font-size:1.02rem; letter-spacing:.01em; white-space:nowrap;}
 .brand b{color:var(--sunset); font-weight:600;}
 .navlinks{display:flex; gap:4px; flex-wrap:wrap; justify-content:flex-end;}
@@ -115,7 +115,7 @@ a:hover{color:var(--sunset);}
 .kicker-row .kicker{margin:0;}
 
 /* ---------- Hero ---------- */
-.hero{padding:64px 0 40px; position:relative;}
+.hero{padding-block:64px 40px; position:relative;}
 .kicker{
   font-size:.78rem; font-weight:700; letter-spacing:.32em; text-transform:uppercase;
   color:var(--sunset); margin:0 0 18px;
@@ -491,7 +491,7 @@ section{padding:46px 0; position:relative; scroll-margin-top:64px;}
 .note-card a{font-weight:600;}
 
 /* ---------- Footer ---------- */
-footer{padding:48px 0 60px; text-align:center; color:var(--ink-faint);}
+footer{padding-block:48px 60px; text-align:center; color:var(--ink-faint);}
 footer .sig{font-family:var(--fdisp); font-style:italic; font-size:1.25rem; color:var(--ink-soft);}
 footer .small{font-size:.8rem; margin-top:8px;}
 
@@ -531,7 +531,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
   .sec-sub{margin:-6px 0 22px;}
 
   /* Hero: tidier kicker, less towering, route ribbon that wraps cleanly */
-  .hero{padding:40px 0 26px;}
+  .hero{padding-block:40px 26px;}
   .kicker{letter-spacing:.2em; font-size:.7rem;}
   .lede{margin-top:18px;}
   .route{margin:26px 0 4px; gap:9px 16px;}
@@ -733,7 +733,8 @@ const DATA = {
         "🦀 两餐日：中午在渔人码头吃点小食，下午在 Ocean Beach 简单来份炸鱼薯条，正餐留到 West Portal 的泰餐 Khao Tiew——需提前预订；厨房8:30 打烊。"
       ],
       stops:[
-        {name:"Breakfast — Ferry Building", name_zh:"早餐——渡轮大厦", time:"8:30 AM", dur:"~60 min", lat:37.7954425, lng:-122.3936136, img:"images/stop-ferry-building.jpg", note:"Start at the Embarcadero's grand marketplace — coffee and pastries (Blue Bottle, Acme bread, local stalls) with a bay view before you grab the car.", note_zh:"从 Embarcadero 海滨的宏伟市集开始——配着海湾景色来杯咖啡和点心（Blue Bottle、Acme 面包、本地摊位），然后再去取车。"},
+        {name:"Pick up the rental cars", name_zh:"取两辆租车", time:"~8:00 AM", dur:"~30 min", lat:37.7873, lng:-122.4095, note:"Grab the two SUVs first thing — a downtown branch near Union Square, a couple of blocks from the Triton — so the whole western loop (breakfast included) is on wheels and the walking stays light for the grandparents.", note_zh:"一早先取两辆 SUV——联合广场附近的市中心门店，离 Triton 几个街区——这样整段西区环线（连同早餐）都有车代步，长辈也能少走路。"},
+        {name:"Breakfast — Ferry Building", name_zh:"早餐——渡轮大厦", time:"8:30 AM", dur:"~60 min", lat:37.7954425, lng:-122.3936136, img:"images/stop-ferry-building.jpg", note:"A short drive over to the Embarcadero's grand marketplace — coffee and pastries (Blue Bottle, Acme bread, local stalls) with a bay view to start the day. Park in an Embarcadero Center garage.", note_zh:"开一小段路到 Embarcadero 海滨的宏伟市集——配着海湾景色来杯咖啡和点心（Blue Bottle、Acme 面包、本地摊位），开启新的一天。可停在 Embarcadero Center 的停车楼。"},
         {name:"Fisherman's Wharf & Pier 39", name_zh:"渔人码头与39号码头", time:"10:00 AM", dur:"~90 min", lat:37.8085771, lng:-122.4125282, img:"images/stop-fishermans-wharf.jpg", note:"The barking sea lions on the Pier 39 deck (free), the wharf bustle, and a first taste of clam chowder in sourdough. Then drive west toward the Marina.", note_zh:"39号码头平台上吠叫的海狮（免费）、码头的热闹，以及第一次尝酸面包盅蛤蜊浓汤。之后向西开往 Marina 区。"},
         {name:"Palace of Fine Arts", name_zh:"艺术宫", time:"11:45 AM", dur:"~40 min", lat:37.8029, lng:-122.4484, img:"images/stop-palace-fine-arts.jpg", note:"The lone survivor of the 1915 World's Fair — a Roman-style rotunda mirrored in its lagoon, with swans. A quick, gorgeous photo stop on the way into the Presidio.", note_zh:"1915 年世博会唯一留存的建筑——罗马式圆顶倒映在泻湖中，还有天鹅。进普雷西迪奥途中一处惊艳的快速拍照点。"},
         {name:"Presidio — Tunnel Tops", name_zh:"普雷西迪奥——Tunnel Tops", time:"12:30 PM", dur:"~75 min", lat:37.8005, lng:-122.4662, img:"images/stop-presidio.jpg", note:"Walk around the Presidio — a former army post turned national park of forest, trails and lawns. The new Tunnel Tops park frames the bridge; grab lunch from the food trucks or the Presidio Pickup.", note_zh:"在普雷西迪奥走走——昔日军营如今变成森林、步道和草坪的国家公园。新建的 Tunnel Tops 公园正对着大桥；可在餐车或 Presidio Pickup 解决午餐。"},
