@@ -2,8 +2,8 @@
 
 Except where noted, all photographs are from **Wikimedia Commons**, used under their
 respective licenses. Each is linked to its Commons source page where full license terms
-and author details live. One image (`stop-hotel-triton.jpg`) is Hotel Triton's own
-promotional photo, used here for personal, non-commercial trip planning.
+and author details live. Two images (`stop-hotel-triton.jpg` and `stop-chinatown.jpg`)
+are traveler-supplied photos, used here for personal, non-commercial trip planning.
 
 | Image | Author | License | Source |
 |---|---|---|---|
@@ -26,7 +26,7 @@ promotional photo, used here for personal, non-commercial trip planning.
 | `images/stop-grand-central-market.jpg` | Alossix | CC BY 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Grand_central_market.jpg) |
 | `images/stop-bestia.jpg` | kajikawa | CC BY 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Arts_District,_Los_Angeles,_CA,_USA_-_panoramio_(1).jpg) |
 | `images/stop-hollywood-sign.jpg` | Thomas Wolf, www.foto-tw.de | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Hollywood_Sign_(Zuschnitt).jpg) |
-| `images/stop-chinatown.jpg` | Christian Mehlführer, User:Chmehl | CC BY 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:San_Francisco_China_Town_MC.jpg) |
+| `images/stop-chinatown.jpg` | Traveler's own photo | Personal use | — |
 | `images/stop-nata.jpg` | Addshore | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Pastel_de_natas_-_Lisbon_2021.jpg) |
 | `images/stop-point-lobos.jpg` | Diliff | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Whaler%27s_Cove,_Point_Lobos,_CA,_US_-_May_2013.jpg) |
 | `images/stop-carmel.jpg` | McGhiever | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Carmel_Mission_Church.jpg) |
@@ -36,7 +36,7 @@ promotional photo, used here for personal, non-commercial trip planning.
 | `images/stop-nhm.jpg` | Steven Lek | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Natural_History_Museum_of_Los_Angeles_County_2019.jpg) |
 | `images/stop-rose-garden.jpg` | Los Angeles | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Exposition_Park_Rose_Garden,_Los_Angeles.JPG) |
 | `images/stop-walk-of-fame.jpg` | Fabio Achilli | CC BY 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:Walk_of_Fame,_Hollywood_(20986072759).jpg) |
-| `images/stop-hotel-triton.jpg` | Hotel Triton | Promotional image (© Hotel Triton) | hoteltriton.com |
+| `images/stop-hotel-triton.jpg` | Traveler's own photo | Personal use | — |
 | `images/stop-khao-tiew.jpg` | Andy Li | CC0 | [Commons](https://commons.wikimedia.org/wiki/File:Roast_Duck_Red_Curry_-_Siam_Siam_2025-09-07.jpg) |
 | `images/stop-chinatown-dinner.jpg` | Yuhui | CC BY-SA 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:Chilli_crab-03.jpg) |
 | `images/stop-palace-fine-arts.jpg` | King of Hearts | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Palace_of_Fine_Arts_San_Francisco_January_2014_003.jpg) |
