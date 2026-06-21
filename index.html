@@ -102,6 +102,12 @@ a:hover{color:var(--sunset);}
   color:var(--ink-soft); padding:6px 10px; border-radius:999px;
 }
 .navlinks a:hover{background:var(--sand-deep); color:var(--ink);}
+.lang-toggle{
+  font-family:var(--fdisp); font-size:.82rem; font-weight:700; letter-spacing:.03em;
+  color:var(--ink-soft); background:transparent; cursor:pointer; white-space:nowrap;
+  border:1px solid var(--line); padding:6px 13px; border-radius:999px; flex-shrink:0;
+}
+.lang-toggle:hover{background:var(--ink); color:#fff; border-color:var(--ink);}
 
 /* ---------- Hero ---------- */
 .hero{padding:64px 0 40px; position:relative;}
@@ -336,6 +342,30 @@ section{padding:46px 0; position:relative; scroll-margin-top:64px;}
 .dir:hover{background:var(--ink); color:#fff; border-color:var(--ink);}
 .dir svg{width:13px; height:13px;}
 
+/* Picture gallery for stops with multiple named choices (dinner spots, wander directions) */
+.stop-gallery{
+  display:grid; gap:11px; margin:12px 0 2px;
+  grid-template-columns:repeat(auto-fit,minmax(124px,1fr));
+}
+.opt-card{
+  display:block; text-decoration:none; color:inherit;
+  background:var(--paper); border:1px solid var(--line); border-radius:12px;
+  overflow:hidden; box-shadow:0 4px 12px -9px var(--shadow);
+  transition:transform .3s ease, box-shadow .25s ease;
+}
+.opt-card:hover{transform:translateY(-3px); box-shadow:0 11px 20px -12px var(--shadow);}
+.opt-img{
+  display:block; width:100%; aspect-ratio:4/3; position:relative;
+  background-size:cover; background-position:center; background-color:var(--sand-deep);
+}
+.opt-img::after{content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg,transparent 58%,rgba(16,38,50,.16));}
+.opt-cap{display:flex; flex-direction:column; padding:8px 10px 9px;}
+.opt-name{
+  font-family:var(--fdisp); font-weight:600; font-size:.9rem; line-height:1.2; color:var(--ink);
+}
+.opt-sub{font-size:.76rem; color:var(--ink-soft); margin-top:2px; line-height:1.32;}
+
 .crawl{
   margin-top:18px; padding:16px 18px; border-radius:12px;
   background:var(--sand); border:1px dashed var(--line);
@@ -463,7 +493,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
   :root{--sand:#fff; --paper:#fff;}
   body{background:#fff; color:#000; font-size:11px;}
   body::before, body::after{display:none;}
-  .topbar, .expand-all, .dir, #map, .map-legend, footer .small, .navlinks, .hero-figure, .chev{display:none !important;}
+  .topbar, .expand-all, .dir, #map, .map-legend, footer .small, .navlinks, .hero-figure, .chev, .stop-gallery{display:none !important;}
   /* Cover photos are CSS backgrounds and won't print — fall back to dark text on white */
   .day-head{min-height:auto !important; background:#fff !important; color:#000 !important; overflow:visible;}
   .cover-img, .cover-scrim{display:none !important;}
@@ -493,12 +523,13 @@ footer .small{font-size:.8rem; margin-top:8px;}
   <div class="wrap row">
     <div class="brand">SF <b>&amp;</b> Big Sur <b>&amp;</b> LA</div>
     <div class="navlinks">
-      <a href="#flights">Flights</a>
-      <a href="#days">Itinerary</a>
-      <a href="#map">Map</a>
-      <a href="#lodging">Stays</a>
-      <a href="#checklist">Checklist</a>
-      <a href="#notes">Good to know</a>
+      <a href="#flights" data-en="Flights" data-zh="航班">Flights</a>
+      <a href="#days" data-en="Itinerary" data-zh="行程">Itinerary</a>
+      <a href="#map" data-en="Map" data-zh="地图">Map</a>
+      <a href="#lodging" data-en="Stays" data-zh="住宿">Stays</a>
+      <a href="#checklist" data-en="Checklist" data-zh="清单">Checklist</a>
+      <a href="#notes" data-en="Good to know" data-zh="须知">Good to know</a>
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">中文</button>
     </div>
   </div>
 </nav>
@@ -617,8 +648,18 @@ const DATA = {
         {name:"BART in from SFO", time:"~4:00 PM", dur:"~30 min", lat:37.7894, lng:-122.4017, img:"images/stop-bart.jpg", note:"No car tonight — skip the airport traffic and parking. From SFO's International Terminal (free AirTrain from any gate), take an Antioch-bound BART train straight downtown: ~30 min, about $11 each. Hop off at Montgomery St — a ~7-minute walk up to the Triton."},
         {name:"Hotel Triton", time:"4:30 PM", dur:"check in", lat:37.7903, lng:-122.4053, img:"images/stop-hotel-triton.jpg", note:"Boutique hotel at 342 Grant Ave, on the corner where Union Square, the FiDi and Chinatown meet — literally at the Dragon Gate. Drop the bags; everything tonight is on foot."},
         {name:"Chinatown — Dragon Gate & Grant Ave", time:"5:15 PM", dur:"~90 min", lat:37.7941, lng:-122.4065, img:"images/stop-chinatown.jpg", note:"Step under the Dragon Gate (Grant & Bush) into the oldest Chinatown in North America — lantern-strung Grant Ave shops, Ross Alley, and the Golden Gate Fortune Cookie Factory (watch them folded by hand)."},
-        {name:"Dinner in Chinatown", time:"6:45 PM", dur:"~90 min", lat:37.7956, lng:-122.4047, img:"images/stop-chinatown-dinner.jpg", flexible:true, note:"R&G Lounge is the local institution — salt-and-pepper Dungeness crab. The other big names: Z&Y (fiery Szechuan) and Mister Jiu's (Michelin — book ahead). Then it's a two-minute walk back to the hotel."},
-        {name:"Optional: After-dinner wander", dur:"flex", lat:37.7880, lng:-122.4074, img:"images/stop-union-square.jpg", flexible:true, note:"Right by the hotel if anyone's still got energy — a few directions to drift: south to the lit Union Square plaza (the grand Westin St. Francis lobby, the Powell St cable-car turnaround); north up Grant into North Beach for City Lights Bookstore (open till midnight), Italian cafés and the Columbus Ave neon; or east ~15 min to the Embarcadero, where the Ferry Building clock tower glows and the Bay Bridge lights shimmer over the water. Otherwise, call it an early night before the big drive."}
+        {name:"Dinner in Chinatown", time:"6:45 PM", dur:"~90 min", lat:37.7956, lng:-122.4047, img:"images/stop-chinatown-dinner.jpg", flexible:true, note:"R&G Lounge is the local institution — salt-and-pepper Dungeness crab. The other big names: Z&Y (fiery Szechuan) and Mister Jiu's (Michelin — book ahead). Then it's a two-minute walk back to the hotel.",
+          options:[
+            {name:"R&G Lounge", sub:"Salt-and-pepper Dungeness crab — the classic", img:"images/dinner-rg-crab.jpg", lat:37.7953, lng:-122.4049},
+            {name:"Z&Y Restaurant", sub:"Fiery Szechuan — mapo tofu, chili oil", img:"images/dinner-zy-szechuan.jpg", lat:37.7964, lng:-122.4067},
+            {name:"Mister Jiu's", sub:"Michelin Cantonese — book ahead", img:"images/dinner-mister-jius.jpg", lat:37.7948, lng:-122.4069}
+          ]},
+        {name:"Optional: After-dinner wander", dur:"flex", lat:37.7880, lng:-122.4074, img:"images/stop-union-square.jpg", flexible:true, note:"Right by the hotel if anyone's still got energy — a few directions to drift: south to the lit Union Square plaza (the grand Westin St. Francis lobby, the Powell St cable-car turnaround); north up Grant into North Beach for City Lights Bookstore (open till midnight), Italian cafés and the Columbus Ave neon; or east ~15 min to the Embarcadero, where the Ferry Building clock tower glows and the Bay Bridge lights shimmer over the water. Otherwise, call it an early night before the big drive.",
+          options:[
+            {name:"Union Square", sub:"South — lit plaza & Powell St cable cars", img:"images/wander-union-square.jpg", lat:37.7879, lng:-122.4074},
+            {name:"North Beach", sub:"North — City Lights & Columbus Ave neon", img:"images/wander-city-lights.jpg", lat:37.7976, lng:-122.4066},
+            {name:"The Embarcadero", sub:"East — Ferry Building & Bay Bridge lights", img:"images/wander-ferry-building.jpg", lat:37.7955, lng:-122.3934}
+          ]}
       ]},
     { day:2, date:"Mon Jul 27", title:"SF City Day — Bridge, Beach & Park",
       summary:"Pick up the rental, then a full loop of the city: the waterfront, the Palace of Fine Arts and the Presidio, across to the Golden Gate Bridge, out the coast to Ocean Beach for fish & chips, then Golden Gate Park, a West Portal Thai dinner at Khao Tiew, and a golden-hour close at Haight-Ashbury.",
@@ -763,7 +804,7 @@ const CHECKLIST = [
   { id:"out",   text:"Family outbound nonstop BOS→SFO", meta:"Cash on JetBlue / United / Alaska · Sun Jul 26", priority:true },
   { id:"univ",  text:"Universal Studios tickets", meta:"Buy online ahead · consider an Express pass for summer", priority:true },
   { id:"broad", text:"The Broad timed tickets", meta:"Free, but reserve in advance", priority:true },
-  { id:"car",   text:"One-way rental car · SF pickup → LAX drop", meta:"Pick up Mon AM in SF · expect a one-way drop fee", priority:false },
+  { id:"car",   text:"Two one-way car rentals (2 cars) · SF → LAX", meta:"Pick up Mon AM in SF · Costco Travel (member) → free extra driver, all-in pricing · track on AutoSlash, price-check SIXT · 2 drivers · expect a one-way drop fee each", priority:false },
   { id:"triton",text:"Hotel Triton — SF, 2 nights (Sun + Mon)", meta:"At Chinatown's Dragon Gate", priority:false },
   { id:"mid",   text:"Cambria / Morro Bay overnight — 1 night (Tue)", meta:"The coast-drive overnight", priority:false },
   { id:"la",    text:"LA hotel — Westside, 2 nights (Wed + Thu)", meta:"Santa Monica / Venice", priority:false },
@@ -771,7 +812,7 @@ const CHECKLIST = [
 ];
 
 const NOTES = [
-  { ic:"🚗", h:"The car", html:"One-way rental, SF → LAX. Pick it up Monday morning in SF — you'll want it for the western city loop — and keep it the rest of the trip." },
+  { ic:"🚗", h:"The car", html:"<b>Two cars</b>, both one-way SF → LAX — a single 12-seat van is rough on Highway&nbsp;1 and won't clear city garages, so two SUVs carry 9 people + a week of luggage in comfort. <b>Booking via Costco Travel</b> (member): free extra driver, all-in one-way pricing, free cancellation — then track the rate on <b>AutoSlash</b> and price-check <b>SIXT</b> (no one-way fee). Two drivers, one per car for the coast. Pick them up Monday morning — the car-based city loop keeps walking light for the grandparents — and keep them through to the LAX drop." },
   { ic:"🌁", h:"SF fog & parking", html:"July mornings are foggy and cold, especially the western half (Presidio, Lands End, Ocean Beach) — bring layers. Downtown parking at the Triton runs ~$60/night; use garages, not the street." },
   { ic:"🎢", h:"Universal", html:"Buy tickets ahead (cheaper than the gate); an Express pass is worth it on a busy summer day. The park is 15 min from Griffith — wind down at the park, then roll over for sunset." },
   { ic:"🗓️", h:"Monday closures", html:"The Getty, The Broad, and Griffith all close Mondays — we're in SF on Monday and hit them Thu/Fri, so we're fine." },
@@ -897,6 +938,13 @@ function renderDays(){
       const thumb = s.img
         ? `<a class="stop-thumb" href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener" style="background-image:url('${s.img}')" aria-label="${s.name} — open in maps"></a>`
         : `<span class="stop-thumb empty" aria-hidden="true"></span>`;
+      const gallery = (s.options && s.options.length)
+        ? `<div class="stop-gallery">${s.options.map(o=>`
+            <a class="opt-card" href="${mapsUrl(o.lat,o.lng)}" target="_blank" rel="noopener" aria-label="${o.name} — open in maps">
+              <span class="opt-img" style="background-image:url('${o.img}')"></span>
+              <span class="opt-cap"><span class="opt-name">${o.name}</span>${o.sub?`<span class="opt-sub">${o.sub}</span>`:""}</span>
+            </a>`).join("")}</div>`
+        : "";
       return `
         <div class="stop">
           ${timeHtml}
@@ -904,6 +952,7 @@ function renderDays(){
           <div class="body">
             <div class="name">${s.name} ${s.book?'<span class="book-badge">Book ahead 🔖</span>':""}${s.flexible?'<span class="flex-badge">💬 Open to ideas</span>':""}</div>
             <p class="note">${s.note}</p>
+            ${gallery}
             <a class="dir" href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener">${DIR_SVG} Directions</a>
           </div>
         </div>`;
