@@ -287,6 +287,11 @@ section{padding:46px 0; position:relative; scroll-margin-top:64px;}
   display:grid; place-items:center; border:2px solid #fff; box-shadow:0 1px 5px rgba(0,0,0,.4);
 }
 .pin.num span{color:#fff; font:700 12px/1 var(--fbody);}
+.pin.plane{
+  width:26px; height:26px; border-radius:50%; transform:none; background:#fff;
+  display:grid; place-items:center; border:2px solid; box-shadow:0 1px 5px rgba(0,0,0,.4);
+  font-size:14px; line-height:1;
+}
 
 /* Per-day "before you drive" tips callout */
 .daytips{
@@ -699,11 +704,12 @@ const DATA = {
     { day:1, date:"Sun Jul 26", date_zh:"7月26日(周日)", title:"Land in SF · Chinatown Night", title_zh:"抵达旧金山 · 唐人街之夜",
       summary:"Family lands ~4 PM and BARTs in from the airport — no car tonight. Check into Hotel Triton, right at Chinatown's Dragon Gate, drop the bags and walk straight into Chinatown for an easy first evening.",
       summary_zh:"全家约下午4点落地，乘 BART 从机场进城——今晚不用开车。入住 Hotel Triton（就在唐人街的天下为公牌坊旁），放下行李，直接步行进唐人街，轻松度过第一晚。",
+      transit_start:{name:"Land at SFO", name_zh:"抵达旧金山机场", lat:37.6160, lng:-122.3925, label:"≈ 30 min BART from SFO", label_zh:"≈ 乘 BART 从机场约30分钟"},
       stops:[
         {name:"BART in from SFO", name_zh:"乘 BART 从机场进城", time:"~4:00 PM", dur:"~30 min", lat:37.7894, lng:-122.4017, img:"images/stop-bart.jpg", note:"No car tonight — skip the airport traffic and parking. From SFO's International Terminal (free AirTrain from any gate), take an Antioch-bound BART train straight downtown: ~30 min, about $11 each. Hop off at Montgomery St — a ~7-minute walk up to the Triton.", note_zh:"今晚不开车——省去机场堵车和停车。从旧金山机场国际航站楼（任意登机口都有免费 AirTrain 接驳），乘开往 Antioch 方向的 BART 直达市中心：约30分钟，每人约11美元。在 Montgomery St 站下车，步行约7分钟即到 Triton。"},
         {name:"Hotel Triton", time:"4:30 PM", dur:"check in", lat:37.7903, lng:-122.4053, img:"images/stop-hotel-triton.jpg", note:"Boutique hotel at 342 Grant Ave, on the corner where Union Square, the FiDi and Chinatown meet — literally at the Dragon Gate. Drop the bags; everything tonight is on foot.", note_zh:"精品酒店，位于 Grant Ave 342 号，正处在联合广场、金融区和唐人街交汇的街角——就在天下为公牌坊旁。放下行李；今晚全程步行。"},
         {name:"Chinatown — Dragon Gate & Grant Ave", name_zh:"唐人街——天下为公牌坊与都板街", time:"5:15 PM", dur:"~90 min", lat:37.7941, lng:-122.4065, img:"images/stop-chinatown.jpg", note:"Step under the Dragon Gate (Grant & Bush) into the oldest Chinatown in North America — lantern-strung Grant Ave shops, Ross Alley, and the Golden Gate Fortune Cookie Factory (watch them folded by hand).", note_zh:"穿过天下为公牌坊（Grant 与 Bush 路口），走进北美最古老的唐人街——挂满灯笼的都板街商铺、天后古庙巷（Ross Alley），还有金门幸运饼工厂（看师傅手工现折）。"},
-        {name:"Dinner in Chinatown", name_zh:"唐人街晚餐", time:"6:45 PM", dur:"~90 min", lat:37.7956, lng:-122.4047, img:"images/stop-chinatown-dinner.jpg", flexible:true, note:"R&G Lounge is the local institution — salt-and-pepper Dungeness crab. The other big names: Z&Y (fiery Szechuan) and Mister Jiu's (Michelin — book ahead). Then it's a two-minute walk back to the hotel.", note_zh:"R&G Lounge（岭南小馆）是本地老字号——招牌椒盐珍宝蟹。其他大热门：Z&Y（麻辣川菜）和 Mister Jiu's（米其林——需提前预订）。饭后步行两分钟即回酒店。",
+        {name:"Dinner in Chinatown", name_zh:"唐人街晚餐", time:"6:45 PM", dur:"~90 min", lat:37.7956, lng:-122.4047, img:"images/stop-chinatown-dinner.jpg", flexible:true, note:"Chinatown's classic dinner — pick one of the spots below. Then it's a two-minute walk back to the hotel.", note_zh:"唐人街的经典晚餐——从下面几家中挑一家。饭后步行两分钟即回酒店。",
           options:[
             {name:"R&G Lounge", sub:"Salt-and-pepper Dungeness crab — the classic", sub_zh:"招牌椒盐珍宝蟹——经典之选", img:"images/dinner-rg-crab.jpg", lat:37.7953, lng:-122.4049},
             {name:"Z&Y Restaurant", sub:"Fiery Szechuan — mapo tofu, chili oil", sub_zh:"麻辣川菜——麻婆豆腐、红油", img:"images/dinner-zy-szechuan.jpg", lat:37.7964, lng:-122.4067},
@@ -1052,6 +1058,17 @@ function initDayMap(d, color){
   L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
     {subdomains:"abcd", maxZoom:19}).addTo(map);
   const pts = [];
+  // Optional transit arrival (e.g. BART from the airport): a dashed leg, not a driving route
+  if(d.transit_start){
+    const ts = d.transit_start;
+    pts.push([ts.lat, ts.lng]);
+    const tIcon = L.divIcon({className:"", iconSize:[26,26], iconAnchor:[13,13],
+      html:`<div class="pin plane" style="border-color:${color};color:${color}">✈\uFE0E</div>`});
+    L.marker([ts.lat, ts.lng], {icon:tIcon}).addTo(map).bindPopup(
+      `<b>${tr(ts,'name')}</b><br>${tr(ts,'label')}`);
+    L.polyline([[ts.lat, ts.lng],[d.stops[0].lat, d.stops[0].lng]],
+      {color, weight:3.5, opacity:.75, dashArray:'2,11', lineCap:'round'}).addTo(map);
+  }
   d.stops.forEach((s, idx) => {
     const icon = L.divIcon({className:"", iconSize:[25,25], iconAnchor:[12,12],
       html:`<div class="pin num" style="background:${color}"><span>${idx+1}</span></div>`});
@@ -1060,11 +1077,16 @@ function initDayMap(d, color){
     pts.push([s.lat, s.lng]);
   });
   map.fitBounds(pts, {padding:[34,34], maxZoom:14});
-  drawRoute(map, d.stops, color).then(info => {
-    if(!info) return;
+  if(d.transit_start){
     const lbl = document.getElementById("stats-day-" + d.day);
-    if(lbl) lbl.textContent = ui('miDriving', info.mi, info.label);
-  });
+    if(lbl) lbl.textContent = tr(d.transit_start,'label');
+  } else {
+    drawRoute(map, d.stops, color).then(info => {
+      if(!info) return;
+      const lbl = document.getElementById("stats-day-" + d.day);
+      if(lbl) lbl.textContent = ui('miDriving', info.mi, info.label);
+    });
+  }
   return map;
 }
 
