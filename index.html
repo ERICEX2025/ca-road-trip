@@ -102,12 +102,16 @@ a:hover{color:var(--sunset);}
   color:var(--ink-soft); padding:6px 10px; border-radius:999px;
 }
 .navlinks a:hover{background:var(--sand-deep); color:var(--ink);}
+.nav-right{display:flex; align-items:center; gap:12px;}
 .lang-toggle{
-  font-family:var(--fdisp); font-size:.82rem; font-weight:700; letter-spacing:.03em;
-  color:var(--ink-soft); background:transparent; cursor:pointer; white-space:nowrap;
-  border:1px solid var(--line); padding:6px 13px; border-radius:999px; flex-shrink:0;
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--fdisp); font-size:.86rem; font-weight:700; letter-spacing:.03em;
+  color:#fff; background:var(--ocean); cursor:pointer; white-space:nowrap;
+  border:1px solid var(--ocean); padding:7px 15px; border-radius:999px; flex-shrink:0;
+  box-shadow:0 2px 9px -3px var(--ocean); transition:.2s;
 }
-.lang-toggle:hover{background:var(--ink); color:#fff; border-color:var(--ink);}
+.lang-toggle .globe{font-size:.95em; line-height:1;}
+.lang-toggle:hover{background:var(--ocean-deep); border-color:var(--ocean-deep); transform:translateY(-1px);}
 
 /* ---------- Hero ---------- */
 .hero{padding:64px 0 40px; position:relative;}
@@ -374,14 +378,20 @@ section{padding:46px 0; position:relative; scroll-margin-top:64px;}
 
 /* Reveal toggle for the buried alternates */
 .opt-toggle{position:absolute; opacity:0; width:1px; height:1px; pointer-events:none;}
+/* "See options" toggle: the exact same sky-blue pill as "Open to ideas", with a chevron beside it */
 .opt-more{
-  display:inline-flex; align-items:center; gap:6px; width:fit-content;
+  display:inline-flex; align-items:center; gap:7px; width:fit-content;
   margin-top:11px; cursor:pointer; user-select:none;
-  font-family:var(--fdisp); font-size:.8rem; font-weight:600; color:var(--ocean);
-  border:1px solid var(--line); padding:5px 13px; border-radius:999px;
-  background:var(--sand); transition:.2s;
 }
-.opt-more:hover{background:var(--ink); color:#fff; border-color:var(--ink);}
+.opt-more-pill{
+  font-size:.68rem; font-weight:700; letter-spacing:.02em; white-space:nowrap;
+  color:var(--ocean-deep); background:rgba(214,231,236,.9);
+  padding:3px 10px; border-radius:999px;
+  transition:background .2s ease, box-shadow .2s ease;
+}
+.opt-more:hover .opt-more-pill{background:rgba(196,221,229,.95); box-shadow:0 2px 9px -4px var(--ocean);}
+.opt-chev{display:inline-block; font-size:.62rem; line-height:1; color:var(--ocean-deep); transition:transform .2s ease;}
+.opt-toggle:checked ~ .opt-more .opt-chev{transform:rotate(180deg);}
 .opt-toggle:focus-visible ~ .opt-more{outline:2px solid var(--ocean); outline-offset:2px;}
 .opt-more .when-open{display:none;}
 .opt-extra{display:none;}
@@ -545,40 +555,42 @@ footer .small{font-size:.8rem; margin-top:8px;}
 <nav class="topbar">
   <div class="wrap row">
     <div class="brand">SF <b>&amp;</b> Big Sur <b>&amp;</b> LA</div>
-    <div class="navlinks">
-      <a href="#flights" data-en="Flights" data-zh="航班">Flights</a>
-      <a href="#days" data-en="Itinerary" data-zh="行程">Itinerary</a>
-      <a href="#map" data-en="Map" data-zh="地图">Map</a>
-      <a href="#lodging" data-en="Stays" data-zh="住宿">Stays</a>
-      <a href="#checklist" data-en="Checklist" data-zh="清单">Checklist</a>
-      <a href="#notes" data-en="Good to know" data-zh="须知">Good to know</a>
-      <button class="lang-toggle" id="langToggle" aria-label="Switch language">中文</button>
+    <div class="nav-right">
+      <div class="navlinks">
+        <a href="#flights" data-en="Flights" data-zh="航班">Flights</a>
+        <a href="#days" data-en="Itinerary" data-zh="行程">Itinerary</a>
+        <a href="#map" data-en="Map" data-zh="地图">Map</a>
+        <a href="#lodging" data-en="Stays" data-zh="住宿">Stays</a>
+        <a href="#checklist" data-en="Checklist" data-zh="清单">Checklist</a>
+        <a href="#notes" data-en="Good to know" data-zh="须知">Good to know</a>
+      </div>
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language / 切换语言"><span class="globe" aria-hidden="true">🌐</span><span class="lang-label">中文</span></button>
     </div>
   </div>
 </nav>
 
 <!-- ===== Hero ===== -->
 <header class="hero wrap">
-  <p class="kicker reveal">A California Coast Road Trip · July 2026</p>
-  <h1 class="reveal"><span class="ln a">San&nbsp;Francisco</span><span class="ln b"><span class="amp">&amp;</span> <em>Big&nbsp;Sur</em> <span class="amp">&amp;</span></span><span class="ln c">Los&nbsp;Angeles</span></h1>
+  <p class="kicker reveal" data-en="A California Coast Road Trip · July 2026" data-zh="加州海岸自驾之旅 · 2026年7月">A California Coast Road Trip · July 2026</p>
+  <h1 class="reveal"><span class="ln a" data-en="San Francisco" data-zh="旧金山">San&nbsp;Francisco</span><span class="ln b"><span class="amp">&amp;</span> <em data-en="Big Sur" data-zh="大苏尔">Big&nbsp;Sur</em> <span class="amp">&amp;</span></span><span class="ln c" data-en="Los Angeles" data-zh="洛杉矶">Los&nbsp;Angeles</span></h1>
 
   <div class="route reveal">
-    <span class="node"><span class="dot"></span><span class="place">San Francisco</span></span>
+    <span class="node"><span class="dot"></span><span class="place" data-en="San Francisco" data-zh="旧金山">San Francisco</span></span>
     <span class="seg"></span>
-    <span class="node"><span class="dot"></span><span class="place">Big Sur</span></span>
+    <span class="node"><span class="dot"></span><span class="place" data-en="Big Sur" data-zh="大苏尔">Big Sur</span></span>
     <span class="seg"></span>
-    <span class="node"><span class="dot"></span><span class="place">Los Angeles</span></span>
+    <span class="node"><span class="dot"></span><span class="place" data-en="Los Angeles" data-zh="洛杉矶">Los Angeles</span></span>
   </div>
 
   <div class="meta reveal">
-    <span><b>6 days</b> · Sun Jul 26 – Fri Jul 31</span>
-    <span><b>2-day</b> coast drive</span>
-    <span>Home <b>Sat Aug 1</b> (red-eye)</span>
+    <span><b data-en="6 days" data-zh="6 天">6 days</b> · <span data-en="Sun Jul 26 – Fri Jul 31" data-zh="7月26日(周日)– 7月31日(周五)">Sun Jul 26 – Fri Jul 31</span></span>
+    <span><b data-en="2-day" data-zh="2 天">2-day</b> <span data-en="coast drive" data-zh="海岸自驾">coast drive</span></span>
+    <span><span data-en="Home" data-zh="回家">Home</span> <b data-en="Sat Aug 1" data-zh="8月1日(周六)">Sat Aug 1</b> <span data-en="(red-eye)" data-zh="(红眼航班)">(red-eye)</span></span>
   </div>
 
   <figure class="hero-figure reveal">
     <img src="images/hero-bigsur.jpg" alt="The Big Sur coastline along California's Highway 1" loading="eager" />
-    <figcaption>Highway&nbsp;1 along the Big&nbsp;Sur coast — the heart of the drive</figcaption>
+    <figcaption data-en="Highway 1 along the Big Sur coast — the heart of the drive" data-zh="沿大苏尔海岸的 1 号公路——这趟自驾的精华">Highway&nbsp;1 along the Big&nbsp;Sur coast — the heart of the drive</figcaption>
   </figure>
 </header>
 
@@ -588,8 +600,8 @@ footer .small{font-size:.8rem; margin-top:8px;}
 
 <!-- ===== Flights ===== -->
 <section id="flights" class="wrap">
-  <div class="sec-head reveal"><span class="sec-num">01</span><h2>Flights</h2></div>
-  <p class="sec-sub reveal">Three legs to lock in.</p>
+  <div class="sec-head reveal"><span class="sec-num">01</span><h2 data-en="Flights" data-zh="航班">Flights</h2></div>
+  <p class="sec-sub reveal" data-en="Three legs to lock in." data-zh="三段航班待敲定。">Three legs to lock in.</p>
   <div class="cards" id="flightCards"></div>
 </section>
 
@@ -597,8 +609,8 @@ footer .small{font-size:.8rem; margin-top:8px;}
 
 <!-- ===== Itinerary ===== -->
 <section id="days" class="wrap">
-  <div class="sec-head reveal"><span class="sec-num">02</span><h2>Day by day</h2></div>
-  <p class="sec-sub reveal">Tap any day to expand. Times are easygoing anchors, not a schedule — adjust to the fog and the traffic.</p>
+  <div class="sec-head reveal"><span class="sec-num">02</span><h2 data-en="Day by day" data-zh="逐日行程">Day by day</h2></div>
+  <p class="sec-sub reveal" data-en="Tap any day to expand. Times are easygoing anchors, not a schedule — adjust to the fog and the traffic." data-zh="点按任意一天即可展开。时间只是宽松的参考，并非硬性安排——视雾况和路况随时调整。">Tap any day to expand. Times are easygoing anchors, not a schedule — adjust to the fog and the traffic.</p>
   <button class="expand-all reveal" id="expandAll">Expand all</button>
   <div id="dayList"></div>
 </section>
@@ -607,8 +619,8 @@ footer .small{font-size:.8rem; margin-top:8px;}
 
 <!-- ===== Map ===== -->
 <section id="map-sec" class="wrap">
-  <div class="sec-head reveal"><span class="sec-num">03</span><h2>The whole route</h2></div>
-  <p class="sec-sub reveal">Every stop, pinned and colored by day. Tap a pin for directions.</p>
+  <div class="sec-head reveal"><span class="sec-num">03</span><h2 data-en="The whole route" data-zh="完整路线">The whole route</h2></div>
+  <p class="sec-sub reveal" data-en="Every stop, pinned and colored by day. Tap a pin for directions." data-zh="每个停留点都已标注，并按天用颜色区分。点按图钉即可导航。">Every stop, pinned and colored by day. Tap a pin for directions.</p>
   <div id="map" class="reveal"></div>
   <div class="map-legend reveal" id="mapLegend"></div>
 </section>
@@ -617,8 +629,8 @@ footer .small{font-size:.8rem; margin-top:8px;}
 
 <!-- ===== Lodging ===== -->
 <section id="lodging" class="wrap">
-  <div class="sec-head reveal"><span class="sec-num">04</span><h2>Where we sleep</h2></div>
-  <p class="sec-sub reveal">Two stays, none booked yet. Jot your picks below — notes save in this browser.</p>
+  <div class="sec-head reveal"><span class="sec-num">04</span><h2 data-en="Where we sleep" data-zh="住宿安排">Where we sleep</h2></div>
+  <p class="sec-sub reveal" data-en="Two stays, none booked yet. Jot your picks below — notes save in this browser." data-zh="两处住宿，均尚未预订。在下方记下你的选择——备注会保存在此浏览器中。">Two stays, none booked yet. Jot your picks below — notes save in this browser.</p>
   <div class="lodge" id="lodgeCards"></div>
 </section>
 
@@ -626,20 +638,20 @@ footer .small{font-size:.8rem; margin-top:8px;}
 
 <!-- ===== Checklist ===== -->
 <section id="checklist" class="wrap">
-  <div class="sec-head reveal"><span class="sec-num">05</span><h2>Booking checklist</h2></div>
+  <div class="sec-head reveal"><span class="sec-num">05</span><h2 data-en="Booking checklist" data-zh="预订清单">Booking checklist</h2></div>
   <div class="progress reveal">
     <span id="progressLabel">0 of 0 booked</span>
     <span class="bar"><i id="progressBar"></i></span>
   </div>
   <div class="check-grid">
     <div class="check-col priority reveal">
-      <h3>🔖 Priority &amp; time-sensitive</h3>
-      <p class="colsub">Dynamic pricing or limited supply — do these first.</p>
+      <h3 data-en="🔖 Priority & time-sensitive" data-zh="🔖 优先 · 时效性强">🔖 Priority &amp; time-sensitive</h3>
+      <p class="colsub" data-en="Dynamic pricing or limited supply — do these first." data-zh="动态定价或数量有限——请优先处理。">Dynamic pricing or limited supply — do these first.</p>
       <div id="priorityList"></div>
     </div>
     <div class="check-col reveal">
-      <h3>Everything else</h3>
-      <p class="colsub">Still needed, but a little more forgiving.</p>
+      <h3 data-en="Everything else" data-zh="其余事项">Everything else</h3>
+      <p class="colsub" data-en="Still needed, but a little more forgiving." data-zh="同样要办，但时间上稍宽松。">Still needed, but a little more forgiving.</p>
       <div id="otherList"></div>
     </div>
   </div>
@@ -649,15 +661,15 @@ footer .small{font-size:.8rem; margin-top:8px;}
 
 <!-- ===== Good to know ===== -->
 <section id="notes" class="wrap">
-  <div class="sec-head reveal"><span class="sec-num">06</span><h2>Good to know</h2></div>
+  <div class="sec-head reveal"><span class="sec-num">06</span><h2 data-en="Good to know" data-zh="实用须知">Good to know</h2></div>
   <div class="notes" id="noteCards"></div>
 </section>
 
 </main>
 
 <footer class="wrap">
-  <p class="sig">Drive slow. Pull over often.</p>
-  <p class="small">SF → Big Sur → LA · July 2026 · checklist &amp; stay notes save to this browser</p>
+  <p class="sig" data-en="Drive slow. Pull over often." data-zh="慢慢开，常停车。">Drive slow. Pull over often.</p>
+  <p class="small" data-en="SF → Big Sur → LA · July 2026 · checklist & stay notes save to this browser" data-zh="旧金山 → 大苏尔 → 洛杉矶 · 2026年7月 · 清单与住宿备注保存在此浏览器">SF → Big Sur → LA · July 2026 · checklist &amp; stay notes save to this browser</p>
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -971,7 +983,7 @@ function renderDays(){
         const n = s.options.length;
         gallery = `<div class="stop-gallery">
             <input type="checkbox" id="${gid}" class="opt-toggle">
-            <label for="${gid}" class="opt-more"><span class="when-closed">▾ See ${n} option${n>1?"s":""}</span><span class="when-open">▴ Hide options</span></label>
+            <label for="${gid}" class="opt-more"><span class="opt-more-pill"><span class="when-closed">See ${n} option${n>1?"s":""}</span><span class="when-open">Hide options</span></span><span class="opt-chev">▾</span></label>
             <div class="opt-extra">${s.options.map((o,oi)=>optCard(o,oi===0)).join("")}</div>
           </div>`;
       }
