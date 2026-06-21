@@ -696,7 +696,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
 /* ============ DATA ============ */
 const DATA = {
   days: [
-    { day:1, date:"Sun Jul 26", date_zh:"7月26日(周日)", title:"Land in SF · Chinatown Night", title_zh:"抵达旧金山 · 唐人街之夜",
+    { day:1, noCar:true, date:"Sun Jul 26", date_zh:"7月26日(周日)", title:"Land in SF · Chinatown Night", title_zh:"抵达旧金山 · 唐人街之夜",
       summary:"Family lands ~4 PM and BARTs in from the airport — no car tonight. Check into Hotel Triton, right at Chinatown's Dragon Gate, drop the bags and walk straight into Chinatown for an easy first evening.",
       summary_zh:"全家约下午4点落地，乘 BART 从机场进城——今晚不用开车。入住 Hotel Triton（就在唐人街的天下为公牌坊旁），放下行李，直接步行进唐人街，轻松度过第一晚。",
       stops:[
@@ -734,7 +734,7 @@ const DATA = {
       ],
       stops:[
         {name:"Pick up the rental cars", name_zh:"取两辆租车", time:"~8:00 AM", dur:"~30 min", lat:37.7873, lng:-122.4095, note:"Grab the two SUVs first thing — the Costco Travel rental, picked up at the partner branch (Avis / Budget / Alamo) downtown near Union Square, a couple of blocks from the Triton. Then the whole western loop (breakfast included) is on wheels and the walking stays light for the grandparents.", note_zh:"一早先取两辆 SUV——通过 Costco Travel 预订，在联合广场附近的市中心合作门店（Avis / Budget / Alamo）取车，离 Triton 几个街区。之后整段西区环线（连同早餐）都有车代步，长辈也能少走路。"},
-        {name:"Breakfast — Ferry Building", name_zh:"早餐——渡轮大厦", time:"8:30 AM", dur:"~60 min", lat:37.7954425, lng:-122.3936136, img:"images/stop-ferry-building.jpg", note:"A short drive over to the Embarcadero's grand marketplace — coffee and pastries (Blue Bottle, Acme bread, local stalls) with a bay view to start the day. Park in an Embarcadero Center garage.", note_zh:"开一小段路到 Embarcadero 海滨的宏伟市集——配着海湾景色来杯咖啡和点心（Blue Bottle、Acme 面包、本地摊位），开启新的一天。可停在 Embarcadero Center 的停车楼。"},
+        {name:"Breakfast — Ferry Building", name_zh:"早餐——渡轮大厦", time:"8:30 AM", dur:"~60 min", lat:37.7954425, lng:-122.3936136, img:"images/stop-ferry-building.jpg", note:"The Triton puts out a free continental breakfast (7–9 AM, coffee from 6) — eat there first, then a short drive to the Embarcadero's grand marketplace to round it out: proper coffee and pastries (Blue Bottle, Acme bread, local stalls) with a bay view. Park in an Embarcadero Center garage.", note_zh:"Triton 提供免费欧陆早餐（7–9点，6点起有咖啡）——先在酒店吃，然后开一小段路到 Embarcadero 海滨的宏伟市集补充一下：正经的咖啡和点心（Blue Bottle、Acme 面包、本地摊位），配着海湾景色。可停在 Embarcadero Center 的停车楼。"},
         {name:"Fisherman's Wharf & Pier 39", name_zh:"渔人码头与39号码头", time:"10:00 AM", dur:"~90 min", lat:37.8085771, lng:-122.4125282, img:"images/stop-fishermans-wharf.jpg", note:"The barking sea lions on the Pier 39 deck (free), the wharf bustle, and a first taste of clam chowder in sourdough. Then drive west toward the Marina.", note_zh:"39号码头平台上吠叫的海狮（免费）、码头的热闹，以及第一次尝酸面包盅蛤蜊浓汤。之后向西开往 Marina 区。"},
         {name:"Palace of Fine Arts", name_zh:"艺术宫", time:"11:45 AM", dur:"~40 min", lat:37.8029, lng:-122.4484, img:"images/stop-palace-fine-arts.jpg", note:"The lone survivor of the 1915 World's Fair — a Roman-style rotunda mirrored in its lagoon, with swans. A quick, gorgeous photo stop on the way into the Presidio.", note_zh:"1915 年世博会唯一留存的建筑——罗马式圆顶倒映在泻湖中，还有天鹅。进普雷西迪奥途中一处惊艳的快速拍照点。"},
         {name:"Presidio — Tunnel Tops", name_zh:"普雷西迪奥——Tunnel Tops", time:"12:30 PM", dur:"~75 min", lat:37.8005, lng:-122.4662, img:"images/stop-presidio.jpg", note:"Walk around the Presidio — a former army post turned national park of forest, trails and lawns. The new Tunnel Tops park frames the bridge; grab lunch from the food trucks or the Presidio Pickup.", note_zh:"在普雷西迪奥走走——昔日军营如今变成森林、步道和草坪的国家公园。新建的 Tunnel Tops 公园正对着大桥；可在餐车或 Presidio Pickup 解决午餐。"},
@@ -1061,11 +1061,16 @@ function initDayMap(d, color){
     pts.push([s.lat, s.lng]);
   });
   map.fitBounds(pts, {padding:[34,34], maxZoom:14});
-  drawRoute(map, d.stops, color).then(info => {
-    if(!info) return;
-    const lbl = document.getElementById("stats-day-" + d.day);
-    if(lbl) lbl.textContent = ui('miDriving', info.mi, info.label);
-  });
+  if(d.noCar){
+    // No-car day (transit + on foot): show a simple dashed connector, no driving route/stats
+    L.polyline(pts, {color, weight:2, opacity:.55, dashArray:'4,8'}).addTo(map);
+  } else {
+    drawRoute(map, d.stops, color).then(info => {
+      if(!info) return;
+      const lbl = document.getElementById("stats-day-" + d.day);
+      if(lbl) lbl.textContent = ui('miDriving', info.mi, info.label);
+    });
+  }
   return map;
 }
 
@@ -1146,7 +1151,7 @@ function renderDays(){
       </button>
       <div class="day-body"><div><div class="day-inner"><p class="day-cap">${tr(d,'summary')}</p>
         <div class="day-map" id="map-day-${d.day}"></div>
-        <a class="route-btn" href="${gmapsRoute(d.stops)}" target="_blank" rel="noopener">${CAR_SVG} ${ui('drive')}</a><span class="route-stats" id="stats-day-${d.day}"></span>
+        ${d.noCar?"":`<a class="route-btn" href="${gmapsRoute(d.stops)}" target="_blank" rel="noopener">${CAR_SVG} ${ui('drive')}</a><span class="route-stats" id="stats-day-${d.day}"></span>`}
         ${tipsHtml}${stopsHtml}${extra}</div></div></div>`;
 
     // Lazy-init the day map (Leaflet needs a visible container to size correctly)
