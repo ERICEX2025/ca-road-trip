@@ -1108,8 +1108,8 @@ function renderDays(){
             ${toggleInput}
             <div class="name">${tr(s,'name')} ${s.book?`<span class="book-badge">${ui('bookAhead')}</span>`:""}${s.flexible?`<span class="flex-badge">${ui('openIdeas')}</span>`:""}${toggleBadge}</div>
             <p class="note">${tr(s,'note')}</p>
-            ${optExtra}
             <a class="dir" href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener">${DIR_SVG} ${ui('directions')}</a>
+            ${optExtra}
           </div>
         </div>`;
     }).join("");
