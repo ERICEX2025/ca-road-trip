@@ -964,7 +964,7 @@ const UI = {
   mapDir:         {en:"Directions →",                        zh:"导航 →"},
   expandAll:      {en:"Expand all",                          zh:"全部展开"},
   collapseAll:    {en:"Collapse all",                        zh:"全部收起"},
-  seeOptions:     {en:(n)=>`See ${n} option${n>1?"s":""}`, zh:(n)=>`查看 ${n} 个选择`},
+  seeOptions:     {en:"See options",                         zh:"查看选择"},
   booked:         {en:(n,t)=>`${n} of ${t} booked`,          zh:(n,t)=>`已预订 ${n} / ${t}`},
   miDriving:      {en:(mi,l)=>`≈ ${mi} mi · ${l} driving`,   zh:(mi,l)=>`≈ ${mi} 英里 · 驾车 ${l}`},
   dayLabel:       {en:(n)=>`Day ${n}`,                       zh:(n)=>`第 ${n} 天`}
@@ -1089,17 +1089,16 @@ function renderDays(){
       const thumb = s.img
         ? `<a class="stop-thumb" href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener" style="background-image:url('${s.img}')" aria-label="${tr(s,'name')}"></a>`
         : `<span class="stop-thumb empty" aria-hidden="true"></span>`;
-      const optCard = (o,primary)=>`<a class="opt-card${primary?" primary":""}" href="${mapsUrl(o.lat,o.lng)}" target="_blank" rel="noopener" aria-label="${tr(o,'name')}">
+      const optCard = (o)=>`<a class="opt-card" href="${mapsUrl(o.lat,o.lng)}" target="_blank" rel="noopener" aria-label="${tr(o,'name')}">
               <span class="opt-img" style="background-image:url('${o.img}')"></span>
-              <span class="opt-cap">${primary?`<span class="opt-pick">${ui('ourPick')}</span>`:""}<span class="opt-name">${tr(o,'name')}</span>${o.sub?`<span class="opt-sub">${tr(o,'sub')}</span>`:""}</span>
+              <span class="opt-cap"><span class="opt-name">${tr(o,'name')}</span>${o.sub?`<span class="opt-sub">${tr(o,'sub')}</span>`:""}</span>
             </a>`;
       let toggleInput="", toggleBadge="", optExtra="";
       if(s.options && s.options.length){
         const gid = `optset-${d.day}-${si}`;
-        const n = s.options.length;
         toggleInput = `<input type="checkbox" id="${gid}" class="opt-toggle">`;
-        toggleBadge = `<label for="${gid}" class="opt-more"><span class="opt-more-pill"><span class="when-closed">${ui('seeOptions',n)}</span><span class="when-open">${ui('hideOptions')}</span><span class="opt-chev">▾</span></span></label>`;
-        optExtra = `<div class="opt-extra">${s.options.map((o,oi)=>optCard(o,oi===0)).join("")}</div>`;
+        toggleBadge = `<label for="${gid}" class="opt-more"><span class="opt-more-pill"><span class="when-closed">${ui('seeOptions')}</span><span class="when-open">${ui('hideOptions')}</span><span class="opt-chev">▾</span></span></label>`;
+        optExtra = `<div class="opt-extra">${s.options.map(o=>optCard(o)).join("")}</div>`;
       }
       return `
         <div class="stop">
