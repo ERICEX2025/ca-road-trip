@@ -321,6 +321,12 @@ section{padding:46px 0; position:relative; scroll-margin-top:64px;}
   background:var(--sunset); color:#fff; padding:3px 9px; border-radius:999px;
   box-shadow:0 2px 8px -3px var(--sunset);
 }
+/* "Not locked in" marker for tentative picks (dinner spot, optional activities) */
+.flex-badge{
+  font-size:.68rem; font-weight:700; letter-spacing:.02em;
+  background:rgba(214,231,236,.9); color:var(--ocean-deep);
+  padding:3px 10px; border-radius:999px; white-space:nowrap;
+}
 .dir{
   display:inline-flex; align-items:center; gap:6px; margin-top:9px;
   font-size:.8rem; font-weight:600; color:var(--ocean);
@@ -611,8 +617,8 @@ const DATA = {
         {name:"BART in from SFO", time:"~4:00 PM", dur:"~30 min", lat:37.7894, lng:-122.4017, img:"images/stop-bart.jpg", note:"No car tonight — skip the airport traffic and parking. From SFO's International Terminal (free AirTrain from any gate), take an Antioch-bound BART train straight downtown: ~30 min, about $11 each. Hop off at Montgomery St — a ~7-minute walk up to the Triton."},
         {name:"Hotel Triton", time:"4:30 PM", dur:"check in", lat:37.7903, lng:-122.4053, img:"images/stop-hotel-triton.jpg", note:"Boutique hotel at 342 Grant Ave, on the corner where Union Square, the FiDi and Chinatown meet — literally at the Dragon Gate. Drop the bags; everything tonight is on foot."},
         {name:"Chinatown — Dragon Gate & Grant Ave", time:"5:15 PM", dur:"~90 min", lat:37.7941, lng:-122.4065, img:"images/stop-chinatown.jpg", note:"Step under the Dragon Gate (Grant & Bush) into the oldest Chinatown in North America — lantern-strung Grant Ave shops, Ross Alley, and the Golden Gate Fortune Cookie Factory (watch them folded by hand)."},
-        {name:"Dinner in Chinatown", time:"6:45 PM", dur:"~90 min", lat:37.7956, lng:-122.4047, img:"images/stop-chinatown-dinner.jpg", note:"R&G Lounge is the local institution — salt-and-pepper Dungeness crab. The other big names: Z&Y (fiery Szechuan) and Mister Jiu's (Michelin — book ahead). Then it's a two-minute walk back to the hotel."},
-        {name:"Optional: Union Square & North Beach", dur:"flex", lat:37.7880, lng:-122.4074, img:"images/stop-union-square.jpg", note:"Right by the hotel if anyone's still got energy: loop the lit Union Square plaza (peek the grand Westin St. Francis lobby) and the Powell St cable-car turnaround. Got more in the tank? Drift up Grant into North Beach — City Lights Bookstore is open till midnight, with Italian cafés and the Columbus Ave neon. Otherwise, call it an early night before the big drive."}
+        {name:"Dinner in Chinatown", time:"6:45 PM", dur:"~90 min", lat:37.7956, lng:-122.4047, img:"images/stop-chinatown-dinner.jpg", flexible:true, note:"R&G Lounge is the local institution — salt-and-pepper Dungeness crab. The other big names: Z&Y (fiery Szechuan) and Mister Jiu's (Michelin — book ahead). Then it's a two-minute walk back to the hotel."},
+        {name:"Optional: After-dinner wander", dur:"flex", lat:37.7880, lng:-122.4074, img:"images/stop-union-square.jpg", flexible:true, note:"Right by the hotel if anyone's still got energy — a few directions to drift: south to the lit Union Square plaza (the grand Westin St. Francis lobby, the Powell St cable-car turnaround); north up Grant into North Beach for City Lights Bookstore (open till midnight), Italian cafés and the Columbus Ave neon; or east ~15 min to the Embarcadero, where the Ferry Building clock tower glows and the Bay Bridge lights shimmer over the water. Otherwise, call it an early night before the big drive."}
       ]},
     { day:2, date:"Mon Jul 27", title:"SF City Day — Bridge, Beach & Park",
       summary:"Pick up the rental, then a full loop of the city: the waterfront, the Palace of Fine Arts and the Presidio, across to the Golden Gate Bridge, out the coast to Ocean Beach for fish & chips, then Golden Gate Park, a West Portal Thai dinner at Khao Tiew, and a golden-hour close at Haight-Ashbury.",
@@ -896,7 +902,7 @@ function renderDays(){
           ${timeHtml}
           ${thumb}
           <div class="body">
-            <div class="name">${s.name} ${s.book?'<span class="book-badge">Book ahead 🔖</span>':""}</div>
+            <div class="name">${s.name} ${s.book?'<span class="book-badge">Book ahead 🔖</span>':""}${s.flexible?'<span class="flex-badge">💬 Open to ideas</span>':""}</div>
             <p class="note">${s.note}</p>
             <a class="dir" href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener">${DIR_SVG} Directions</a>
           </div>
