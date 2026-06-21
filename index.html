@@ -342,29 +342,52 @@ section{padding:46px 0; position:relative; scroll-margin-top:64px;}
 .dir:hover{background:var(--ink); color:#fff; border-color:var(--ink);}
 .dir svg{width:13px; height:13px;}
 
-/* Picture gallery for stops with multiple named choices (dinner spots, wander directions) */
-.stop-gallery{
-  display:grid; gap:11px; margin:12px 0 2px;
-  grid-template-columns:repeat(auto-fit,minmax(124px,1fr));
-}
+/* Picture gallery: a recommended "pick" up top, the rest tucked behind a toggle.
+   Every option uses the SAME horizontal card — photo left, name + small description right. */
+.stop-gallery{margin:12px 0 2px;}
 .opt-card{
-  display:block; text-decoration:none; color:inherit;
+  display:flex; flex-direction:row; align-items:stretch;
+  text-decoration:none; color:inherit;
   background:var(--paper); border:1px solid var(--line); border-radius:12px;
   overflow:hidden; box-shadow:0 4px 12px -9px var(--shadow);
   transition:transform .3s ease, box-shadow .25s ease;
 }
 .opt-card:hover{transform:translateY(-3px); box-shadow:0 11px 20px -12px var(--shadow);}
 .opt-img{
-  display:block; width:100%; aspect-ratio:4/3; position:relative;
+  flex:0 0 38%; max-width:168px; min-height:104px; position:relative;
   background-size:cover; background-position:center; background-color:var(--sand-deep);
 }
 .opt-img::after{content:""; position:absolute; inset:0;
-  background:linear-gradient(180deg,transparent 58%,rgba(16,38,50,.16));}
-.opt-cap{display:flex; flex-direction:column; padding:8px 10px 9px;}
+  background:linear-gradient(120deg,transparent 60%,rgba(16,38,50,.14));}
+.opt-cap{display:flex; flex-direction:column; justify-content:center; padding:9px 13px;}
 .opt-name{
-  font-family:var(--fdisp); font-weight:600; font-size:.9rem; line-height:1.2; color:var(--ink);
+  font-family:var(--fdisp); font-weight:600; font-size:.98rem; line-height:1.2; color:var(--ink);
 }
-.opt-sub{font-size:.76rem; color:var(--ink-soft); margin-top:2px; line-height:1.32;}
+.opt-sub{font-size:.8rem; color:var(--ink-soft); margin-top:2px; line-height:1.32;}
+
+/* The "Our pick" card differs only by its badge + a warm accent border */
+.opt-card.primary{border-color:var(--sunset-soft); box-shadow:0 5px 14px -9px rgba(231,100,45,.4);}
+.opt-pick{
+  font-size:.6rem; font-weight:800; letter-spacing:.07em; text-transform:uppercase;
+  color:var(--sunset); margin-bottom:4px;
+}
+
+/* Reveal toggle for the buried alternates */
+.opt-toggle{position:absolute; opacity:0; width:1px; height:1px; pointer-events:none;}
+.opt-more{
+  display:inline-flex; align-items:center; gap:6px; width:fit-content;
+  margin-top:11px; cursor:pointer; user-select:none;
+  font-family:var(--fdisp); font-size:.8rem; font-weight:600; color:var(--ocean);
+  border:1px solid var(--line); padding:5px 13px; border-radius:999px;
+  background:var(--sand); transition:.2s;
+}
+.opt-more:hover{background:var(--ink); color:#fff; border-color:var(--ink);}
+.opt-toggle:focus-visible ~ .opt-more{outline:2px solid var(--ocean); outline-offset:2px;}
+.opt-more .when-open{display:none;}
+.opt-extra{display:none;}
+.opt-toggle:checked ~ .opt-more .when-closed{display:none;}
+.opt-toggle:checked ~ .opt-more .when-open{display:inline;}
+.opt-toggle:checked ~ .opt-extra{display:flex; flex-direction:column; gap:11px; margin-top:11px;}
 
 .crawl{
   margin-top:18px; padding:16px 18px; border-radius:12px;
@@ -792,7 +815,7 @@ const FLIGHTS = [
 
 const LODGING = [
   { loc:"San Francisco", title:"Hotel Triton — at the Dragon Gate", nights:"Sun + Mon — 2 nights",
-    hint:"342 Grant Ave, right where Union Square, the FiDi and Chinatown meet — walk to dinner Night 1. Pick up the rental car Monday morning. (Eric's earlier nights are on his own.)" },
+    hint:"342 Grant Ave, right where Union Square, the FiDi and Chinatown meet — walk to dinner Night 1. Pick up the two rental cars Monday morning and self-park overnight across the street at 327 Grant or the White House Garage a block away (~$48/night) — cheaper than the Triton's full-size valet. (Eric's earlier nights are on his own.)" },
   { loc:"Cambria / Morro Bay", title:"Coast-drive overnight", nights:"Tue — 1 night",
     hint:"Pushed south so Wednesday's run into LA is short and you reach the beaches by afternoon. Sleep in cozy Cambria or Morro Bay (under the Rock), just past Big Sur. Book ahead — peak summer." },
   { loc:"Los Angeles", title:"Santa Monica / Venice (Westside)", nights:"Wed + Thu — 2 nights",
@@ -931,20 +954,28 @@ function renderDays(){
     if(d.overnight) badges.push(`<span class="minibadge moon">🌙 Overnight · ${d.overnight}</span>`);
     if(d.ends_with) badges.push(`<span class="minibadge plane">✈ Red-eye home</span>`);
 
-    const stopsHtml = d.stops.map(s=>{
+    const stopsHtml = d.stops.map((s,si)=>{
       const timeHtml = s.time
         ? `<div class="time">${s.time}<br><span style="font-weight:400;color:var(--ink-faint);font-size:.78rem">${s.dur||""}</span></div>`
         : `<div class="time tba">flex<br><span style="font-weight:400;font-size:.78rem">${s.dur||""}</span></div>`;
       const thumb = s.img
         ? `<a class="stop-thumb" href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener" style="background-image:url('${s.img}')" aria-label="${s.name} — open in maps"></a>`
         : `<span class="stop-thumb empty" aria-hidden="true"></span>`;
-      const gallery = (s.options && s.options.length)
-        ? `<div class="stop-gallery">${s.options.map(o=>`
-            <a class="opt-card" href="${mapsUrl(o.lat,o.lng)}" target="_blank" rel="noopener" aria-label="${o.name} — open in maps">
+      const optCard = (o,primary)=>`<a class="opt-card${primary?" primary":""}" href="${mapsUrl(o.lat,o.lng)}" target="_blank" rel="noopener" aria-label="${o.name} — open in maps">
               <span class="opt-img" style="background-image:url('${o.img}')"></span>
-              <span class="opt-cap"><span class="opt-name">${o.name}</span>${o.sub?`<span class="opt-sub">${o.sub}</span>`:""}</span>
-            </a>`).join("")}</div>`
-        : "";
+              <span class="opt-cap">${primary?'<span class="opt-pick">★ Our pick</span>':""}<span class="opt-name">${o.name}</span>${o.sub?`<span class="opt-sub">${o.sub}</span>`:""}</span>
+            </a>`;
+      let gallery = "";
+      if(s.options && s.options.length){
+        const gid = `optset-${d.day}-${si}`;
+        const first = s.options[0], rest = s.options.slice(1);
+        const more = rest.length
+          ? `<input type="checkbox" id="${gid}" class="opt-toggle">
+            <label for="${gid}" class="opt-more"><span class="when-closed">▾ ${rest.length} more option${rest.length>1?"s":""}</span><span class="when-open">▴ Hide options</span></label>
+            <div class="opt-extra">${rest.map(o=>optCard(o,false)).join("")}</div>`
+          : "";
+        gallery = `<div class="stop-gallery">${optCard(first,true)}${more}</div>`;
+      }
       return `
         <div class="stop">
           ${timeHtml}
