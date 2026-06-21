@@ -503,19 +503,36 @@ footer .small{font-size:.8rem; margin-top:8px;}
 /* ---------- Responsive ---------- */
 @media(max-width:560px){
   .wrap{padding-inline:18px;}
-  .stop{grid-template-columns:44px 70px 1fr; gap:11px;}
-  .stop .time{white-space:normal; font-size:.8rem; line-height:1.15;}
-  .stop-thumb{width:70px; height:60px;}
+
+  /* Stops: thumbnail + time stacked at the left rail, every line of copy in one
+     full-width column — so notes and the expandable option cards get real room
+     instead of being squeezed into a narrow third column. */
+  .stop{grid-template-columns:74px 1fr; grid-template-rows:auto 1fr;
+    column-gap:14px; row-gap:6px; align-items:start; padding:16px 0;}
+  .stop-thumb, .stop-thumb.empty{grid-column:1; grid-row:1; width:74px; height:58px;}
+  .stop .time{grid-column:1; grid-row:2; align-self:start; text-align:left;
+    white-space:normal; font-size:.82rem; line-height:1.2;}
+  .stop .body{grid-column:2; grid-row:1 / span 2;}
   .day-inner{padding:2px 16px 20px;}
   .navlinks{display:none;}
+
+  /* Comfortable, thumb-sized tap targets */
+  .dir{padding:8px 14px; font-size:.82rem;}
+  .dir svg{width:14px; height:14px;}
+  .route-btn{padding:11px 18px; font-size:.86rem;}
+  .expand-all{padding:9px 18px;}
+
+  /* Shorter overview map — less scrolling to get past it on a phone */
+  #map{height:360px;}
 
   /* Tighter, calmer vertical rhythm on phones */
   section{padding:34px 0;}
   .sec-head{gap:12px; margin-bottom:14px;}
   .sec-sub{margin:-6px 0 22px;}
 
-  /* Hero: less towering, route ribbon that wraps cleanly (no dangling dashes) */
+  /* Hero: tidier kicker, less towering, route ribbon that wraps cleanly */
   .hero{padding:40px 0 26px;}
+  .kicker{letter-spacing:.2em; font-size:.7rem;}
   .lede{margin-top:18px;}
   .route{margin:26px 0 4px; gap:9px 16px;}
   .route .seg{display:none;}
@@ -829,7 +846,7 @@ const DATA = {
         "🎟️ 为 The Broad 上午11点开馆预约一张免费的分时门票。",
         "🌆 盖蒂中心（周五）下午5:30 关门——午餐后去，然后吃晚饭，再轻松开30–40分钟到洛杉矶机场赶红眼航班。"
       ],
-      ends_with:"LAX → BOS 11:59 PM red-eye (AA miles) · arrive Boston Sat Aug 1", ends_with_zh:"洛杉矶 → 波士顿 晚11:59 红眼航班（美航里程）· 8月1日(周六)抵达波士顿",
+      ends_with:"LAX → BOS ~10 PM red-eye (AA miles) · arrive Boston Sat Aug 1", ends_with_zh:"洛杉矶 → 波士顿 约晚10点红眼航班（美航里程）· 8月1日(周六)抵达波士顿",
       stops:[
         {name:"Grand Central Market", name_zh:"中央市场（Grand Central Market）", time:"9:30 AM", dur:"~45 min", lat:34.050872, lng:-118.2490552, img:"images/stop-grand-central-market.jpg", note:"The historic 1917 food hall — breakfast and coffee (a pastry, eggs, an agua fresca) to start before The Broad opens at 11.", note_zh:"1917年的历史美食市集——先来份早餐和咖啡（一块点心、鸡蛋、一杯墨西哥鲜果饮），再去赶11点开馆的 The Broad。"},
         {name:"Bradbury Building", name_zh:"Bradbury 大楼", time:"10:20 AM", dur:"~20 min", lat:34.0504755, lng:-118.2478075, img:"images/stop-bradbury.jpg", note:"Across Broadway from the market — the 1893 atrium of wrought-iron staircases and golden light (Blade Runner, 500 Days of Summer). Lobby + first landing open to visitors.", note_zh:"在市场对面的 Broadway 街——1893年的中庭，锻铁楼梯与金色光线（《银翼杀手》《和莎莫的500天》取景地）。大堂和一楼平台对游客开放。"},
@@ -933,7 +950,7 @@ const UI = {
   ourPick:        {en:"★ Our pick",                          zh:"★ 我们的推荐"},
   hideOptions:    {en:"Hide options",                      zh:"收起选择"},
   bookAhead:      {en:"Book ahead 🔖",                       zh:"需提前预订 🔖"},
-  openIdeas:      {en:"💬 Open to ideas",                    zh:"💬 欢迎建议"},
+  openIdeas:      {en:"Open to ideas",                    zh:"欢迎建议"},
   overnightLabel: {en:"Overnight",                           zh:"过夜"},
   redeye:         {en:"✈ Red-eye home",                      zh:"✈ 红眼航班回家"},
   flex:           {en:"flex",                                zh:"灵活"},
