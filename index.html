@@ -968,13 +968,12 @@ function renderDays(){
       let gallery = "";
       if(s.options && s.options.length){
         const gid = `optset-${d.day}-${si}`;
-        const first = s.options[0], rest = s.options.slice(1);
-        const more = rest.length
-          ? `<input type="checkbox" id="${gid}" class="opt-toggle">
-            <label for="${gid}" class="opt-more"><span class="when-closed">▾ ${rest.length} more option${rest.length>1?"s":""}</span><span class="when-open">▴ Hide options</span></label>
-            <div class="opt-extra">${rest.map(o=>optCard(o,false)).join("")}</div>`
-          : "";
-        gallery = `<div class="stop-gallery">${optCard(first,true)}${more}</div>`;
+        const n = s.options.length;
+        gallery = `<div class="stop-gallery">
+            <input type="checkbox" id="${gid}" class="opt-toggle">
+            <label for="${gid}" class="opt-more"><span class="when-closed">▾ See ${n} option${n>1?"s":""}</span><span class="when-open">▴ Hide options</span></label>
+            <div class="opt-extra">${s.options.map((o,oi)=>optCard(o,oi===0)).join("")}</div>
+          </div>`;
       }
       return `
         <div class="stop">
