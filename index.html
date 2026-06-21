@@ -67,7 +67,7 @@ body::after{
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.wrap{position:relative; z-index:1; max-width:var(--maxw); margin:0 auto; padding:0 22px;}
+.wrap{position:relative; z-index:1; max-width:var(--maxw); margin:0 auto; padding-inline:22px;}
 
 a{color:var(--ocean); text-decoration:none;}
 a:hover{color:var(--sunset);}
@@ -283,6 +283,9 @@ section{padding:46px 0; position:relative; scroll-margin-top:64px;}
   background:linear-gradient(180deg,transparent 55%,rgba(16,38,50,.18));
 }
 .stop-thumb:hover{transform:scale(1.04); box-shadow:0 8px 18px -10px var(--shadow);}
+/* No-photo stops: keep the column aligned but render an invisible spacer, not a bare box */
+.stop-thumb.empty{background:none; border:0; box-shadow:none;}
+.stop-thumb.empty::after{display:none;}
 .stop .time{
   font-family:var(--fdisp); font-weight:600; font-size:.92rem; color:var(--ocean);
   text-align:right; padding-top:1px; white-space:nowrap;
@@ -408,7 +411,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
 
 /* ---------- Responsive ---------- */
 @media(max-width:560px){
-  .wrap{padding:0 18px;}
+  .wrap{padding-inline:18px;}
   .stop{grid-template-columns:44px 70px 1fr; gap:11px;}
   .stop .time{white-space:normal; font-size:.8rem; line-height:1.15;}
   .stop-thumb{width:70px; height:60px;}
@@ -442,7 +445,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
   .day-no, .day-no small, .day-title h3, .day-title .date{color:#000 !important; text-shadow:none !important;}
   .minibadge{background:#eee !important; color:#000 !important;}
   section{padding:14px 0; break-inside:avoid;}
-  .wrap{max-width:100%; padding:0 12px;}
+  .wrap{max-width:100%; padding-inline:12px;}
   .hero{padding:8px 0;}
   .day, .card, .note-card{break-inside:avoid; box-shadow:none; border:1px solid #ccc;}
   .day-body{grid-template-rows:1fr !important;}
@@ -862,7 +865,7 @@ function renderDays(){
         : `<div class="time tba">flex<br><span style="font-weight:400;font-size:.78rem">${s.dur||""}</span></div>`;
       const thumb = s.img
         ? `<a class="stop-thumb" href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener" style="background-image:url('${s.img}')" aria-label="${s.name} — open in maps"></a>`
-        : `<span class="stop-thumb" aria-hidden="true"></span>`;
+        : `<span class="stop-thumb empty" aria-hidden="true"></span>`;
       return `
         <div class="stop">
           ${timeHtml}
