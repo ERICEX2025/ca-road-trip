@@ -102,16 +102,17 @@ a:hover{color:var(--sunset);}
   color:var(--ink-soft); padding:6px 10px; border-radius:999px;
 }
 .navlinks a:hover{background:var(--sand-deep); color:var(--ink);}
-.nav-right{display:flex; align-items:center; gap:12px;}
 .lang-toggle{
   display:inline-flex; align-items:center; gap:6px;
-  font-family:var(--fdisp); font-size:.86rem; font-weight:700; letter-spacing:.03em;
+  font-family:var(--fdisp); font-size:.82rem; font-weight:700; letter-spacing:.03em;
   color:#fff; background:var(--ocean); cursor:pointer; white-space:nowrap;
-  border:1px solid var(--ocean); padding:7px 15px; border-radius:999px; flex-shrink:0;
-  box-shadow:0 2px 9px -3px var(--ocean); transition:.2s;
+  border:1px solid var(--ocean); padding:7px 16px; border-radius:999px; flex-shrink:0;
+  transition:transform .15s ease, background .2s ease;
 }
 .lang-toggle .globe{font-size:.95em; line-height:1;}
 .lang-toggle:hover{background:var(--ocean-deep); border-color:var(--ocean-deep); transform:translateY(-1px);}
+.kicker-row{display:flex; align-items:center; justify-content:space-between; gap:16px; margin:0 0 18px;}
+.kicker-row .kicker{margin:0;}
 
 /* ---------- Hero ---------- */
 .hero{padding:64px 0 40px; position:relative;}
@@ -380,24 +381,25 @@ section{padding:46px 0; position:relative; scroll-margin-top:64px;}
 .opt-toggle{position:absolute; opacity:0; width:1px; height:1px; pointer-events:none;}
 /* "See options" toggle: the exact same sky-blue pill as "Open to ideas", with a chevron beside it */
 .opt-more{
-  display:inline-flex; align-items:center; gap:7px; width:fit-content;
-  margin-top:11px; cursor:pointer; user-select:none;
+  display:inline-flex; align-items:center; vertical-align:middle;
+  cursor:pointer; user-select:none;
 }
 .opt-more-pill{
+  display:inline-flex; align-items:center; gap:5px;
   font-size:.68rem; font-weight:700; letter-spacing:.02em; white-space:nowrap;
-  color:var(--ocean-deep); background:rgba(214,231,236,.9);
+  color:#46613a; background:rgba(122,154,110,.22);
   padding:3px 10px; border-radius:999px;
   transition:background .2s ease, box-shadow .2s ease;
 }
-.opt-more:hover .opt-more-pill{background:rgba(196,221,229,.95); box-shadow:0 2px 9px -4px var(--ocean);}
-.opt-chev{display:inline-block; font-size:.62rem; line-height:1; color:var(--ocean-deep); transition:transform .2s ease;}
-.opt-toggle:checked ~ .opt-more .opt-chev{transform:rotate(180deg);}
-.opt-toggle:focus-visible ~ .opt-more{outline:2px solid var(--ocean); outline-offset:2px;}
+.opt-more:hover .opt-more-pill{background:rgba(122,154,110,.34); box-shadow:0 2px 9px -4px var(--sage);}
+.opt-chev{display:inline-block; font-size:.6rem; line-height:1; color:#46613a; transition:transform .2s ease;}
+.opt-toggle:checked ~ .name .opt-chev{transform:rotate(180deg);}
+.opt-toggle:focus-visible ~ .name .opt-more{outline:2px solid var(--ocean); outline-offset:2px; border-radius:999px;}
 .opt-more .when-open{display:none;}
 .opt-extra{display:none;}
-.opt-toggle:checked ~ .opt-more .when-closed{display:none;}
-.opt-toggle:checked ~ .opt-more .when-open{display:inline;}
-.opt-toggle:checked ~ .opt-extra{display:flex; flex-direction:column; gap:11px; margin-top:11px;}
+.opt-toggle:checked ~ .name .when-closed{display:none;}
+.opt-toggle:checked ~ .name .when-open{display:inline;}
+.opt-toggle:checked ~ .opt-extra{display:flex; flex-direction:column; gap:11px; margin-top:13px;}
 
 .crawl{
   margin-top:18px; padding:16px 18px; border-radius:12px;
@@ -526,7 +528,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
   :root{--sand:#fff; --paper:#fff;}
   body{background:#fff; color:#000; font-size:11px;}
   body::before, body::after{display:none;}
-  .topbar, .expand-all, .dir, #map, .map-legend, footer .small, .navlinks, .hero-figure, .chev, .stop-gallery{display:none !important;}
+  .topbar, .expand-all, .dir, #map, .map-legend, footer .small, .navlinks, .hero-figure, .chev, .opt-more, .opt-extra{display:none !important;}
   /* Cover photos are CSS backgrounds and won't print — fall back to dark text on white */
   .day-head{min-height:auto !important; background:#fff !important; color:#000 !important; overflow:visible;}
   .cover-img, .cover-scrim{display:none !important;}
@@ -555,23 +557,23 @@ footer .small{font-size:.8rem; margin-top:8px;}
 <nav class="topbar">
   <div class="wrap row">
     <div class="brand">SF <b>&amp;</b> Big Sur <b>&amp;</b> LA</div>
-    <div class="nav-right">
-      <div class="navlinks">
-        <a href="#flights" data-en="Flights" data-zh="航班">Flights</a>
-        <a href="#days" data-en="Itinerary" data-zh="行程">Itinerary</a>
-        <a href="#map" data-en="Map" data-zh="地图">Map</a>
-        <a href="#lodging" data-en="Stays" data-zh="住宿">Stays</a>
-        <a href="#checklist" data-en="Checklist" data-zh="清单">Checklist</a>
-        <a href="#notes" data-en="Good to know" data-zh="须知">Good to know</a>
-      </div>
-      <button class="lang-toggle" id="langToggle" aria-label="Switch language / 切换语言"><span class="globe" aria-hidden="true">🌐</span><span class="lang-label">中文</span></button>
+    <div class="navlinks">
+      <a href="#flights" data-en="Flights" data-zh="航班">Flights</a>
+      <a href="#days" data-en="Itinerary" data-zh="行程">Itinerary</a>
+      <a href="#map" data-en="Map" data-zh="地图">Map</a>
+      <a href="#lodging" data-en="Stays" data-zh="住宿">Stays</a>
+      <a href="#checklist" data-en="Checklist" data-zh="清单">Checklist</a>
+      <a href="#notes" data-en="Good to know" data-zh="须知">Good to know</a>
     </div>
   </div>
 </nav>
 
 <!-- ===== Hero ===== -->
 <header class="hero wrap">
-  <p class="kicker reveal" data-en="A California Coast Road Trip · July 2026" data-zh="加州海岸自驾之旅 · 2026年7月">A California Coast Road Trip · July 2026</p>
+  <div class="kicker-row reveal">
+    <p class="kicker" data-en="A California Coast Road Trip · July 2026" data-zh="加州海岸自驾之旅 · 2026年7月">A California Coast Road Trip · July 2026</p>
+    <button class="lang-toggle" id="langToggle" aria-label="Switch language / 切换语言"><span class="globe" aria-hidden="true">🌐</span><span class="lang-label">中文</span></button>
+  </div>
   <h1 class="reveal"><span class="ln a" data-en="San Francisco" data-zh="旧金山">San&nbsp;Francisco</span><span class="ln b"><span class="amp">&amp;</span> <em data-en="Big Sur" data-zh="大苏尔">Big&nbsp;Sur</em> <span class="amp">&amp;</span></span><span class="ln c" data-en="Los Angeles" data-zh="洛杉矶">Los&nbsp;Angeles</span></h1>
 
   <div class="route reveal">
@@ -677,183 +679,221 @@ footer .small{font-size:.8rem; margin-top:8px;}
 /* ============ DATA ============ */
 const DATA = {
   days: [
-    { day:1, date:"Sun Jul 26", title:"Land in SF · Chinatown Night",
+    { day:1, date:"Sun Jul 26", date_zh:"7月26日(周日)", title:"Land in SF · Chinatown Night", title_zh:"抵达旧金山 · 唐人街之夜",
       summary:"Family lands ~4 PM and BARTs in from the airport — no car tonight. Check into Hotel Triton, right at Chinatown's Dragon Gate, drop the bags and walk straight into Chinatown for an easy first evening.",
+      summary_zh:"全家约下午4点落地，乘 BART 从机场进城——今晚不用开车。入住 Hotel Triton（就在唐人街的天下为公牌坊旁），放下行李，直接步行进唐人街，轻松度过第一晚。",
       stops:[
-        {name:"BART in from SFO", time:"~4:00 PM", dur:"~30 min", lat:37.7894, lng:-122.4017, img:"images/stop-bart.jpg", note:"No car tonight — skip the airport traffic and parking. From SFO's International Terminal (free AirTrain from any gate), take an Antioch-bound BART train straight downtown: ~30 min, about $11 each. Hop off at Montgomery St — a ~7-minute walk up to the Triton."},
-        {name:"Hotel Triton", time:"4:30 PM", dur:"check in", lat:37.7903, lng:-122.4053, img:"images/stop-hotel-triton.jpg", note:"Boutique hotel at 342 Grant Ave, on the corner where Union Square, the FiDi and Chinatown meet — literally at the Dragon Gate. Drop the bags; everything tonight is on foot."},
-        {name:"Chinatown — Dragon Gate & Grant Ave", time:"5:15 PM", dur:"~90 min", lat:37.7941, lng:-122.4065, img:"images/stop-chinatown.jpg", note:"Step under the Dragon Gate (Grant & Bush) into the oldest Chinatown in North America — lantern-strung Grant Ave shops, Ross Alley, and the Golden Gate Fortune Cookie Factory (watch them folded by hand)."},
-        {name:"Dinner in Chinatown", time:"6:45 PM", dur:"~90 min", lat:37.7956, lng:-122.4047, img:"images/stop-chinatown-dinner.jpg", flexible:true, note:"R&G Lounge is the local institution — salt-and-pepper Dungeness crab. The other big names: Z&Y (fiery Szechuan) and Mister Jiu's (Michelin — book ahead). Then it's a two-minute walk back to the hotel.",
+        {name:"BART in from SFO", name_zh:"乘 BART 从机场进城", time:"~4:00 PM", dur:"~30 min", lat:37.7894, lng:-122.4017, img:"images/stop-bart.jpg", note:"No car tonight — skip the airport traffic and parking. From SFO's International Terminal (free AirTrain from any gate), take an Antioch-bound BART train straight downtown: ~30 min, about $11 each. Hop off at Montgomery St — a ~7-minute walk up to the Triton.", note_zh:"今晚不开车——省去机场堵车和停车。从旧金山机场国际航站楼（任意登机口都有免费 AirTrain 接驳），乘开往 Antioch 方向的 BART 直达市中心：约30分钟，每人约11美元。在 Montgomery St 站下车，步行约7分钟即到 Triton。"},
+        {name:"Hotel Triton", time:"4:30 PM", dur:"check in", lat:37.7903, lng:-122.4053, img:"images/stop-hotel-triton.jpg", note:"Boutique hotel at 342 Grant Ave, on the corner where Union Square, the FiDi and Chinatown meet — literally at the Dragon Gate. Drop the bags; everything tonight is on foot.", note_zh:"精品酒店，位于 Grant Ave 342 号，正处在联合广场、金融区和唐人街交汇的街角——就在天下为公牌坊旁。放下行李；今晚全程步行。"},
+        {name:"Chinatown — Dragon Gate & Grant Ave", name_zh:"唐人街——天下为公牌坊与都板街", time:"5:15 PM", dur:"~90 min", lat:37.7941, lng:-122.4065, img:"images/stop-chinatown.jpg", note:"Step under the Dragon Gate (Grant & Bush) into the oldest Chinatown in North America — lantern-strung Grant Ave shops, Ross Alley, and the Golden Gate Fortune Cookie Factory (watch them folded by hand).", note_zh:"穿过天下为公牌坊（Grant 与 Bush 路口），走进北美最古老的唐人街——挂满灯笼的都板街商铺、天后古庙巷（Ross Alley），还有金门幸运饼工厂（看师傅手工现折）。"},
+        {name:"Dinner in Chinatown", name_zh:"唐人街晚餐", time:"6:45 PM", dur:"~90 min", lat:37.7956, lng:-122.4047, img:"images/stop-chinatown-dinner.jpg", flexible:true, note:"R&G Lounge is the local institution — salt-and-pepper Dungeness crab. The other big names: Z&Y (fiery Szechuan) and Mister Jiu's (Michelin — book ahead). Then it's a two-minute walk back to the hotel.", note_zh:"R&G Lounge（岭南小馆）是本地老字号——招牌椒盐珍宝蟹。其他大热门：Z&Y（麻辣川菜）和 Mister Jiu's（米其林——需提前预订）。饭后步行两分钟即回酒店。",
           options:[
-            {name:"R&G Lounge", sub:"Salt-and-pepper Dungeness crab — the classic", img:"images/dinner-rg-crab.jpg", lat:37.7953, lng:-122.4049},
-            {name:"Z&Y Restaurant", sub:"Fiery Szechuan — mapo tofu, chili oil", img:"images/dinner-zy-szechuan.jpg", lat:37.7964, lng:-122.4067},
-            {name:"Mister Jiu's", sub:"Michelin Cantonese — book ahead", img:"images/dinner-mister-jius.jpg", lat:37.7948, lng:-122.4069}
+            {name:"R&G Lounge", sub:"Salt-and-pepper Dungeness crab — the classic", sub_zh:"招牌椒盐珍宝蟹——经典之选", img:"images/dinner-rg-crab.jpg", lat:37.7953, lng:-122.4049},
+            {name:"Z&Y Restaurant", sub:"Fiery Szechuan — mapo tofu, chili oil", sub_zh:"麻辣川菜——麻婆豆腐、红油", img:"images/dinner-zy-szechuan.jpg", lat:37.7964, lng:-122.4067},
+            {name:"Mister Jiu's", sub:"Michelin Cantonese — book ahead", sub_zh:"米其林粤菜——需提前预订", img:"images/dinner-mister-jius.jpg", lat:37.7948, lng:-122.4069}
           ]},
-        {name:"Optional: After-dinner wander", dur:"flex", lat:37.7880, lng:-122.4074, img:"images/stop-union-square.jpg", flexible:true, note:"Right by the hotel if anyone's still got energy — a few directions to drift: south to the lit Union Square plaza (the grand Westin St. Francis lobby, the Powell St cable-car turnaround); north up Grant into North Beach for City Lights Bookstore (open till midnight), Italian cafés and the Columbus Ave neon; or east ~15 min to the Embarcadero, where the Ferry Building clock tower glows and the Bay Bridge lights shimmer over the water. Otherwise, call it an early night before the big drive.",
+        {name:"Optional: After-dinner wander", name_zh:"可选：饭后漫步", dur:"flex", lat:37.7880, lng:-122.4074, img:"images/stop-union-square.jpg", flexible:true, note:"Right by the hotel if anyone's still got energy — a few directions to drift: south to the lit Union Square plaza (the grand Westin St. Francis lobby, the Powell St cable-car turnaround); north up Grant into North Beach for City Lights Bookstore (open till midnight), Italian cafés and the Columbus Ave neon; or east ~15 min to the Embarcadero, where the Ferry Building clock tower glows and the Bay Bridge lights shimmer over the water. Otherwise, call it an early night before the big drive.", note_zh:"就在酒店旁，若还有精力，可往几个方向随意走走：向南到灯火通明的联合广场（气派的 Westin St. Francis 大堂、Powell 街缆车调头处）；向北沿 Grant 街进入北滩，去城市之光书店（营业到午夜）、意大利咖啡馆和哥伦布大道的霓虹；或向东步行约15分钟到 Embarcadero 海滨，看渡轮大厦钟楼亮灯、海湾大桥灯光在水面上闪烁。否则就早点休息，为明天的长途自驾养精蓄锐。",
           options:[
-            {name:"Union Square", sub:"South — lit plaza & Powell St cable cars", img:"images/wander-union-square.jpg", lat:37.7879, lng:-122.4074},
-            {name:"North Beach", sub:"North — City Lights & Columbus Ave neon", img:"images/wander-city-lights.jpg", lat:37.7976, lng:-122.4066},
-            {name:"The Embarcadero", sub:"East — Ferry Building & Bay Bridge lights", img:"images/wander-ferry-building.jpg", lat:37.7955, lng:-122.3934}
+            {name:"Union Square", name_zh:"联合广场", sub:"South — lit plaza & Powell St cable cars", sub_zh:"向南——灯光广场与 Powell 街缆车", img:"images/wander-union-square.jpg", lat:37.7879, lng:-122.4074},
+            {name:"North Beach", name_zh:"北滩", sub:"North — City Lights & Columbus Ave neon", sub_zh:"向北——城市之光书店与哥伦布大道霓虹", img:"images/wander-city-lights.jpg", lat:37.7976, lng:-122.4066},
+            {name:"The Embarcadero", name_zh:"Embarcadero 海滨", sub:"East — Ferry Building & Bay Bridge lights", sub_zh:"向东——渡轮大厦与海湾大桥灯光", img:"images/wander-ferry-building.jpg", lat:37.7955, lng:-122.3934}
           ]}
       ]},
-    { day:2, date:"Mon Jul 27", title:"SF City Day — Bridge, Beach & Park",
+    { day:2, date:"Mon Jul 27", date_zh:"7月27日(周一)", title:"SF City Day — Bridge, Beach & Park", title_zh:"旧金山城市日——大桥、海滩与公园",
       summary:"Pick up the rental, then a full loop of the city: the waterfront, the Palace of Fine Arts and the Presidio, across to the Golden Gate Bridge, out the coast to Ocean Beach for fish & chips, then Golden Gate Park, a West Portal Thai dinner at Khao Tiew, and a golden-hour close at Haight-Ashbury.",
-      tipsTitle:"🚗 Before you set out",
+      summary_zh:"取租车，然后绕城一整圈：海滨、艺术宫和普雷西迪奥，跨到金门大桥，沿海岸到 Ocean Beach 吃炸鱼薯条，再到金门公园，去 West Portal 的泰餐 Khao Tiew 吃晚饭，最后在 Haight-Ashbury 迎着夕阳收尾。",
+      tipsTitle:"🚗 Before you set out", tipsTitle_zh:"🚗 出发前",
       tips:[
         "🔑 Pick up the rental car this morning (a downtown SF branch near Union Square) — you'll want it for the whole western loop.",
         "🧥 Dress in layers: July fog hangs over the western half (Presidio, Lands End, Ocean Beach) and it stays cold even midday.",
         "🅿️ SF street parking is brutal — use garages. Overnight parking at the Triton runs ~$60; ask the hotel about a discounted lot.",
         "🦀 Two-meal day: a wharf snack midday and a light fish & chips at Ocean Beach mid-afternoon, then the real dinner is Thai at Khao Tiew in West Portal — book ahead; the kitchen closes 8:30."
       ],
+      tips_zh:[
+        "🔑 今早取租车（旧金山市中心联合广场附近的门店）——整段西区环线都要用到它。",
+        "🧥 穿多层衣物：七月的雾笼罩西半城（普雷西迪奥、Lands End、Ocean Beach），即使正午也凉。",
+        "🅿️ 旧金山路边停车极难——用停车楼。Triton 过夜停车约60美元；可向酒店打听有折扣的停车场。",
+        "🦀 两餐日：中午在渔人码头吃点小食，下午在 Ocean Beach 简单来份炸鱼薯条，正餐留到 West Portal 的泰餐 Khao Tiew——需提前预订；厨房8:30 打烊。"
+      ],
       stops:[
-        {name:"Breakfast — Ferry Building", time:"8:30 AM", dur:"~60 min", lat:37.7954425, lng:-122.3936136, img:"images/stop-ferry-building.jpg", note:"Start at the Embarcadero's grand marketplace — coffee and pastries (Blue Bottle, Acme bread, local stalls) with a bay view before you grab the car."},
-        {name:"Fisherman's Wharf & Pier 39", time:"10:00 AM", dur:"~90 min", lat:37.8085771, lng:-122.4125282, img:"images/stop-fishermans-wharf.jpg", note:"The barking sea lions on the Pier 39 deck (free), the wharf bustle, and a first taste of clam chowder in sourdough. Then drive west toward the Marina."},
-        {name:"Palace of Fine Arts", time:"11:45 AM", dur:"~40 min", lat:37.8029, lng:-122.4484, img:"images/stop-palace-fine-arts.jpg", note:"The lone survivor of the 1915 World's Fair — a Roman-style rotunda mirrored in its lagoon, with swans. A quick, gorgeous photo stop on the way into the Presidio."},
-        {name:"Presidio — Tunnel Tops", time:"12:30 PM", dur:"~75 min", lat:37.8005, lng:-122.4662, img:"images/stop-presidio.jpg", note:"Walk around the Presidio — a former army post turned national park of forest, trails and lawns. The new Tunnel Tops park frames the bridge; grab lunch from the food trucks or the Presidio Pickup."},
-        {name:"Golden Gate Bridge", time:"2:00 PM", dur:"~45 min", lat:37.8199109, lng:-122.4785598, img:"images/day1-goldengate.jpg", note:"Walk out onto the span or shoot it from the Welcome Center / Battery East. (Baker Beach, just south, gives the postcard bridge-over-the-sand view.) Then drive the coastal rim south."},
-        {name:"Lands End & Sutro Baths", time:"2:45 PM", dur:"~45 min", lat:37.7800, lng:-122.5118, img:"images/stop-sutro-baths.jpg", note:"The wild northwestern corner — cliff trails with bridge views and the haunting Sutro Baths ruins below the old Cliff House. This is the 'top of the city' edge of the drive."},
-        {name:"Ocean Beach — Hook Fish Co.", time:"3:15 PM", dur:"~60 min", lat:37.7635, lng:-122.5067, img:"images/stop-ocean-beach.jpg", note:"The famous beach fish & chips: Hook Fish Co. (4542 Irving) is the cult counter-service spot a few blocks off the sand — incredibly light fried fish, with the boat each catch came from listed. Keep it a snack today (Thai dinner later), then walk the wide expanse of Ocean Beach."},
-        {name:"Golden Gate Park", time:"4:30 PM", dur:"~90 min", lat:37.7715, lng:-122.4686, img:"images/stop-golden-gate-park.jpg", note:"From Ocean Beach the great park runs straight inland — pick a couple: the Japanese Tea Garden, the Botanical Garden, the de Young tower (free observation deck), or Stow Lake."},
-        {name:"Khao Tiew", time:"6:30 PM", dur:"~75 min", lat:37.7411, lng:-122.4650, img:"images/stop-khao-tiew.jpg", note:"Dip south to West Portal for dinner — a beloved neighborhood Thai spot (an Infatuation pick) known for roast-duck red curry and a tom-yum seafood hotpot, in a fun room of 70s Thai posters. Small and popular, and the kitchen closes at 8:30 — so it's an early sit-down. Book ahead.", book:true},
-        {name:"Haight-Ashbury", time:"8:00 PM", dur:"~45 min", lat:37.7700, lng:-122.4469, img:"images/stop-haight-ashbury.jpg", note:"Close at the famous corner — 1960s counterculture HQ. Vintage shops, record stores, Victorian rows, and Amoeba Music (open till 10). A golden-hour evening stroll (late-July sunset is ~8:25) before an early night — big drive tomorrow."}
+        {name:"Breakfast — Ferry Building", name_zh:"早餐——渡轮大厦", time:"8:30 AM", dur:"~60 min", lat:37.7954425, lng:-122.3936136, img:"images/stop-ferry-building.jpg", note:"Start at the Embarcadero's grand marketplace — coffee and pastries (Blue Bottle, Acme bread, local stalls) with a bay view before you grab the car.", note_zh:"从 Embarcadero 海滨的宏伟市集开始——配着海湾景色来杯咖啡和点心（Blue Bottle、Acme 面包、本地摊位），然后再去取车。"},
+        {name:"Fisherman's Wharf & Pier 39", name_zh:"渔人码头与39号码头", time:"10:00 AM", dur:"~90 min", lat:37.8085771, lng:-122.4125282, img:"images/stop-fishermans-wharf.jpg", note:"The barking sea lions on the Pier 39 deck (free), the wharf bustle, and a first taste of clam chowder in sourdough. Then drive west toward the Marina.", note_zh:"39号码头平台上吠叫的海狮（免费）、码头的热闹，以及第一次尝酸面包盅蛤蜊浓汤。之后向西开往 Marina 区。"},
+        {name:"Palace of Fine Arts", name_zh:"艺术宫", time:"11:45 AM", dur:"~40 min", lat:37.8029, lng:-122.4484, img:"images/stop-palace-fine-arts.jpg", note:"The lone survivor of the 1915 World's Fair — a Roman-style rotunda mirrored in its lagoon, with swans. A quick, gorgeous photo stop on the way into the Presidio.", note_zh:"1915 年世博会唯一留存的建筑——罗马式圆顶倒映在泻湖中，还有天鹅。进普雷西迪奥途中一处惊艳的快速拍照点。"},
+        {name:"Presidio — Tunnel Tops", name_zh:"普雷西迪奥——Tunnel Tops", time:"12:30 PM", dur:"~75 min", lat:37.8005, lng:-122.4662, img:"images/stop-presidio.jpg", note:"Walk around the Presidio — a former army post turned national park of forest, trails and lawns. The new Tunnel Tops park frames the bridge; grab lunch from the food trucks or the Presidio Pickup.", note_zh:"在普雷西迪奥走走——昔日军营如今变成森林、步道和草坪的国家公园。新建的 Tunnel Tops 公园正对着大桥；可在餐车或 Presidio Pickup 解决午餐。"},
+        {name:"Golden Gate Bridge", name_zh:"金门大桥", time:"2:00 PM", dur:"~45 min", lat:37.8199109, lng:-122.4785598, img:"images/day1-goldengate.jpg", note:"Walk out onto the span or shoot it from the Welcome Center / Battery East. (Baker Beach, just south, gives the postcard bridge-over-the-sand view.) Then drive the coastal rim south.", note_zh:"走上桥面，或在游客中心 / Battery East 取景拍摄。（往南一点的 Baker Beach 能拍到明信片般的“沙滩后大桥”景色。）随后沿海岸边缘向南行驶。"},
+        {name:"Lands End & Sutro Baths", name_zh:"Lands End 与 Sutro Baths", time:"2:45 PM", dur:"~45 min", lat:37.7800, lng:-122.5118, img:"images/stop-sutro-baths.jpg", note:"The wild northwestern corner — cliff trails with bridge views and the haunting Sutro Baths ruins below the old Cliff House. This is the 'top of the city' edge of the drive.", note_zh:"城市西北角的荒野——可眺望大桥的崖边步道，以及老 Cliff House 下方令人着迷的 Sutro Baths 废墟。这是行程中“城市之巅”的边缘。"},
+        {name:"Ocean Beach — Hook Fish Co.", name_zh:"Ocean Beach——Hook Fish Co.", time:"3:15 PM", dur:"~60 min", lat:37.7635, lng:-122.5067, img:"images/stop-ocean-beach.jpg", note:"The famous beach fish & chips: Hook Fish Co. (4542 Irving) is the cult counter-service spot a few blocks off the sand — incredibly light fried fish, with the boat each catch came from listed. Keep it a snack today (Thai dinner later), then walk the wide expanse of Ocean Beach.", note_zh:"著名的海滩炸鱼薯条：Hook Fish Co.（Irving 街4542号）是离沙滩几个街区的人气柜台小店——炸鱼极其酥脆清爽，还会标明每条鱼来自哪艘渔船。今天浅尝即可（晚上还有泰餐），然后到辽阔的 Ocean Beach 走走。"},
+        {name:"Golden Gate Park", name_zh:"金门公园", time:"4:30 PM", dur:"~90 min", lat:37.7715, lng:-122.4686, img:"images/stop-golden-gate-park.jpg", note:"From Ocean Beach the great park runs straight inland — pick a couple: the Japanese Tea Garden, the Botanical Garden, the de Young tower (free observation deck), or Stow Lake.", note_zh:"从 Ocean Beach 起，这座大公园一路向内陆延伸——挑两处逛逛：日本茶园、植物园、de Young 美术馆塔楼（观景台免费），或 Stow Lake。"},
+        {name:"Khao Tiew", time:"6:30 PM", dur:"~75 min", lat:37.7411, lng:-122.4650, img:"images/stop-khao-tiew.jpg", note:"Dip south to West Portal for dinner — a beloved neighborhood Thai spot (an Infatuation pick) known for roast-duck red curry and a tom-yum seafood hotpot, in a fun room of 70s Thai posters. Small and popular, and the kitchen closes at 8:30 — so it's an early sit-down. Book ahead.", note_zh:"向南拐到 West Portal 吃晚饭——一家深受喜爱的社区泰餐（The Infatuation 推荐），招牌是烤鸭红咖喱和冬阴功海鲜火锅，店内满是70年代泰国海报，氛围有趣。店小人气旺，厨房8:30 打烊——所以要早点坐下。需提前预订。", book:true},
+        {name:"Haight-Ashbury", time:"8:00 PM", dur:"~45 min", lat:37.7700, lng:-122.4469, img:"images/stop-haight-ashbury.jpg", note:"Close at the famous corner — 1960s counterculture HQ. Vintage shops, record stores, Victorian rows, and Amoeba Music (open till 10). A golden-hour evening stroll (late-July sunset is ~8:25) before an early night — big drive tomorrow.", note_zh:"在那个著名的街角收尾——1960年代反主流文化的大本营。复古店、唱片行、维多利亚式排屋，还有 Amoeba Music（营业到10点）。趁着夕阳余晖散散步（七月底日落约8:25），然后早点休息——明天要长途自驾。"}
       ]},
-    { day:3, date:"Tue Jul 28", title:"Coast Drive I · The Big Sur Cliffs",
+    { day:3, date:"Tue Jul 28", date_zh:"7月28日(周二)", title:"Coast Drive I · The Big Sur Cliffs", title_zh:"海岸自驾(一)· 大苏尔的悬崖",
       summary:"The big scenic push — straight down Highway 1 through Big Sur to an overnight in Cambria, so tomorrow's run into LA is short and you reach the beaches by afternoon. Long but unforgettable.",
+      summary_zh:"最壮观的一段——沿1号公路一路穿过大苏尔，到 Cambria 过夜，这样明天进洛杉矶的路程就短，下午就能到海滩。路途漫长，但难以忘怀。",
       overnight:"Cambria / Morro Bay",
-      tipsTitle:"🧭 Before you drive",
+      tipsTitle:"🧭 Before you drive", tipsTitle_zh:"🧭 出发上路前",
       tips:[
         "🚗 Long day — about 6 hrs of driving plus stops. Leave SF by ~7:30 AM to clear Big Sur with daylight to spare.",
         "⚖️ The trade for the southern overnight: you blow past Monterey — the aquarium and 17-Mile Drive get sacrificed so Wed can be short. A quick Carmel coffee stop is all that fits.",
         "⛽ Fill up in Carmel/Monterey — Big Sur gas is sparse (~$6/gal) with a long stretch of none.",
         "📵 No cell service through most of Big Sur — download offline maps before you go."
       ],
-      ends_with:"Into Cambria by ~6 PM — a quiet dinner and an early night.",
+      tips_zh:[
+        "🚗 漫长的一天——约6小时车程外加各处停留。约早上7:30 离开旧金山，趁天亮充裕时穿过大苏尔。",
+        "⚖️ 选择南边过夜的代价：会略过 Monterey——舍弃水族馆和17英里路，好让周三的路程更短。只来得及在 Carmel 快速喝杯咖啡。",
+        "⛽ 在 Carmel/Monterey 加满油——大苏尔加油站稀少（约每加仑6美元），且有很长一段完全没有。",
+        "📵 大苏尔大部分路段没有手机信号——出发前先下载离线地图。"
+      ],
+      ends_with:"Into Cambria by ~6 PM — a quiet dinner and an early night.", ends_with_zh:"约下午6点抵达 Cambria——安静吃顿晚饭，早点休息。",
       stops:[
-        {name:"Carmel-by-the-Sea", time:"9:30 AM", dur:"~45 min", lat:36.5552, lng:-121.9233, img:"images/stop-carmel.jpg", note:"A quick stretch in the storybook village before the cliffs — coffee on Ocean Ave, a peek at white-sand Carmel Beach. Then it's onto Highway 1."},
-        {name:"Bixby Creek Bridge", time:"10:30 AM", dur:"~20 min", lat:36.3714835, lng:-121.901924, img:"images/day2-bixby.jpg", note:"The most photographed bridge on the coast — a quick photo from the dirt pullout on the north end (don't stop on the span itself)."},
-        {name:"Pfeiffer Beach", dur:"flex", lat:36.2378, lng:-121.8159, img:"images/stop-pfeiffer-beach.jpg", note:"Optional detour down a narrow, unmarked road (Sycamore Canyon Rd): purple-tinged sand and the Keyhole Rock arch the sun blazes through. A Big Sur secret; ~$12 day-use."},
-        {name:"Nepenthe", time:"12:30 PM", dur:"~75 min", lat:36.2218365, lng:-121.7592895, img:"images/stop-nepenthe.jpg", note:"Cliffside lunch with a 40-mile ocean view — your one proper sit-down. If there's a wait, grab from Café Kevah just below."},
-        {name:"McWay Falls", time:"2:15 PM", dur:"~30 min", lat:36.1578259, lng:-121.6721628, img:"images/stop-mcway-falls.jpg", note:"An 80-ft waterfall onto a hidden beach — the road overlook is the famous view. Quick stop (~$10 day-use, cash)."},
-        {name:"Elephant Seal Vista · San Simeon", time:"4:00 PM", dur:"~30 min", lat:35.6612, lng:-121.2566, img:"images/day3-hearst.jpg", note:"Free boardwalk at Piedras Blancas — hundreds of elephant seals on the sand, just north of Cambria. The last stop before you check in for the night."}
+        {name:"Carmel-by-the-Sea", time:"9:30 AM", dur:"~45 min", lat:36.5552, lng:-121.9233, img:"images/stop-carmel.jpg", note:"A quick stretch in the storybook village before the cliffs — coffee on Ocean Ave, a peek at white-sand Carmel Beach. Then it's onto Highway 1.", note_zh:"在悬崖路段之前，到这座童话般的小镇舒展一下——在 Ocean Ave 喝杯咖啡，看一眼白沙的 Carmel Beach。然后驶上1号公路。"},
+        {name:"Bixby Creek Bridge", name_zh:"Bixby Creek 桥", time:"10:30 AM", dur:"~20 min", lat:36.3714835, lng:-121.901924, img:"images/day2-bixby.jpg", note:"The most photographed bridge on the coast — a quick photo from the dirt pullout on the north end (don't stop on the span itself).", note_zh:"这段海岸上被拍得最多的桥——在北端的土路停车处快速拍张照（别停在桥面上）。"},
+        {name:"Pfeiffer Beach", time:"", dur:"flex", lat:36.2378, lng:-121.8159, img:"images/stop-pfeiffer-beach.jpg", note:"Optional detour down a narrow, unmarked road (Sycamore Canyon Rd): purple-tinged sand and the Keyhole Rock arch the sun blazes through. A Big Sur secret; ~$12 day-use.", note_zh:"可选绕道，沿一条狭窄、没有标识的小路（Sycamore Canyon Rd）下去：带紫色的沙滩，以及阳光穿透的 Keyhole Rock 拱石。大苏尔的隐秘景点；日间使用费约12美元。"},
+        {name:"Nepenthe", time:"12:30 PM", dur:"~75 min", lat:36.2218365, lng:-121.7592895, img:"images/stop-nepenthe.jpg", note:"Cliffside lunch with a 40-mile ocean view — your one proper sit-down. If there's a wait, grab from Café Kevah just below.", note_zh:"在悬崖边吃午餐，坐拥40英里海景——今天唯一一顿正经坐下来的饭。如果要等位，就到下方的 Café Kevah 外带。"},
+        {name:"McWay Falls", name_zh:"McWay 瀑布", time:"2:15 PM", dur:"~30 min", lat:36.1578259, lng:-121.6721628, img:"images/stop-mcway-falls.jpg", note:"An 80-ft waterfall onto a hidden beach — the road overlook is the famous view. Quick stop (~$10 day-use, cash).", note_zh:"一道80英尺高的瀑布落入隐秘海滩——公路观景点就是那个著名的角度。快速停留（日间使用费约10美元，现金）。"},
+        {name:"Elephant Seal Vista · San Simeon", name_zh:"象海豹观景台 · San Simeon", time:"4:00 PM", dur:"~30 min", lat:35.6612, lng:-121.2566, img:"images/day3-hearst.jpg", note:"Free boardwalk at Piedras Blancas — hundreds of elephant seals on the sand, just north of Cambria. The last stop before you check in for the night.", note_zh:"Piedras Blancas 的免费木栈道——沙滩上数百只象海豹，就在 Cambria 以北。入住过夜前的最后一站。"}
       ]},
-    { day:4, date:"Wed Jul 29", title:"Coast Drive II · Cambria to LA Beaches",
+    { day:4, date:"Wed Jul 29", date_zh:"7月29日(周三)", title:"Coast Drive II · Cambria to LA Beaches", title_zh:"海岸自驾(二)· 从 Cambria 到洛杉矶海滩",
       summary:"A short, easy run down into LA — Morro Rock, the Malibu coast — arriving on the Westside by early afternoon with the whole evening for the beaches: Santa Monica Pier, Venice, and sunset on the sand.",
-      tipsTitle:"🧭 Before you drive",
+      summary_zh:"轻松的短途，一路开进洛杉矶——Morro Rock、马里布海岸——下午早些就到西区，整个傍晚都留给海滩：圣莫尼卡码头、威尼斯海滩，以及沙滩上的日落。",
+      tipsTitle:"🧭 Before you drive", tipsTitle_zh:"🧭 出发上路前",
       tips:[
         "🚗 Easy day — ~3.5 hrs Cambria → LA on US-101, then down the coast. You'll be at the beach by mid-afternoon.",
         "🥪 Optional lunch in Santa Barbara on the way (State St) — or push through to the Malibu coast.",
         "🌅 Time it so you're on the sand at Venice or Santa Monica for sunset, then dinner on Abbot Kinney."
       ],
-      ends_with:"First night on the Westside — rest up; Universal is an early start tomorrow.",
-      stops:[
-        {name:"Morro Bay — Morro Rock", time:"9:30 AM", dur:"~30 min", lat:35.3690, lng:-120.8656, img:"images/stop-morro-rock.jpg", note:"A quick leg-stretch under the 576-ft volcanic 'Gibraltar of the Pacific' rising out of the bay — sea otters in the harbor, then back on US-101 south."},
-        {name:"El Matador State Beach", time:"12:30 PM", dur:"~60 min", lat:34.0381, lng:-118.8773, img:"images/stop-el-matador.jpg", note:"Drop onto the Malibu coast: sea caves, arches, and sea stacks below the bluff — the prettiest beach stop on the way in. A staircase down to the sand; small lot, so arrive early."},
-        {name:"Santa Monica Pier", time:"2:30 PM", dur:"~90 min", lat:34.0082821, lng:-118.4987585, img:"images/stop-santa-monica-pier.jpg", note:"Ferris wheel, the end of Route 66, beach + boardwalk. Drop the bags at the hotel first if you can, then walk the pier."},
-        {name:"Venice Beach Boardwalk", time:"4:30 PM", dur:"~2.5 hrs", lat:33.9909254, lng:-118.4774439, img:"images/stop-venice-boardwalk.jpg", note:"Performers, murals, the skate park — right down the sand from Santa Monica. Stroll inland to Abbot Kinney for dinner (picks below) and catch the sunset on the sand."}
+      tips_zh:[
+        "🚗 轻松的一天——沿 US-101 从 Cambria 到洛杉矶约3.5小时，再沿海岸南下。下午过半就能到海滩。",
+        "🥪 途中可选在 Santa Barbara 吃午餐（State St）——或一鼓作气直奔马里布海岸。",
+        "🌅 算好时间，日落时正好在威尼斯或圣莫尼卡的沙滩上，然后到 Abbot Kinney 吃晚饭。"
       ],
-      crawlTitle:"🍽️ First-night dinner picks (Venice / Santa Monica)",
-      crawlIntro:"All near the Westside hotel — pick one after sunset.",
+      ends_with:"First night on the Westside — rest up; Universal is an early start tomorrow.", ends_with_zh:"在西区的第一晚——好好休息；明天环球影城要早起。",
+      stops:[
+        {name:"Morro Bay — Morro Rock", name_zh:"Morro Bay——Morro Rock", time:"9:30 AM", dur:"~30 min", lat:35.3690, lng:-120.8656, img:"images/stop-morro-rock.jpg", note:"A quick leg-stretch under the 576-ft volcanic 'Gibraltar of the Pacific' rising out of the bay — sea otters in the harbor, then back on US-101 south.", note_zh:"在这座576英尺高、从海湾中拔起的火山巨岩“太平洋的直布罗陀”下快速活动一下腿脚——港湾里有海獭，然后回到 US-101 继续南行。"},
+        {name:"El Matador State Beach", name_zh:"El Matador 州立海滩", time:"12:30 PM", dur:"~60 min", lat:34.0381, lng:-118.8773, img:"images/stop-el-matador.jpg", note:"Drop onto the Malibu coast: sea caves, arches, and sea stacks below the bluff — the prettiest beach stop on the way in. A staircase down to the sand; small lot, so arrive early.", note_zh:"落到马里布海岸：崖下的海蚀洞、拱门和海蚀柱——进城途中最美的海滩停留点。一段楼梯下到沙滩；停车场小，要早到。"},
+        {name:"Santa Monica Pier", name_zh:"圣莫尼卡码头", time:"2:30 PM", dur:"~90 min", lat:34.0082821, lng:-118.4987585, img:"images/stop-santa-monica-pier.jpg", note:"Ferris wheel, the end of Route 66, beach + boardwalk. Drop the bags at the hotel first if you can, then walk the pier.", note_zh:"摩天轮、66号公路的终点、海滩加木栈道。可以的话先到酒店放下行李，再去逛码头。"},
+        {name:"Venice Beach Boardwalk", name_zh:"威尼斯海滩木栈道", time:"4:30 PM", dur:"~2.5 hrs", lat:33.9909254, lng:-118.4774439, img:"images/stop-venice-boardwalk.jpg", note:"Performers, murals, the skate park — right down the sand from Santa Monica. Stroll inland to Abbot Kinney for dinner (picks below) and catch the sunset on the sand.", note_zh:"街头艺人、壁画、滑板公园——就在圣莫尼卡沿沙滩往下一点。往内陆走到 Abbot Kinney 吃晚饭（推荐见下），并在沙滩上看日落。"}
+      ],
+      crawlTitle:"🍽️ First-night dinner picks (Venice / Santa Monica)", crawlTitle_zh:"🍽️ 第一晚晚餐之选（威尼斯 / 圣莫尼卡）",
+      crawlIntro:"All near the Westside hotel — pick one after sunset.", crawlIntro_zh:"都在西区酒店附近——日落后挑一家。",
       food_crawl_options:[
-        {name:"Gjelina", lat:33.990497, lng:-118.4649651, note:"Wood-fired California institution on Abbot Kinney — the original pick; reserve ahead"},
-        {name:"RVR", lat:33.9911885, lng:-118.4678102, note:"Travis Lett's Japanese izakaya, a block up Abbot Kinney"},
-        {name:"Felix Trattoria", lat:33.9921564, lng:-118.4718535, note:"Evan Funke's acclaimed handmade pasta, also on Abbot Kinney"},
-        {name:"Cassia", lat:34.0197308, lng:-118.4936551, note:"Acclaimed Southeast Asian brasserie in Santa Monica — great for a group"},
-        {name:"Rustic Canyon", lat:34.0250418, lng:-118.4913256, note:"Beloved California farm-to-table, Santa Monica"}
+        {name:"Gjelina", lat:33.990497, lng:-118.4649651, note:"Wood-fired California institution on Abbot Kinney — the original pick; reserve ahead", note_zh:"Abbot Kinney 上的柴火加州菜老字号——首选；需提前订位"},
+        {name:"RVR", lat:33.9911885, lng:-118.4678102, note:"Travis Lett's Japanese izakaya, a block up Abbot Kinney", note_zh:"Travis Lett 的日式居酒屋，离 Abbot Kinney 一个街区"},
+        {name:"Felix Trattoria", lat:33.9921564, lng:-118.4718535, note:"Evan Funke's acclaimed handmade pasta, also on Abbot Kinney", note_zh:"Evan Funke 备受赞誉的手工意面，也在 Abbot Kinney"},
+        {name:"Cassia", lat:34.0197308, lng:-118.4936551, note:"Acclaimed Southeast Asian brasserie in Santa Monica — great for a group", note_zh:"圣莫尼卡广受好评的东南亚风味餐馆——适合多人聚餐"},
+        {name:"Rustic Canyon", lat:34.0250418, lng:-118.4913256, note:"Beloved California farm-to-table, Santa Monica", note_zh:"圣莫尼卡深受喜爱的加州农场直供餐厅"}
       ]},
-    { day:5, date:"Thu Jul 30", title:"Universal Studios + Griffith Sunset",
+    { day:5, date:"Thu Jul 30", date_zh:"7月30日(周四)", title:"Universal Studios + Griffith Sunset", title_zh:"环球影城 + 格里菲斯日落",
       summary:"A full theme-park day at Universal Studios Hollywood — the rides, the back-lot Studio Tour, the Wizarding World — then 15 minutes over the hill to Griffith Observatory for sunset and the La La Land city-lights view.",
-      tipsTitle:"🎢 Before the park",
+      summary_zh:"在好莱坞环球影城玩上一整天——各种游乐设施、后场片场之旅、哈利波特魔法世界——然后翻过山头15分钟到格里菲斯天文台，看日落和《爱乐之城》般的城市灯光。",
+      tipsTitle:"🎢 Before the park", tipsTitle_zh:"🎢 进园前",
       tips:[
         "🎟️ Buy Universal tickets online ahead — cheaper than the gate. On a summer day an Express pass is worth it to skip lines.",
         "🕘 Gates open ~9 AM; do the popular rides + Studio Tour first. Universal City is ~30–40 min from the Westside hotel.",
         "🅿️ Park in the Universal structures (~$30) or rideshare to dodge the lot crush.",
         "🌇 Universal sits just over the hill from Griffith — when the park winds down, it's a 15-min drive to catch sunset."
       ],
-      stops:[
-        {name:"Universal Studios Hollywood", time:"9:00 AM", dur:"~7 hrs", lat:34.1381, lng:-118.3534, img:"images/stop-universal.jpg", note:"The working studio theme park — Super Nintendo World and the Wizarding World of Harry Potter, the world-famous back-lot Studio Tour, Jurassic World, and the Simpsons. A full day; pace it and hydrate.", book:true},
-        {name:"Hollywood Walk of Fame", dur:"flex", lat:34.102073, lng:-118.3409501, img:"images/stop-walk-of-fame.jpg", note:"Optional, on the way from Universal to Griffith: the stars on Hollywood Blvd + the TCL Chinese Theatre handprints. Crowded and gritty — a quick in-and-out photo if you've got energy left."},
-        {name:"Lake Hollywood Park", dur:"flex", lat:34.1268907, lng:-118.3259167, img:"images/stop-hollywood-sign.jpg", note:"Optional: the best no-hike, close-up view of the Hollywood Sign — a grassy park looking straight up at the 1923 letters, right on the way up to Griffith."},
-        {name:"Griffith Observatory", time:"7:45 PM", dur:"~2 hrs", lat:34.1184341, lng:-118.3003935, img:"images/day5-griffith.jpg", note:"Sunset + city-lights finale, Hollywood Sign in view — and the La La Land planetarium itself. Free; open till 10 PM. Grab dinner in Los Feliz on the way up (picks below)."}
+      tips_zh:[
+        "🎟️ 提前在网上买环球影城门票——比门口便宜。夏天的话，买 Express 快速通行证免排队很值。",
+        "🕘 约上午9点开门；先玩热门项目和片场之旅。环球城距西区酒店约30–40分钟。",
+        "🅿️ 停在环球影城的停车楼（约30美元），或叫车以避开停车场拥堵。",
+        "🌇 环球影城与格里菲斯只隔一座山——园区快收尾时，开15分钟就能赶上日落。"
       ],
-      crawlTitle:"🍽️ Dinner picks near Griffith (Los Feliz / Thai Town)",
-      crawlIntro:"After the park, eat ~10 min from the observatory, then head up for sunset. Pick one.",
+      stops:[
+        {name:"Universal Studios Hollywood", name_zh:"好莱坞环球影城", time:"9:00 AM", dur:"~7 hrs", lat:34.1381, lng:-118.3534, img:"images/stop-universal.jpg", note:"The working studio theme park — Super Nintendo World and the Wizarding World of Harry Potter, the world-famous back-lot Studio Tour, Jurassic World, and the Simpsons. A full day; pace it and hydrate.", note_zh:"仍在运作的影城主题乐园——超级任天堂世界、哈利波特魔法世界、举世闻名的后场片场之旅、侏罗纪世界，还有辛普森一家。玩上一整天；注意节奏，多补水。", book:true},
+        {name:"Hollywood Walk of Fame", name_zh:"好莱坞星光大道", dur:"flex", lat:34.102073, lng:-118.3409501, img:"images/stop-walk-of-fame.jpg", note:"Optional, on the way from Universal to Griffith: the stars on Hollywood Blvd + the TCL Chinese Theatre handprints. Crowded and gritty — a quick in-and-out photo if you've got energy left.", note_zh:"可选，从环球影城去格里菲斯途中：好莱坞大道上的星星，加上 TCL 中国剧院的手印。人多又杂乱——若还有精力，就快进快出拍张照。"},
+        {name:"Lake Hollywood Park", name_zh:"Lake Hollywood 公园", dur:"flex", lat:34.1268907, lng:-118.3259167, img:"images/stop-hollywood-sign.jpg", note:"Optional: the best no-hike, close-up view of the Hollywood Sign — a grassy park looking straight up at the 1923 letters, right on the way up to Griffith.", note_zh:"可选：不用徒步就能近距离看好莱坞标志的最佳地点——一座草坪公园，正对着1923年的那几个大字母，就在上格里菲斯的路上。"},
+        {name:"Griffith Observatory", name_zh:"格里菲斯天文台", time:"7:45 PM", dur:"~2 hrs", lat:34.1184341, lng:-118.3003935, img:"images/day5-griffith.jpg", note:"Sunset + city-lights finale, Hollywood Sign in view — and the La La Land planetarium itself. Free; open till 10 PM. Grab dinner in Los Feliz on the way up (picks below).", note_zh:"日落加城市灯光的压轴，好莱坞标志尽收眼底——还有《爱乐之城》里那座天文馆本馆。免费；开放到晚上10点。上山途中在 Los Feliz 吃晚饭（推荐见下）。"}
+      ],
+      crawlTitle:"🍽️ Dinner picks near Griffith (Los Feliz / Thai Town)", crawlTitle_zh:"🍽️ 格里菲斯附近的晚餐之选（Los Feliz / 泰国城）",
+      crawlIntro:"After the park, eat ~10 min from the observatory, then head up for sunset. Pick one.", crawlIntro_zh:"出园后，在距天文台约10分钟的地方吃饭，再上山看日落。挑一家。",
       food_crawl_options:[
-        {name:"Little Dom's", lat:34.1108665, lng:-118.2872699, note:"Beloved Los Feliz Italian-American — cozy, family-friendly (the easy pick)"},
-        {name:"Messhall Kitchen", lat:34.111298, lng:-118.2875992, note:"Closest to the park entrance — camp-themed, burgers/BBQ, big crowd-pleasing menu"},
-        {name:"Encanto", lat:34.1038563, lng:-118.2916784, note:"Wood-fired Baja-coastal Mexican — ceviche + asada, indoor-outdoor"},
-        {name:"Kismet", lat:34.1002762, lng:-118.2906774, note:"Acclaimed California-Mediterranean — bright, herby, a step up"},
-        {name:"Sapp Coffee Shop", lat:34.1020795, lng:-118.3032657, note:"Thai Town legend — boat noodles, cash-cheap, no frills"},
-        {name:"Pa Ord Noodle", lat:34.0985106, lng:-118.3438446, note:"Thai Town gem — roasted duck + noodles, strip-mall classic"}
+        {name:"Little Dom's", lat:34.1108665, lng:-118.2872699, note:"Beloved Los Feliz Italian-American — cozy, family-friendly (the easy pick)", note_zh:"Los Feliz 深受喜爱的意式美式餐馆——温馨、适合带家人（省心之选）"},
+        {name:"Messhall Kitchen", lat:34.111298, lng:-118.2875992, note:"Closest to the park entrance — camp-themed, burgers/BBQ, big crowd-pleasing menu", note_zh:"离园区入口最近——露营主题，汉堡/烧烤，菜单大众又讨喜"},
+        {name:"Encanto", lat:34.1038563, lng:-118.2916784, note:"Wood-fired Baja-coastal Mexican — ceviche + asada, indoor-outdoor", note_zh:"柴火下加州半岛海岸墨西哥菜——酸橘汁腌海鲜加烤肉，室内外皆可坐"},
+        {name:"Kismet", lat:34.1002762, lng:-118.2906774, note:"Acclaimed California-Mediterranean — bright, herby, a step up", note_zh:"广受好评的加州地中海菜——清新、香草味足，更精致一些"},
+        {name:"Sapp Coffee Shop", lat:34.1020795, lng:-118.3032657, note:"Thai Town legend — boat noodles, cash-cheap, no frills", note_zh:"泰国城传奇——船面，现金便宜，朴实无华"},
+        {name:"Pa Ord Noodle", lat:34.0985106, lng:-118.3438446, note:"Thai Town gem — roasted duck + noodles, strip-mall classic", note_zh:"泰国城的宝藏——烧鸭加面，商业街里的经典小店"}
       ]},
-    { day:6, date:"Fri Jul 31", title:"Downtown Core → Getty → Red-eye",
+    { day:6, date:"Fri Jul 31", date_zh:"7月31日(周五)", title:"Downtown Core → Getty → Red-eye", title_zh:"市中心核心 → 盖蒂中心 → 红眼航班",
       summary:"The last day: Downtown's historic core in the morning — the 1917 food hall, the Bradbury atrium, Angels Flight, The Broad and a Michelin lunch at Holbox — then up to the Getty in the afternoon before the short hop to LAX.",
-      tipsTitle:"🧭 Last-day logistics",
+      summary_zh:"最后一天：上午逛市中心的历史核心区——1917年的美食市集、Bradbury 大楼中庭、天使缆车、The Broad 美术馆，还有在 Holbox 吃一顿米其林午餐——下午再上盖蒂中心，然后短途前往洛杉矶机场。",
+      tipsTitle:"🧭 Last-day logistics", tipsTitle_zh:"🧭 最后一天的安排",
       tips:[
         "🧳 Check out and load the car this morning — everything today drifts back toward LAX by evening.",
         "🎟️ Reserve a free timed ticket for The Broad's 11 AM opening.",
         "🌆 The Getty closes 5:30 PM (Fri) — go after lunch, then dinner and an easy 30–40 min to LAX for the red-eye."
       ],
-      ends_with:"LAX → BOS 11:59 PM red-eye (AA miles) · arrive Boston Sat Aug 1",
-      stops:[
-        {name:"Grand Central Market", time:"9:30 AM", dur:"~45 min", lat:34.050872, lng:-118.2490552, img:"images/stop-grand-central-market.jpg", note:"The historic 1917 food hall — breakfast and coffee (a pastry, eggs, an agua fresca) to start before The Broad opens at 11."},
-        {name:"Bradbury Building", time:"10:20 AM", dur:"~20 min", lat:34.0504755, lng:-118.2478075, img:"images/stop-bradbury.jpg", note:"Across Broadway from the market — the 1893 atrium of wrought-iron staircases and golden light (Blade Runner, 500 Days of Summer). Lobby + first landing open to visitors."},
-        {name:"Angels Flight Railway", time:"10:45 AM", dur:"~10 min", lat:34.0513631, lng:-118.2502211, img:"images/stop-angels-flight.jpg", note:"\"The shortest railway in the world\" — ride the little orange funicular up Bunker Hill toward The Broad. $1, two minutes, a La La Land cameo."},
-        {name:"The Broad", time:"11:00 AM", dur:"~60 min", lat:34.0545021, lng:-118.2501802, img:"images/stop-the-broad.jpg", note:"Free modern art (Koons, Warhol, the Infinity Mirror Room). Book a timed ticket for the 11 AM opening — about an hour covers the highlights.", book:true},
-        {name:"Holbox", time:"12:30 PM", dur:"~75 min", lat:34.0173544, lng:-118.2783867, img:"images/stop-holbox.jpg", note:"Michelin-starred mariscos counter at Mercado La Paloma — tostadas, ceviche, aguachile. Counter service, no reservation. The day's main meal.", book:false},
-        {name:"The Getty", time:"2:45 PM", dur:"~2.5 hrs", lat:34.0773438, lng:-118.4732648, img:"images/day4-getty.jpg", note:"World-class art, architecture, gardens, and city-to-ocean views up on the hill. Free; parking ~$25; a tram ride up. Closes 5:30 — then dinner and the short hop to LAX. (Luggage stays in the car — you've checked out.)"}
+      tips_zh:[
+        "🧳 今早退房并把行李装车——今天的行程一路向洛杉矶机场靠拢，傍晚收尾。",
+        "🎟️ 为 The Broad 上午11点开馆预约一张免费的分时门票。",
+        "🌆 盖蒂中心（周五）下午5:30 关门——午餐后去，然后吃晚饭，再轻松开30–40分钟到洛杉矶机场赶红眼航班。"
       ],
-      crawlTitle:"🍽️ Last-bite picks before LAX",
-      crawlIntro:"Optional dinner on the way to the airport — all an easy hop to LAX. Pick one.",
+      ends_with:"LAX → BOS 11:59 PM red-eye (AA miles) · arrive Boston Sat Aug 1", ends_with_zh:"洛杉矶 → 波士顿 晚11:59 红眼航班（美航里程）· 8月1日(周六)抵达波士顿",
+      stops:[
+        {name:"Grand Central Market", name_zh:"中央市场（Grand Central Market）", time:"9:30 AM", dur:"~45 min", lat:34.050872, lng:-118.2490552, img:"images/stop-grand-central-market.jpg", note:"The historic 1917 food hall — breakfast and coffee (a pastry, eggs, an agua fresca) to start before The Broad opens at 11.", note_zh:"1917年的历史美食市集——先来份早餐和咖啡（一块点心、鸡蛋、一杯墨西哥鲜果饮），再去赶11点开馆的 The Broad。"},
+        {name:"Bradbury Building", name_zh:"Bradbury 大楼", time:"10:20 AM", dur:"~20 min", lat:34.0504755, lng:-118.2478075, img:"images/stop-bradbury.jpg", note:"Across Broadway from the market — the 1893 atrium of wrought-iron staircases and golden light (Blade Runner, 500 Days of Summer). Lobby + first landing open to visitors.", note_zh:"在市场对面的 Broadway 街——1893年的中庭，锻铁楼梯与金色光线（《银翼杀手》《和莎莫的500天》取景地）。大堂和一楼平台对游客开放。"},
+        {name:"Angels Flight Railway", name_zh:"天使缆车", time:"10:45 AM", dur:"~10 min", lat:34.0513631, lng:-118.2502211, img:"images/stop-angels-flight.jpg", note:"\"The shortest railway in the world\" — ride the little orange funicular up Bunker Hill toward The Broad. $1, two minutes, a La La Land cameo.", note_zh:"“世界上最短的铁路”——乘那辆橙色小缆车上 Bunker Hill，朝 The Broad 方向。1美元，两分钟，《爱乐之城》里露过脸。"},
+        {name:"The Broad", time:"11:00 AM", dur:"~60 min", lat:34.0545021, lng:-118.2501802, img:"images/stop-the-broad.jpg", note:"Free modern art (Koons, Warhol, the Infinity Mirror Room). Book a timed ticket for the 11 AM opening — about an hour covers the highlights.", note_zh:"免费的现代艺术（昆斯、沃霍尔、无限镜屋）。为11点开馆预约分时门票——约一小时就能看完精华。", book:true},
+        {name:"Holbox", time:"12:30 PM", dur:"~75 min", lat:34.0173544, lng:-118.2783867, img:"images/stop-holbox.jpg", note:"Michelin-starred mariscos counter at Mercado La Paloma — tostadas, ceviche, aguachile. Counter service, no reservation. The day's main meal.", note_zh:"Mercado La Paloma 里的米其林星级海鲜柜台——脆饼、酸橘汁腌海鲜、辣椒汁海鲜。柜台点餐，不接受预订。今天的正餐。", book:false},
+        {name:"The Getty", name_zh:"盖蒂中心（The Getty）", time:"2:45 PM", dur:"~2.5 hrs", lat:34.0773438, lng:-118.4732648, img:"images/day4-getty.jpg", note:"World-class art, architecture, gardens, and city-to-ocean views up on the hill. Free; parking ~$25; a tram ride up. Closes 5:30 — then dinner and the short hop to LAX. (Luggage stays in the car — you've checked out.)", note_zh:"山上世界级的艺术、建筑、花园，以及从城市到海洋的景观。免费；停车约25美元；乘缆车上山。5:30 关门——然后吃晚饭，短途前往洛杉矶机场。（行李留在车里——你们已退房。）"}
+      ],
+      crawlTitle:"🍽️ Last-bite picks before LAX", crawlTitle_zh:"🍽️ 去机场前的最后一餐之选",
+      crawlIntro:"Optional dinner on the way to the airport — all an easy hop to LAX. Pick one.", crawlIntro_zh:"去机场途中的可选晚餐——都离洛杉矶机场很近。挑一家。",
       food_crawl_options:[
-        {name:"In-N-Out (LAX)", lat:33.9580, lng:-118.3920, note:"The classic last-meal-in-California — the famous plane-spotting location right by the airport"},
-        {name:"Cassia", lat:34.0197308, lng:-118.4936551, note:"Acclaimed Southeast Asian brasserie in Santa Monica — great for a group"},
-        {name:"Felix Trattoria", lat:33.9921564, lng:-118.4718535, note:"Evan Funke's acclaimed handmade pasta on Abbot Kinney, Venice"},
-        {name:"Gjelina", lat:33.990497, lng:-118.4649651, note:"Wood-fired California institution on Abbot Kinney — reserve ahead"}
+        {name:"In-N-Out (LAX)", lat:33.9580, lng:-118.3920, note:"The classic last-meal-in-California — the famous plane-spotting location right by the airport", note_zh:"经典的“加州最后一餐”——机场旁著名的看飞机地点"},
+        {name:"Cassia", lat:34.0197308, lng:-118.4936551, note:"Acclaimed Southeast Asian brasserie in Santa Monica — great for a group", note_zh:"圣莫尼卡广受好评的东南亚风味餐馆——适合多人聚餐"},
+        {name:"Felix Trattoria", lat:33.9921564, lng:-118.4718535, note:"Evan Funke's acclaimed handmade pasta on Abbot Kinney, Venice", note_zh:"Evan Funke 备受赞誉的手工意面，威尼斯 Abbot Kinney"},
+        {name:"Gjelina", lat:33.990497, lng:-118.4649651, note:"Wood-fired California institution on Abbot Kinney — reserve ahead", note_zh:"Abbot Kinney 上的柴火加州菜老字号——需提前订位"}
       ]}
   ]
 };
 
 const FLIGHTS = [
-  { tag:"Eric · flying separately", from:"BOS", to:"SFO", when:"Out ~Jul 23–24 · back ~Aug 2–3",
+  { tag:"Eric · flying separately", tag_zh:"Eric · 单独出行", from:"BOS", to:"SFO", when:"Out ~Jul 23–24 · back ~Aug 2–3", when_zh:"去程约7月23–24日 · 返程约8月2–3日",
     note:"Heads out ahead of the family and flies home later — sorting his own arrangements.",
-    pill:{cls:"info", text:"Earlier out · later back"} },
-  { tag:"Family outbound", from:"BOS", to:"SFO", when:"Sun Jul 26 · land ~4 PM", warn:true,
-    note:"Cash nonstop · JetBlue / United / Alaska",
-    pill:{cls:"alert", text:"No AA nonstop"} },
-  { tag:"Family return · award", from:"LAX", to:"BOS", when:"Fri Jul 31 · ~10 PM red-eye",
-    note:"AA miles · arrive Boston Sat Aug 1",
-    pill:{cls:"ok", text:"AA miles"} }
+    note_zh:"比家人早几天出发，也更晚回程——自行安排行程。",
+    pill:{cls:"info", text:"Earlier out · later back", text_zh:"更早出发 · 更晚返回"} },
+  { tag:"Family outbound", tag_zh:"全家去程", from:"BOS", to:"SFO", when:"Sun Jul 26 · land ~4 PM", when_zh:"7月26日(周日)· 约下午4点抵达", warn:true,
+    note:"Cash nonstop · JetBlue / United / Alaska", note_zh:"现金购票直飞 · 捷蓝 / 美联航 / 阿拉斯加",
+    pill:{cls:"alert", text:"No AA nonstop", text_zh:"美航无直飞"} },
+  { tag:"Family return · award", tag_zh:"全家返程 · 里程票", from:"LAX", to:"BOS", when:"Fri Jul 31 · ~10 PM red-eye", when_zh:"7月31日(周五)· 约晚10点红眼航班",
+    note:"AA miles · arrive Boston Sat Aug 1", note_zh:"美航里程 · 8月1日(周六)抵达波士顿",
+    pill:{cls:"ok", text:"AA miles", text_zh:"美航里程"} }
 ];
 
 const LODGING = [
-  { loc:"San Francisco", title:"Hotel Triton — at the Dragon Gate", nights:"Sun + Mon — 2 nights",
-    hint:"342 Grant Ave, right where Union Square, the FiDi and Chinatown meet — walk to dinner Night 1. Pick up the two rental cars Monday morning and self-park overnight across the street at 327 Grant or the White House Garage a block away (~$48/night) — cheaper than the Triton's full-size valet. (Eric's earlier nights are on his own.)" },
-  { loc:"Cambria / Morro Bay", title:"Coast-drive overnight", nights:"Tue — 1 night",
-    hint:"Pushed south so Wednesday's run into LA is short and you reach the beaches by afternoon. Sleep in cozy Cambria or Morro Bay (under the Rock), just past Big Sur. Book ahead — peak summer." },
-  { loc:"Los Angeles", title:"Santa Monica / Venice (Westside)", nights:"Wed + Thu — 2 nights",
-    hint:"Land here off the coast drive Wed evening. Thursday you head east for DTLA + Griffith and drive back here to sleep; Friday stays local — Getty, beaches, Venice dinner — then a 20-min hop to LAX for the red-eye. The Fri red-eye covers the last night." }
+  { loc:"San Francisco", loc_zh:"旧金山", title:"Hotel Triton — at the Dragon Gate", title_zh:"Hotel Triton——天下为公牌坊旁", nights:"Sun + Mon — 2 nights", nights_zh:"周日 + 周一——2晚",
+    hint:"342 Grant Ave, right where Union Square, the FiDi and Chinatown meet — walk to dinner Night 1. Pick up the two rental cars Monday morning and self-park overnight across the street at 327 Grant or the White House Garage a block away (~$48/night) — cheaper than the Triton's full-size valet. (Eric's earlier nights are on his own.)",
+    hint_zh:"Grant Ave 342 号，正处在联合广场、金融区与唐人街交汇处——第一晚步行去吃晚饭。周一早上取两辆租车，过夜可自行停在街对面的 327 Grant，或一个街区外的 White House Garage（约每晚48美元）——比 Triton 的大型车代客泊车便宜。（Eric 早到的几晚自行安排。）" },
+  { loc:"Cambria / Morro Bay", title:"Coast-drive overnight", title_zh:"海岸自驾中途过夜", nights:"Tue — 1 night", nights_zh:"周二——1晚",
+    hint:"Pushed south so Wednesday's run into LA is short and you reach the beaches by afternoon. Sleep in cozy Cambria or Morro Bay (under the Rock), just past Big Sur. Book ahead — peak summer.",
+    hint_zh:"特意往南安排，好让周三进洛杉矶的路程短、下午就能到海滩。住在舒适的 Cambria 或 Morro Bay（巨岩脚下），刚过大苏尔。需提前预订——盛夏旺季。" },
+  { loc:"Los Angeles", loc_zh:"洛杉矶", title:"Santa Monica / Venice (Westside)", title_zh:"圣莫尼卡 / 威尼斯（西区）", nights:"Wed + Thu — 2 nights", nights_zh:"周三 + 周四——2晚",
+    hint:"Land here off the coast drive Wed evening. Thursday you head east for DTLA + Griffith and drive back here to sleep; Friday stays local — Getty, beaches, Venice dinner — then a 20-min hop to LAX for the red-eye. The Fri red-eye covers the last night.",
+    hint_zh:"周三傍晚结束海岸自驾后落脚于此。周四向东去市中心和格里菲斯，再开回这里过夜；周五就在附近活动——盖蒂、海滩、威尼斯晚餐——然后20分钟到洛杉矶机场赶红眼航班。周五的红眼航班顶替了最后一晚住宿。" }
 ];
 
 const CHECKLIST = [
-  { id:"ret",   text:"Family return award flight LAX→BOS", meta:"AA miles · Fri Jul 31 red-eye · book ASAP, dynamic pricing", priority:true },
-  { id:"out",   text:"Family outbound nonstop BOS→SFO", meta:"Cash on JetBlue / United / Alaska · Sun Jul 26", priority:true },
-  { id:"univ",  text:"Universal Studios tickets", meta:"Buy online ahead · consider an Express pass for summer", priority:true },
-  { id:"broad", text:"The Broad timed tickets", meta:"Free, but reserve in advance", priority:true },
-  { id:"car",   text:"Two one-way car rentals (2 cars) · SF → LAX", meta:"Pick up Mon AM in SF · Costco Travel (member) → free extra driver, all-in pricing · track on AutoSlash, price-check SIXT · 2 drivers · expect a one-way drop fee each", priority:false },
-  { id:"triton",text:"Hotel Triton — SF, 2 nights (Sun + Mon)", meta:"At Chinatown's Dragon Gate", priority:false },
-  { id:"mid",   text:"Cambria / Morro Bay overnight — 1 night (Tue)", meta:"The coast-drive overnight", priority:false },
-  { id:"la",    text:"LA hotel — Westside, 2 nights (Wed + Thu)", meta:"Santa Monica / Venice", priority:false },
-  { id:"gjelina",text:"Gjelina (or RVR) reservation", meta:"Reserve ahead", priority:false }
+  { id:"ret",   text:"Family return award flight LAX→BOS", text_zh:"全家返程里程票 洛杉矶→波士顿", meta:"AA miles · Fri Jul 31 red-eye · book ASAP, dynamic pricing", meta_zh:"美航里程 · 7月31日(周五)红眼 · 尽快预订，动态定价", priority:true },
+  { id:"out",   text:"Family outbound nonstop BOS→SFO", text_zh:"全家去程直飞 波士顿→旧金山", meta:"Cash on JetBlue / United / Alaska · Sun Jul 26", meta_zh:"现金购票，捷蓝 / 美联航 / 阿拉斯加 · 7月26日(周日)", priority:true },
+  { id:"univ",  text:"Universal Studios tickets", text_zh:"环球影城门票", meta:"Buy online ahead · consider an Express pass for summer", meta_zh:"提前网购 · 夏天可考虑 Express 快速通行证", priority:true },
+  { id:"broad", text:"The Broad timed tickets", text_zh:"The Broad 分时门票", meta:"Free, but reserve in advance", meta_zh:"免费，但需提前预约", priority:true },
+  { id:"car",   text:"Two one-way car rentals (2 cars) · SF → LAX", text_zh:"两辆单程租车（2车）· 旧金山 → 洛杉矶机场", meta:"Pick up Mon AM in SF · Costco Travel (member) → free extra driver, all-in pricing · track on AutoSlash, price-check SIXT · 2 drivers · expect a one-way drop fee each", meta_zh:"周一上午在旧金山取车 · Costco Travel（会员）→ 免费增加驾驶员、全包价 · 用 AutoSlash 跟踪、比价 SIXT · 两名驾驶员 · 预计每辆都有单程异地还车费", priority:false },
+  { id:"triton",text:"Hotel Triton — SF, 2 nights (Sun + Mon)", text_zh:"Hotel Triton——旧金山，2晚（周日 + 周一）", meta:"At Chinatown's Dragon Gate", meta_zh:"在唐人街的天下为公牌坊旁", priority:false },
+  { id:"mid",   text:"Cambria / Morro Bay overnight — 1 night (Tue)", text_zh:"Cambria / Morro Bay 过夜——1晚（周二）", meta:"The coast-drive overnight", meta_zh:"海岸自驾途中过夜", priority:false },
+  { id:"la",    text:"LA hotel — Westside, 2 nights (Wed + Thu)", text_zh:"洛杉矶酒店——西区，2晚（周三 + 周四）", meta:"Santa Monica / Venice", meta_zh:"圣莫尼卡 / 威尼斯", priority:false },
+  { id:"gjelina",text:"Gjelina (or RVR) reservation", text_zh:"Gjelina（或 RVR）订位", meta:"Reserve ahead", meta_zh:"提前预订", priority:false }
 ];
 
 const NOTES = [
-  { ic:"🚗", h:"The car", html:"<b>Two cars</b>, both one-way SF → LAX — a single 12-seat van is rough on Highway&nbsp;1 and won't clear city garages, so two SUVs carry 9 people + a week of luggage in comfort. <b>Booking via Costco Travel</b> (member): free extra driver, all-in one-way pricing, free cancellation — then track the rate on <b>AutoSlash</b> and price-check <b>SIXT</b> (no one-way fee). Two drivers, one per car for the coast. Pick them up Monday morning — the car-based city loop keeps walking light for the grandparents — and keep them through to the LAX drop." },
-  { ic:"🌁", h:"SF fog & parking", html:"July mornings are foggy and cold, especially the western half (Presidio, Lands End, Ocean Beach) — bring layers. Downtown parking at the Triton runs ~$60/night; use garages, not the street." },
-  { ic:"🎢", h:"Universal", html:"Buy tickets ahead (cheaper than the gate); an Express pass is worth it on a busy summer day. The park is 15 min from Griffith — wind down at the park, then roll over for sunset." },
-  { ic:"🗓️", h:"Monday closures", html:"The Getty, The Broad, and Griffith all close Mondays — we're in SF on Monday and hit them Thu/Fri, so we're fine." },
-  { ic:"⏱️", h:"Drive, over two days", html:"The coast is split with a southern overnight in Cambria: Tue is the long Big Sur day (~6 hrs + stops), then Wed is a short Cambria→LA run so you reach the beaches by afternoon. Don't be on Highway 1 after dark." },
-  { ic:"🚧", h:"Road conditions", html:'Check Caltrans <a href="https://quickmap.dot.ca.gov" target="_blank" rel="noopener">QuickMap</a> or dial 511 before the Big Sur drive.' },
-  { ic:"⛴️", h:"Deliberately skipped", html:"The Monterey Aquarium &amp; 17-Mile Drive (the price of the southern overnight), Alcatraz (not interested), and the Hearst Castle tour (we pass it — elephant seals instead)." }
+  { ic:"🚗", h:"The car", h_zh:"关于租车", html:"<b>Two cars</b>, both one-way SF → LAX — a single 12-seat van is rough on Highway&nbsp;1 and won't clear city garages, so two SUVs carry 9 people + a week of luggage in comfort. <b>Booking via Costco Travel</b> (member): free extra driver, all-in one-way pricing, free cancellation — then track the rate on <b>AutoSlash</b> and price-check <b>SIXT</b> (no one-way fee). Two drivers, one per car for the coast. Pick them up Monday morning — the car-based city loop keeps walking light for the grandparents — and keep them through to the LAX drop.", html_zh:"<b>两辆车</b>，都是单程 旧金山 → 洛杉矶机场——单独一辆12座面包车在1号公路上难开，也进不了城里的停车楼，所以用两辆 SUV 舒舒服服载9人加一周的行李。<b>通过 Costco Travel 预订</b>（会员）：免费增加驾驶员、单程全包价、免费取消——再用 <b>AutoSlash</b> 跟踪价格、比价 <b>SIXT</b>（无单程费）。两名驾驶员，海岸段每车一名。周一上午取车——以车代步的城市环线能让长辈少走路——一直用到在洛杉矶机场还车。" },
+  { ic:"🌁", h:"SF fog & parking", h_zh:"旧金山的雾与停车", html:"July mornings are foggy and cold, especially the western half (Presidio, Lands End, Ocean Beach) — bring layers. Downtown parking at the Triton runs ~$60/night; use garages, not the street.", html_zh:"七月的早晨多雾又冷，尤其是西半城（普雷西迪奥、Lands End、Ocean Beach）——记得带多层衣物。Triton 的市中心停车约每晚60美元；用停车楼，别停路边。" },
+  { ic:"🎢", h:"Universal", h_zh:"环球影城", html:"Buy tickets ahead (cheaper than the gate); an Express pass is worth it on a busy summer day. The park is 15 min from Griffith — wind down at the park, then roll over for sunset.", html_zh:"提前买票（比门口便宜）；夏天人多时 Express 快速通行证很值。园区离格里菲斯15分钟——在园区玩到收尾，再过去看日落。" },
+  { ic:"🗓️", h:"Monday closures", h_zh:"周一闭馆", html:"The Getty, The Broad, and Griffith all close Mondays — we're in SF on Monday and hit them Thu/Fri, so we're fine.", html_zh:"盖蒂中心、The Broad 和格里菲斯周一都闭馆——我们周一在旧金山，周四/周五才去，所以没问题。" },
+  { ic:"⏱️", h:"Drive, over two days", h_zh:"分两天的海岸自驾", html:"The coast is split with a southern overnight in Cambria: Tue is the long Big Sur day (~6 hrs + stops), then Wed is a short Cambria→LA run so you reach the beaches by afternoon. Don't be on Highway 1 after dark.", html_zh:"海岸路段拆成两天，在 Cambria 南边过夜：周二是漫长的大苏尔一天（约6小时加停留），周三则是 Cambria→洛杉矶的短途，好让你下午就到海滩。天黑后别还在1号公路上。" },
+  { ic:"🚧", h:"Road conditions", h_zh:"路况", html:'Check Caltrans <a href="https://quickmap.dot.ca.gov" target="_blank" rel="noopener">QuickMap</a> or dial 511 before the Big Sur drive.', html_zh:'大苏尔自驾前，查看 Caltrans <a href="https://quickmap.dot.ca.gov" target="_blank" rel="noopener">QuickMap</a> 或拨打 511。' },
+  { ic:"⛴️", h:"Deliberately skipped", h_zh:"刻意略过", html:"The Monterey Aquarium &amp; 17-Mile Drive (the price of the southern overnight), Alcatraz (not interested), and the Hearst Castle tour (we pass it — elephant seals instead).", html_zh:"蒙特雷水族馆与17英里路（南边过夜的代价）、恶魔岛（没兴趣），以及赫斯特城堡参观（我们路过——改看象海豹）。" }
 ];
 
 const DAY_COLORS = ["#c0492b", "#1f6f86", "#caa23a", "#e7642d", "#7a9a6e", "#9a6a9c"];
@@ -876,17 +916,76 @@ const store = {
   set:(k,v)=>{ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
 };
 
+/* ============ I18N (EN / 简体中文) ============ */
+let LANG = store.get("lang", "en");
+let MAIN_MAP = null;
+// Translate a data field: returns `${key}_zh` in Chinese mode, else the English field.
+const tr = (o,k)=> (o && LANG==="zh" && o[k+"_zh"]!=null) ? o[k+"_zh"] : (o ? o[k] : undefined);
+// Translate a stop's duration string (e.g. "~90 min" → "约90分钟").
+const trDur = (s)=>{
+  if(LANG!=="zh" || !s) return s||"";
+  if(s==="check in") return "办理入住";
+  if(s==="flex") return "灵活";
+  return s.replace("~","约").replace(" hrs","小时").replace(" hr","小时").replace(" min","分钟");
+};
+// UI literals not stored in the data.
+const UI = {
+  ourPick:        {en:"★ Our pick",                          zh:"★ 我们的推荐"},
+  hideOptions:    {en:"Hide options",                      zh:"收起选择"},
+  bookAhead:      {en:"Book ahead 🔖",                       zh:"需提前预订 🔖"},
+  openIdeas:      {en:"💬 Open to ideas",                    zh:"💬 欢迎建议"},
+  overnightLabel: {en:"Overnight",                           zh:"过夜"},
+  redeye:         {en:"✈ Red-eye home",                      zh:"✈ 红眼航班回家"},
+  flex:           {en:"flex",                                zh:"灵活"},
+  directions:     {en:"Directions",                          zh:"导航"},
+  drive:          {en:"Drive this route in Google Maps",     zh:"在 Google 地图中导航此路线"},
+  endsWith:       {en:"Ends with:",                          zh:"今日收尾："},
+  toBeBooked:     {en:"⬜ To be booked",                     zh:"⬜ 待预订"},
+  yourPick:       {en:"Your pick / notes",                   zh:"你的选择 / 备注"},
+  placeholder:    {en:"Hotel name, confirmation #, price…",  zh:"酒店名称、确认号、价格…"},
+  map:            {en:"map",                                 zh:"地图"},
+  mapDir:         {en:"Directions →",                        zh:"导航 →"},
+  expandAll:      {en:"Expand all",                          zh:"全部展开"},
+  collapseAll:    {en:"Collapse all",                        zh:"全部收起"},
+  seeOptions:     {en:(n)=>`See ${n} option${n>1?"s":""}`, zh:(n)=>`查看 ${n} 个选择`},
+  booked:         {en:(n,t)=>`${n} of ${t} booked`,          zh:(n,t)=>`已预订 ${n} / ${t}`},
+  miDriving:      {en:(mi,l)=>`≈ ${mi} mi · ${l} driving`,   zh:(mi,l)=>`≈ ${mi} 英里 · 驾车 ${l}`},
+  dayLabel:       {en:(n)=>`Day ${n}`,                       zh:(n)=>`第 ${n} 天`}
+};
+const ui = (k,...a)=>{ const v=UI[k]; if(!v) return k; const x=(v[LANG]!=null?v[LANG]:v.en); return typeof x==="function"?x(...a):x; };
+// Swap all static (HTML-authored) elements that carry data-en / data-zh.
+function applyStatic(){
+  document.documentElement.lang = (LANG==="zh" ? "zh-Hans" : "en");
+  document.querySelectorAll("[data-en]").forEach(n=>{
+    n.textContent = (LANG==="zh" && n.dataset.zh!=null) ? n.dataset.zh : n.dataset.en;
+  });
+  const lbl = document.querySelector("#langToggle .lang-label");
+  if(lbl) lbl.textContent = (LANG==="zh" ? "EN" : "中文");
+}
+function teardownMaps(){
+  document.querySelectorAll(".day").forEach(c=>{ if(c._map){ try{c._map.remove();}catch(e){} c._map=null; } });
+  if(MAIN_MAP){ try{MAIN_MAP.remove();}catch(e){} MAIN_MAP=null; }
+}
+// Re-render everything in the current language (used on toggle; maps torn down + rebuilt).
+function renderAll(){
+  teardownMaps();
+  ["#flightCards","#dayList","#lodgeCards","#priorityList","#otherList","#noteCards","#mapLegend"].forEach(s=>{ const n=$(s); if(n) n.innerHTML=""; });
+  applyStatic();
+  renderFlights(); renderDays(); renderLodging(); renderChecklist(); renderNotes(); renderMap();
+  document.querySelectorAll(".reveal").forEach(n=>n.classList.add("in"));
+}
+
 /* ============ RENDER: FLIGHTS ============ */
 function renderFlights(){
   const wrap = $("#flightCards");
   FLIGHTS.forEach(f=>{
     const c = el("div", "card flight reveal" + (f.warn?" warn":""));
     c.innerHTML = `
-      <div class="tag">${f.tag}</div>
+      <div class="tag">${tr(f,'tag')}</div>
       <div class="leg">${f.from} <span class="arr">→</span> ${f.to}</div>
-      <div class="when">${f.when}</div>
-      ${f.note?`<p>${f.note}</p>`:""}
-      ${f.pill?`<div class="pill-wrap"><span class="pill ${f.pill.cls}">${f.pill.text}</span></div>`:""}`;
+      <div class="when">${tr(f,'when')}</div>
+      ${f.note?`<p>${tr(f,'note')}</p>`:""}
+      ${f.pill?`<div class="pill-wrap"><span class="pill ${f.pill.cls}">${tr(f.pill,'text')}</span></div>`:""}`;
     wrap.appendChild(c);
   });
 }
@@ -940,14 +1039,14 @@ function initDayMap(d, color){
     const icon = L.divIcon({className:"", iconSize:[25,25], iconAnchor:[12,12],
       html:`<div class="pin num" style="background:${color}"><span>${idx+1}</span></div>`});
     L.marker([s.lat, s.lng], {icon}).addTo(map).bindPopup(
-      `<b>${s.name}</b>${s.time ? "<br>"+s.time : ""}<br><a href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener">Directions →</a>`);
+      `<b>${tr(s,'name')}</b>${s.time ? "<br>"+s.time : ""}<br><a href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener">${ui('mapDir')}</a>`);
     pts.push([s.lat, s.lng]);
   });
   map.fitBounds(pts, {padding:[34,34], maxZoom:14});
   drawRoute(map, d.stops, color).then(info => {
     if(!info) return;
     const lbl = document.getElementById("stats-day-" + d.day);
-    if(lbl) lbl.textContent = `≈ ${info.mi} mi · ${info.label} driving`;
+    if(lbl) lbl.textContent = ui('miDriving', info.mi, info.label);
   });
   return map;
 }
@@ -963,77 +1062,74 @@ function renderDays(){
     if(openState[d.day]) card.classList.add("is-open");
 
     const badges = [];
-    if(d.overnight) badges.push(`<span class="minibadge moon">🌙 Overnight · ${d.overnight}</span>`);
-    if(d.ends_with) badges.push(`<span class="minibadge plane">✈ Red-eye home</span>`);
+    if(d.overnight) badges.push(`<span class="minibadge moon">🌙 ${ui('overnightLabel')} · ${tr(d,'overnight')}</span>`);
+    if(d.ends_with) badges.push(`<span class="minibadge plane">${ui('redeye')}</span>`);
 
     const stopsHtml = d.stops.map((s,si)=>{
       const timeHtml = s.time
-        ? `<div class="time">${s.time}<br><span style="font-weight:400;color:var(--ink-faint);font-size:.78rem">${s.dur||""}</span></div>`
-        : `<div class="time tba">flex<br><span style="font-weight:400;font-size:.78rem">${s.dur||""}</span></div>`;
+        ? `<div class="time">${s.time}<br><span style="font-weight:400;color:var(--ink-faint);font-size:.78rem">${trDur(s.dur)}</span></div>`
+        : `<div class="time tba">${ui('flex')}<br><span style="font-weight:400;font-size:.78rem">${trDur(s.dur)}</span></div>`;
       const thumb = s.img
-        ? `<a class="stop-thumb" href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener" style="background-image:url('${s.img}')" aria-label="${s.name} — open in maps"></a>`
+        ? `<a class="stop-thumb" href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener" style="background-image:url('${s.img}')" aria-label="${tr(s,'name')}"></a>`
         : `<span class="stop-thumb empty" aria-hidden="true"></span>`;
-      const optCard = (o,primary)=>`<a class="opt-card${primary?" primary":""}" href="${mapsUrl(o.lat,o.lng)}" target="_blank" rel="noopener" aria-label="${o.name} — open in maps">
+      const optCard = (o,primary)=>`<a class="opt-card${primary?" primary":""}" href="${mapsUrl(o.lat,o.lng)}" target="_blank" rel="noopener" aria-label="${tr(o,'name')}">
               <span class="opt-img" style="background-image:url('${o.img}')"></span>
-              <span class="opt-cap">${primary?'<span class="opt-pick">★ Our pick</span>':""}<span class="opt-name">${o.name}</span>${o.sub?`<span class="opt-sub">${o.sub}</span>`:""}</span>
+              <span class="opt-cap">${primary?`<span class="opt-pick">${ui('ourPick')}</span>`:""}<span class="opt-name">${tr(o,'name')}</span>${o.sub?`<span class="opt-sub">${tr(o,'sub')}</span>`:""}</span>
             </a>`;
-      let gallery = "";
+      let toggleInput="", toggleBadge="", optExtra="";
       if(s.options && s.options.length){
         const gid = `optset-${d.day}-${si}`;
         const n = s.options.length;
-        gallery = `<div class="stop-gallery">
-            <input type="checkbox" id="${gid}" class="opt-toggle">
-            <label for="${gid}" class="opt-more"><span class="opt-more-pill"><span class="when-closed">See ${n} option${n>1?"s":""}</span><span class="when-open">Hide options</span></span><span class="opt-chev">▾</span></label>
-            <div class="opt-extra">${s.options.map((o,oi)=>optCard(o,oi===0)).join("")}</div>
-          </div>`;
+        toggleInput = `<input type="checkbox" id="${gid}" class="opt-toggle">`;
+        toggleBadge = `<label for="${gid}" class="opt-more"><span class="opt-more-pill"><span class="when-closed">${ui('seeOptions',n)}</span><span class="when-open">${ui('hideOptions')}</span><span class="opt-chev">▾</span></span></label>`;
+        optExtra = `<div class="opt-extra">${s.options.map((o,oi)=>optCard(o,oi===0)).join("")}</div>`;
       }
       return `
         <div class="stop">
           ${timeHtml}
           ${thumb}
           <div class="body">
-            <div class="name">${s.name} ${s.book?'<span class="book-badge">Book ahead 🔖</span>':""}${s.flexible?'<span class="flex-badge">💬 Open to ideas</span>':""}</div>
-            <p class="note">${s.note}</p>
-            ${gallery}
-            <a class="dir" href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener">${DIR_SVG} Directions</a>
+            ${toggleInput}
+            <div class="name">${tr(s,'name')} ${s.book?`<span class="book-badge">${ui('bookAhead')}</span>`:""}${s.flexible?`<span class="flex-badge">${ui('openIdeas')}</span>`:""}${toggleBadge}</div>
+            <p class="note">${tr(s,'note')}</p>
+            ${optExtra}
+            <a class="dir" href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener">${DIR_SVG} ${ui('directions')}</a>
           </div>
         </div>`;
     }).join("");
 
     const tipsHtml = (d.tips && d.tips.length)
-      ? `<div class="daytips"><h4>${d.tipsTitle || "🧭 Before you drive"}</h4><ul>${d.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>`
+      ? `<div class="daytips"><h4>${tr(d,'tipsTitle')}</h4><ul>${tr(d,'tips').map(t=>`<li>${t}</li>`).join("")}</ul></div>`
       : "";
 
     let extra = "";
     if(d.food_crawl_options){
-      const ct = d.crawlTitle || "🌮 Optional Downtown food crawl";
-      const ci = d.crawlIntro || "More Downtown bites if you've got room — pick one or two.";
-      extra += `<div class="crawl"><h4>${ct}</h4>
-        <p class="intro">${ci}</p><ul>` +
-        d.food_crawl_options.map(o=>`<li><b>${o.name}</b> — <span>${o.note}</span> · <a href="${mapsUrl(o.lat,o.lng)}" target="_blank" rel="noopener">map</a></li>`).join("") +
+      extra += `<div class="crawl"><h4>${tr(d,'crawlTitle')}</h4>
+        <p class="intro">${tr(d,'crawlIntro')}</p><ul>` +
+        d.food_crawl_options.map(o=>`<li><b>${tr(o,'name')}</b> — <span>${tr(o,'note')}</span> · <a href="${mapsUrl(o.lat,o.lng)}" target="_blank" rel="noopener">${ui('map')}</a></li>`).join("") +
         `</ul></div>`;
     }
     if(d.ends_with){
-      extra += `<div class="endswith">✈ <span><b>Ends with:</b> ${d.ends_with}</span></div>`;
+      extra += `<div class="endswith">✈ <span><b>${ui('endsWith')}</b> ${tr(d,'ends_with')}</span></div>`;
     }
 
     card.innerHTML = `
-      <button class="day-head" aria-expanded="${!!openState[d.day]}" aria-label="Day ${d.day}: ${d.title}">
-        <div class="cover-img" style="background-image:url('${cover.img}')" role="img" aria-label="${cover.cap}"></div>
+      <button class="day-head" aria-expanded="${!!openState[d.day]}" aria-label="${ui('dayLabel',d.day)}: ${tr(d,'title')}">
+        <div class="cover-img" style="background-image:url('${cover.img}')" role="img" aria-label="${tr(cover,'cap')}"></div>
         <div class="cover-scrim"></div>
         <div class="chev">›</div>
         <div class="cover-text">
           <div class="day-no"><small>DAY</small>${d.day}</div>
           <div class="day-title">
-            <h3>${d.title}</h3>
-            <div class="date">${d.date}</div>
+            <h3>${tr(d,'title')}</h3>
+            <div class="date">${tr(d,'date')}</div>
             ${badges.length?`<div class="badges">${badges.join("")}</div>`:""}
           </div>
         </div>
       </button>
-      <div class="day-body"><div><div class="day-inner"><p class="day-cap">${d.summary}</p>
+      <div class="day-body"><div><div class="day-inner"><p class="day-cap">${tr(d,'summary')}</p>
         <div class="day-map" id="map-day-${d.day}"></div>
-        <a class="route-btn" href="${gmapsRoute(d.stops)}" target="_blank" rel="noopener">${CAR_SVG} Drive this route in Google Maps</a><span class="route-stats" id="stats-day-${d.day}"></span>
+        <a class="route-btn" href="${gmapsRoute(d.stops)}" target="_blank" rel="noopener">${CAR_SVG} ${ui('drive')}</a><span class="route-stats" id="stats-day-${d.day}"></span>
         ${tipsHtml}${stopsHtml}${extra}</div></div></div>`;
 
     // Lazy-init the day map (Leaflet needs a visible container to size correctly)
@@ -1061,7 +1157,7 @@ function renderDays(){
 function syncExpandLabel(){
   const cards = [...document.querySelectorAll(".day")];
   const allOpen = cards.every(c=>c.classList.contains("is-open"));
-  $("#expandAll").textContent = allOpen ? "Collapse all" : "Expand all";
+  $("#expandAll").textContent = allOpen ? ui('collapseAll') : ui('expandAll');
 }
 $("#expandAll").addEventListener("click", ()=>{
   const cards = [...document.querySelectorAll(".day")];
@@ -1084,13 +1180,13 @@ function renderLodging(){
     const c = el("div","card reveal");
     const key = "lodge_"+i;
     c.innerHTML = `
-      <div class="status">⬜ To be booked</div>
-      <div class="loc">${l.loc}</div>
-      <h3>${l.title}</h3>
-      <div class="nights">${l.nights}</div>
-      <p class="hint">${l.hint}</p>
-      <label for="${key}">Your pick / notes</label>
-      <textarea id="${key}" placeholder="Hotel name, confirmation #, price…"></textarea>`;
+      <div class="status">${ui('toBeBooked')}</div>
+      <div class="loc">${tr(l,'loc')}</div>
+      <h3>${tr(l,'title')}</h3>
+      <div class="nights">${tr(l,'nights')}</div>
+      <p class="hint">${tr(l,'hint')}</p>
+      <label for="${key}">${ui('yourPick')}</label>
+      <textarea id="${key}" placeholder="${ui('placeholder')}"></textarea>`;
     wrap.appendChild(c);
     const ta = c.querySelector("textarea");
     ta.value = store.get(key, "");
@@ -1107,7 +1203,7 @@ function renderChecklist(){
     const row = el("div","task"+(t.priority?" priority":"")+(done[t.id]?" done":""));
     row.innerHTML = `
       <div class="box">${CHECK_SVG}</div>
-      <div class="label">${t.text}<span class="meta">${t.meta}</span></div>`;
+      <div class="label">${tr(t,'text')}<span class="meta">${tr(t,'meta')}</span></div>`;
     row.addEventListener("click", ()=>{
       const isDone = row.classList.toggle("done");
       const d = store.get("checklist", {}); d[t.id]=isDone; store.set("checklist", d);
@@ -1121,7 +1217,7 @@ function updateProgress(){
   const done = store.get("checklist", {});
   const total = CHECKLIST.length;
   const n = CHECKLIST.filter(t=>done[t.id]).length;
-  $("#progressLabel").textContent = `${n} of ${total} booked`;
+  $("#progressLabel").textContent = ui('booked', n, total);
   $("#progressBar").style.width = (n/total*100)+"%";
 }
 
@@ -1130,7 +1226,7 @@ function renderNotes(){
   const wrap = $("#noteCards");
   NOTES.forEach(n=>{
     const c = el("div","note-card reveal");
-    c.innerHTML = `<h4><span class="ic">${n.ic}</span>${n.h}</h4><p>${n.html}</p>`;
+    c.innerHTML = `<h4><span class="ic">${n.ic}</span>${tr(n,'h')}</h4><p>${tr(n,'html')}</p>`;
     wrap.appendChild(c);
   });
 }
@@ -1138,6 +1234,7 @@ function renderNotes(){
 /* ============ MAP ============ */
 function renderMap(){
   const map = L.map("map", {scrollWheelZoom:false}).setView([36.5, -120.5], 6);
+  MAIN_MAP = map;
   L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
     attribution:'&copy; OpenStreetMap &copy; CARTO', subdomains:"abcd", maxZoom:19
   }).addTo(map);
@@ -1151,8 +1248,8 @@ function renderMap(){
         html:`<div class="pin" style="width:18px;height:18px;background:${color}"></div>`
       });
       const m = L.marker([s.lat,s.lng], {icon}).addTo(map);
-      m.bindPopup(`<b>${s.name}</b><br>Day ${d.day}${s.time?" · "+s.time:""}<br>
-        <a href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener">Directions →</a>`);
+      m.bindPopup(`<b>${tr(s,'name')}</b><br>${ui('dayLabel',d.day)}${s.time?" · "+s.time:""}<br>
+        <a href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener">${ui('mapDir')}</a>`);
       bounds.push([s.lat,s.lng]);
     });
   });
@@ -1169,7 +1266,7 @@ function renderMap(){
 
   const legend = $("#mapLegend");
   DATA.days.forEach((d,i)=>{
-    legend.appendChild(el("span", null, `<i style="background:${DAY_COLORS[i]}"></i>Day ${d.day} · ${d.title}`));
+    legend.appendChild(el("span", null, `<i style="background:${DAY_COLORS[i]}"></i>${ui('dayLabel',d.day)} · ${tr(d,'title')}`));
   });
 }
 
@@ -1185,6 +1282,7 @@ function initReveal(){
 }
 
 /* ============ INIT ============ */
+applyStatic();
 renderFlights();
 renderDays();
 renderLodging();
@@ -1192,6 +1290,13 @@ renderChecklist();
 renderNotes();
 renderMap();
 initReveal();
+
+// Language toggle (EN / 简体中文) — re-renders everything in the chosen language.
+$("#langToggle")?.addEventListener("click", ()=>{
+  LANG = (LANG==="zh" ? "en" : "zh");
+  store.set("lang", LANG);
+  renderAll();
+});
 </script>
 </body>
 </html>
