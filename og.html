@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<!-- Standalone source for the social/link-preview card. Rendered to images/og-card.png at 1200x630. -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#fbf6ec; --sand:#f5ecdd;
+    --ink:#16313f; --ink-soft:#3c5562; --ink-faint:#6f8089;
+    --ocean:#1f6f86; --sunset:#e7642d; --sage:#7a9a6e; --line:#d9c9ac;
+    --fdisp:"Fraunces",Georgia,serif;
+    --fbody:"Hanken Grotesk",system-ui,sans-serif;
+  }
+  *{margin:0; padding:0; box-sizing:border-box;}
+  html,body{width:1200px; height:630px; overflow:hidden;}
+  body{
+    background:
+      radial-gradient(1200px 760px at 88% -16%, rgba(243,162,63,.32), transparent 60%),
+      radial-gradient(900px 820px at -8% 28%, rgba(31,111,134,.16), transparent 55%),
+      var(--sand);
+    font-family:var(--fbody); color:var(--ink);
+    display:flex; flex-direction:column; justify-content:center;
+    padding:64px 72px;
+  }
+  .kicker{
+    font-size:18px; font-weight:700; letter-spacing:.3em; text-transform:uppercase;
+    color:var(--sunset); margin-bottom:26px;
+  }
+  h1{
+    font-family:var(--fdisp); font-weight:600; font-size:86px;
+    line-height:.98; letter-spacing:-.015em;
+    font-variation-settings:"opsz" 144;
+  }
+  h1 .ln{display:block;}
+  h1 .ln.b{text-align:center;}
+  h1 .ln.c{text-align:right;}
+  h1 em{font-style:italic; color:var(--ocean);}
+  h1 .amp{color:var(--sunset); font-style:italic; padding:0 .04em;}
+  .route{
+    margin-top:46px; display:flex; align-items:center; gap:0;
+    font-family:var(--fdisp); font-weight:500;
+  }
+  .route .node{display:flex; align-items:center; gap:12px;}
+  .route .place{font-size:26px;}
+  .route .dot{width:14px; height:14px; border-radius:50%; background:var(--sunset);
+    box-shadow:0 0 0 5px rgba(231,100,45,.18);}
+  .route .node.b .dot{background:var(--ocean); box-shadow:0 0 0 5px rgba(31,111,134,.18);}
+  .route .node.c .dot{background:var(--sage); box-shadow:0 0 0 5px rgba(122,154,110,.2);}
+  .route .seg{flex:1 1 28px; height:2px; margin:0 18px;
+    background:repeating-linear-gradient(90deg,var(--line) 0 7px,transparent 7px 13px);}
+  .meta{
+    margin-top:30px; display:flex; gap:34px; font-size:18px; color:var(--ink-soft);
+  }
+  .meta b{color:var(--ink); font-weight:700;}
+</style>
+</head>
+<body>
+  <p class="kicker">A California Coast Road Trip · July 2026</p>
+  <h1><span class="ln a">San&nbsp;Francisco</span><span class="ln b"><span class="amp">&amp;</span> <em>Big&nbsp;Sur</em> <span class="amp">&amp;</span></span><span class="ln c">Los&nbsp;Angeles</span></h1>
+
+  <div class="route">
+    <span class="node a"><span class="dot"></span><span class="place">San Francisco</span></span>
+    <span class="seg"></span>
+    <span class="node b"><span class="dot"></span><span class="place">Big Sur</span></span>
+    <span class="seg"></span>
+    <span class="node c"><span class="dot"></span><span class="place">Los Angeles</span></span>
+  </div>
+
+  <div class="meta">
+    <span><b>6 days</b> · Sun Jul 26 – Fri Jul 31</span>
+    <span><b>2-day</b> coast drive</span>
+    <span>Home <b>Sat Aug 1</b> (red-eye)</span>
+  </div>
+</body>
+</html>
