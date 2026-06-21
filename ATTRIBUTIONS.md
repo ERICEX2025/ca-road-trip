@@ -40,6 +40,7 @@ are traveler-supplied photos, used here for personal, non-commercial trip planni
 | `images/stop-khao-tiew.jpg` | Andy Li | CC0 | [Commons](https://commons.wikimedia.org/wiki/File:Roast_Duck_Red_Curry_-_Siam_Siam_2025-09-07.jpg) |
 | `images/stop-bart.jpg` | Pi.1415926535 | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:BART_train_at_Powell_Street_station,_July_2018.jpg) |
 | `images/stop-union-square.jpg` | Nan Palmero | CC BY 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:Historic_Cable_Cars_in_Union_Square_at_Night_(14044208698).jpg) |
+| `images/stop-rental-car.jpg` | Ethan Llamas | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:2024_Chevrolet_Suburban_5.3_Z71_V8,_front_left,_06-21-2024.jpg) |
 | `images/stop-chinatown-dinner.jpg` | Yuhui | CC BY-SA 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:Chilli_crab-03.jpg) |
 | `images/stop-palace-fine-arts.jpg` | King of Hearts | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Palace_of_Fine_Arts_San_Francisco_January_2014_003.jpg) |
 | `images/stop-presidio.jpg` | Dicklyon | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Tunnel_Tops_Park_with_Alcatraz.jpg) |
