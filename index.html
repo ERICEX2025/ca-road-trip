@@ -699,6 +699,7 @@ const DATA = {
     { day:1, noCar:true, date:"Sun Jul 26", date_zh:"7月26日(周日)", title:"Land in SF · Chinatown Night", title_zh:"抵达旧金山 · 唐人街之夜",
       summary:"Family lands ~4 PM and BARTs in from the airport — no car tonight. Check into Hotel Triton, right at Chinatown's Dragon Gate, drop the bags and walk straight into Chinatown for an easy first evening.",
       summary_zh:"全家约下午4点落地，乘 BART 从机场进城——今晚不用开车。入住 Hotel Triton（就在唐人街的天下为公牌坊旁），放下行李，直接步行进唐人街，轻松度过第一晚。",
+      transit:{ origin:"SFO International Terminal, San Francisco", dest:"342 Grant Ave, San Francisco, CA", stat:"≈ 30 min · ~$11 each", stat_zh:"约30分钟 · 每人约11美元" },
       stops:[
         {name:"BART in from SFO", name_zh:"乘 BART 从机场进城", time:"~4:00 PM", dur:"~30 min", lat:37.7894, lng:-122.4017, img:"images/stop-bart.jpg", note:"No car tonight — skip the airport traffic and parking. From SFO's International Terminal (free AirTrain from any gate), take an Antioch-bound BART train straight downtown: ~30 min, about $11 each. Hop off at Montgomery St — a ~7-minute walk up to the Triton.", note_zh:"今晚不开车——省去机场堵车和停车。从旧金山机场国际航站楼（任意登机口都有免费 AirTrain 接驳），乘开往 Antioch 方向的 BART 直达市中心：约30分钟，每人约11美元。在 Montgomery St 站下车，步行约7分钟即到 Triton。"},
         {name:"Hotel Triton", time:"4:30 PM", dur:"check in", lat:37.7903, lng:-122.4053, img:"images/stop-hotel-triton.jpg", note:"Boutique hotel at 342 Grant Ave, on the corner where Union Square, the FiDi and Chinatown meet — literally at the Dragon Gate. Drop the bags; everything tonight is on foot.", note_zh:"精品酒店，位于 Grant Ave 342 号，正处在联合广场、金融区和唐人街交汇的街角——就在天下为公牌坊旁。放下行李；今晚全程步行。"},
@@ -736,8 +737,8 @@ const DATA = {
         {name:"Pick up the rental cars", name_zh:"取两辆租车", time:"~8:00 AM", dur:"~30 min", lat:37.7873, lng:-122.4095, img:"images/stop-rental-car.jpg", note:"Grab the two SUVs first thing — the Costco Travel rental, picked up at the partner branch (Avis / Budget / Alamo) downtown near Union Square, a couple of blocks from the Triton. Then the whole western loop (breakfast included) is on wheels and the walking stays light for the grandparents.", note_zh:"一早先取两辆 SUV——通过 Costco Travel 预订，在联合广场附近的市中心合作门店（Avis / Budget / Alamo）取车，离 Triton 几个街区。之后整段西区环线（连同早餐）都有车代步，长辈也能少走路。"},
         {name:"Breakfast — Ferry Building", name_zh:"早餐——渡轮大厦", time:"8:30 AM", dur:"~60 min", lat:37.7954425, lng:-122.3936136, img:"images/stop-ferry-building.jpg", note:"The Triton puts out a free continental breakfast (7–9 AM, coffee from 6) — eat there first, then a short drive to the Embarcadero's grand marketplace to round it out: proper coffee and pastries (Blue Bottle, Acme bread, local stalls) with a bay view. Park in an Embarcadero Center garage.", note_zh:"Triton 提供免费欧陆早餐（7–9点，6点起有咖啡）——先在酒店吃，然后开一小段路到 Embarcadero 海滨的宏伟市集补充一下：正经的咖啡和点心（Blue Bottle、Acme 面包、本地摊位），配着海湾景色。可停在 Embarcadero Center 的停车楼。"},
         {name:"Fisherman's Wharf & Pier 39", name_zh:"渔人码头与39号码头", time:"10:00 AM", dur:"~75 min", lat:37.8085771, lng:-122.4125282, img:"images/stop-fishermans-wharf.jpg", note:"The barking sea lions on the Pier 39 deck (free), the wharf bustle, and a first taste of clam chowder in sourdough. Then drive west toward the Marina.", note_zh:"39号码头平台上吠叫的海狮（免费）、码头的热闹，以及第一次尝酸面包盅蛤蜊浓汤。之后向西开往 Marina 区。"},
-        {name:"Fort Mason — Great Meadow", name_zh:"Fort Mason 大草坪", time:"11:30 AM", dur:"~10 min", lat:37.8052, lng:-122.4272, note:"A quick bluff-top pause on the way west — the Great Meadow's open lawn looks out over Alcatraz, the bay, and the Golden Gate framed behind the marina masts. Stay up in the car-friendly lot; it's a stretch-your-legs view stop, not a hike.", note_zh:"向西途中的快速停留——Great Meadow 开阔的草坪可眺望恶魔岛、海湾，金门大桥在帆船桅杆后若隐若现。停在上方好停车的区域即可；这是个舒展腿脚的观景点，不用爬山。"},
-        {name:"Marina Green", name_zh:"Marina Green 海滨草坪", time:"11:45 AM", dur:"~10 min", lat:37.8064, lng:-122.4416, note:"Roll along Marina Blvd to the waterfront lawn and yacht harbor — bridge dead ahead, the Palace dome just up the road. Another 10-minute leg-stretch; the quirky Wave Organ sits out on the jetty if anyone wants a peek.", note_zh:"沿 Marina Blvd 来到海滨草坪与游艇港——金门大桥正对前方，艺术宫圆顶就在前面不远。再舒展约10分钟；想看的话，码头尽头还有别致的“海浪管风琴”（Wave Organ）。"},
+        {name:"Fort Mason — Great Meadow", name_zh:"Fort Mason 大草坪", time:"11:30 AM", dur:"~10 min", lat:37.8052, lng:-122.4272, img:"images/stop-fort-mason.jpg", note:"A quick bluff-top pause on the way west — the Great Meadow's open lawn looks out over Alcatraz, the bay, and the Golden Gate framed behind the marina masts. Stay up in the car-friendly lot; it's a stretch-your-legs view stop, not a hike.", note_zh:"向西途中的快速停留——Great Meadow 开阔的草坪可眺望恶魔岛、海湾，金门大桥在帆船桅杆后若隐若现。停在上方好停车的区域即可；这是个舒展腿脚的观景点，不用爬山。"},
+        {name:"Marina Green", name_zh:"Marina Green 海滨草坪", time:"11:45 AM", dur:"~10 min", lat:37.8064, lng:-122.4416, img:"images/stop-marina-green.jpg", note:"Roll along Marina Blvd to the waterfront lawn and yacht harbor — bridge dead ahead, the Palace dome just up the road. Another 10-minute leg-stretch; the quirky Wave Organ sits out on the jetty if anyone wants a peek.", note_zh:"沿 Marina Blvd 来到海滨草坪与游艇港——金门大桥正对前方，艺术宫圆顶就在前面不远。再舒展约10分钟；想看的话，码头尽头还有别致的“海浪管风琴”（Wave Organ）。"},
         {name:"Palace of Fine Arts", name_zh:"艺术宫", time:"12:05 PM", dur:"~25 min", lat:37.8029, lng:-122.4484, img:"images/stop-palace-fine-arts.jpg", note:"The lone survivor of the 1915 World's Fair — a Roman-style rotunda mirrored in its lagoon, with swans. A quick, gorgeous photo stop on the way into the Presidio.", note_zh:"1915 年世博会唯一留存的建筑——罗马式圆顶倒映在泻湖中，还有天鹅。进普雷西迪奥途中一处惊艳的快速拍照点。"},
         {name:"Presidio — Tunnel Tops", name_zh:"普雷西迪奥——Tunnel Tops", time:"12:30 PM", dur:"~75 min", lat:37.8005, lng:-122.4662, img:"images/stop-presidio.jpg", note:"Walk around the Presidio — a former army post turned national park of forest, trails and lawns. The new Tunnel Tops park frames the bridge; grab lunch from the food trucks or the Presidio Pickup.", note_zh:"在普雷西迪奥走走——昔日军营如今变成森林、步道和草坪的国家公园。新建的 Tunnel Tops 公园正对着大桥；可在餐车或 Presidio Pickup 解决午餐。"},
         {name:"Golden Gate Bridge", name_zh:"金门大桥", time:"2:00 PM", dur:"~45 min", lat:37.8199109, lng:-122.4785598, img:"images/day1-goldengate.jpg", note:"Walk out onto the span or shoot it from the Welcome Center / Battery East. (Baker Beach, just south, gives the postcard bridge-over-the-sand view.) Then drive the coastal rim south.", note_zh:"走上桥面，或在游客中心 / Battery East 取景拍摄。（往南一点的 Baker Beach 能拍到明信片般的“沙滩后大桥”景色。）随后沿海岸边缘向南行驶。"},
@@ -959,6 +960,7 @@ const UI = {
   flex:           {en:"flex",                                zh:"灵活"},
   directions:     {en:"Directions",                          zh:"导航"},
   drive:          {en:"Drive this route in Google Maps",     zh:"在 Google 地图中导航此路线"},
+  bart:           {en:"BART from SFO in Google Maps",         zh:"在 Google 地图中查看 BART 路线"},
   endsWith:       {en:"Ends with:",                          zh:"今日收尾："},
   toBeBooked:     {en:"⬜ To be booked",                     zh:"⬜ 待预订"},
   yourPick:       {en:"Your pick / notes",                   zh:"你的选择 / 备注"},
@@ -1012,6 +1014,11 @@ function renderFlights(){
 
 /* ============ RENDER: DAYS ============ */
 const CAR_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l1.5-4.5A2 2 0 0 1 8.4 7h7.2a2 2 0 0 1 1.9 1.5L19 13"/><path d="M5 13h14v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H8v1a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z"/><circle cx="7.5" cy="15.5" r="0.6"/><circle cx="16.5" cy="15.5" r="0.6"/></svg>';
+const TRAIN_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="13" rx="2.5"/><path d="M6 10h12"/><circle cx="9" cy="13" r="0.6"/><circle cx="15" cy="13" r="0.6"/><path d="M8.5 16 6.5 20M15.5 16l2 4"/></svg>';
+// Google Maps transit directions for a no-car day (e.g. BART in from the airport)
+function gmapsTransit(t){
+  return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(t.origin)}&destination=${encodeURIComponent(t.dest)}&travelmode=transit`;
+}
 
 // Multi-stop Google Maps driving directions for a day's stops
 function gmapsRoute(stops){
@@ -1153,7 +1160,9 @@ function renderDays(){
       </button>
       <div class="day-body"><div><div class="day-inner"><p class="day-cap">${tr(d,'summary')}</p>
         <div class="day-map" id="map-day-${d.day}"></div>
-        ${d.noCar?"":`<a class="route-btn" href="${gmapsRoute(d.stops)}" target="_blank" rel="noopener">${CAR_SVG} ${ui('drive')}</a><span class="route-stats" id="stats-day-${d.day}"></span>`}
+        ${d.transit
+          ? `<a class="route-btn" href="${gmapsTransit(d.transit)}" target="_blank" rel="noopener">${TRAIN_SVG} ${ui('bart')}</a><span class="route-stats">🚆 ${tr(d.transit,'stat')}</span>`
+          : (d.noCar?"":`<a class="route-btn" href="${gmapsRoute(d.stops)}" target="_blank" rel="noopener">${CAR_SVG} ${ui('drive')}</a><span class="route-stats" id="stats-day-${d.day}"></span>`)}
         ${tipsHtml}${stopsHtml}${extra}</div></div></div>`;
 
     // Lazy-init the day map (Leaflet needs a visible container to size correctly)

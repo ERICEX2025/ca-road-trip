@@ -14,6 +14,8 @@ are traveler-supplied photos, used here for personal, non-commercial trip planni
 | `images/day4-getty.jpg` | Jelson25 | Public domain | [Commons](https://commons.wikimedia.org/wiki/File:Aerial_Getty_Museum.jpg) |
 | `images/day5-griffith.jpg` | Matthew Field | CC BY 2.5 | [Commons](https://commons.wikimedia.org/wiki/File:Griffith_observatory_2006.jpg) |
 | `images/stop-fishermans-wharf.jpg` | jjron | GFDL 1.2 | [Commons](https://commons.wikimedia.org/wiki/File:Fishermans_Wharf_Sign,_SF,_CA,_jjron_25.03.2012.jpg) |
+| `images/stop-fort-mason.jpg` | Guilhem Vellut | CC BY 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:Great_Meadow_@_Fort_Mason_@_San_Francisco_(16773288788).jpg) |
+| `images/stop-marina-green.jpg` | Simon Cobb | CC0 | [Commons](https://commons.wikimedia.org/wiki/File:Marina_Green.jpg) |
 | `images/stop-ferry-building.jpg` | JaGa | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:San_Francisco_Ferry_Building_(cropped).jpg) |
 | `images/stop-nepenthe.jpg` | Gregory Ford Henderson | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:View_from_the_terrace_at_Nepenthe.jpg) |
 | `images/stop-mcway-falls.jpg` | King of Hearts | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:McWay_Falls_Big_Sur_September_2012_002.jpg) |
