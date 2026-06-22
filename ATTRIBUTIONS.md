@@ -60,4 +60,4 @@ are traveler-supplied photos, used here for personal, non-commercial trip planni
 | `images/stop-breakfast-pastry.jpg` | Bahnfrend | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Pastries_with_coffee,_Roti%27O,_Surabaya_Pasarturi,_2025_(01).jpg) |
 | `images/stop-breakfast-la.jpg` | Infrogmation of New Orleans | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Hippie_Kitchen_Jefferson_LA_Oct_2018_Breakfast_Burrito.jpg) |
 | `images/stop-niku-x.jpg` | NIKU X | Promotional image (© NIKU X), personal use | nikux.com |
-| `images/stop-innout-lax.jpg` | Northwalker | CC0 | [Commons](https://commons.wikimedia.org/wiki/File:SW_Plane_landing_at_LAX_seen_from_Westchester_In_and_Out_Burger.jpg) |
+| `images/stop-innout-lax.jpg` | Jackg98 | CC BY 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Exterior_image_of_the_In-N-Out_Burger_location_nearest_Los_Angeles_Internation_Airport_(LAX).jpg) |
