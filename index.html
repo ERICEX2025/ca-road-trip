@@ -287,6 +287,13 @@ section{padding:46px 0; position:relative; scroll-margin-top:64px;}
   display:grid; place-items:center; border:2px solid #fff; box-shadow:0 1px 5px rgba(0,0,0,.4);
 }
 .pin.num span{color:#fff; font:700 12px/1 var(--fbody);}
+/* Faint "endpoint" pin (e.g. the airport drop) — reads as a destination, not a numbered stop */
+.pin.end{
+  width:26px; height:26px; border-radius:50%; transform:none;
+  display:grid; place-items:center; font-size:13px; line-height:1;
+  background:#fff; color:var(--ink-faint); border:2px dashed var(--ink-faint);
+  box-shadow:0 1px 4px rgba(0,0,0,.22); opacity:.9;
+}
 
 /* Per-day "before you drive" tips callout */
 .daytips{
@@ -835,30 +842,33 @@ const DATA = {
         {name:"Rustic Canyon", lat:34.0250418, lng:-118.4913256, note:"Beloved California farm-to-table, Santa Monica", note_zh:"圣莫尼卡深受喜爱的加州农场直供餐厅"}
       ]},
     { day:5, date:"Thu Jul 30", date_zh:"7月30日(周四)", title:"Universal Studios + Griffith Sunset", title_zh:"环球影城 + 格里菲斯日落",
-      summary:"A full theme-park day at Universal Studios Hollywood — the rides, the back-lot Studio Tour, the Wizarding World — then 15 minutes over the hill to Griffith Observatory for sunset and the La La Land city-lights view.",
-      summary_zh:"在好莱坞环球影城玩上一整天——各种游乐设施、后场片场之旅、哈利波特魔法世界——然后翻过山头15分钟到格里菲斯天文台，看日落和《爱乐之城》般的城市灯光。",
+      summary:"A full theme-park day at Universal Studios Hollywood — the rides, the back-lot Studio Tour, the Wizarding World — then the trip's big splurge: an all-you-can-eat A5 wagyu + seafood feast at NIKU X downtown, capped by Griffith Observatory for sunset and the La La Land city-lights view.",
+      summary_zh:"在好莱坞环球影城玩上一整天——各种游乐设施、后场片场之旅、哈利波特魔法世界——然后是本趟的奢华大餐：市中心 NIKU X 的 A5 和牛 + 海鲜自助盛宴，最后到格里菲斯天文台看日落和《爱乐之城》般的城市灯光收尾。",
       tipsTitle:"🎢 Before the park", tipsTitle_zh:"🎢 进园前",
       tips:[
         "🎟️ Buy Universal tickets online ahead — cheaper than the gate. On a summer day an Express pass is worth it to skip lines.",
         "🕘 Gates open ~9 AM; do the popular rides + Studio Tour first. Universal City is ~30–40 min from the Westside hotel.",
         "🅿️ Park in the Universal structures (~$30) or rideshare to dodge the lot crush.",
-        "🌇 Universal sits just over the hill from Griffith — when the park winds down, it's a 15-min drive to catch sunset."
+        "🌇 Universal sits just over the hill from Griffith — when the park winds down, it's a 15-min drive to catch sunset.",
+        "🥩 Tonight's the splurge — book NIKU X ahead (DTLA, opens 5 PM, ~20 min from both Universal and Griffith). Go hungry: it's unlimited A5 wagyu + seafood."
       ],
       tips_zh:[
         "🎟️ 提前在网上买环球影城门票——比门口便宜。夏天的话，买 Express 快速通行证免排队很值。",
         "🕘 约上午9点开门；先玩热门项目和片场之旅。环球城距西区酒店约30–40分钟。",
         "🅿️ 停在环球影城的停车楼（约30美元），或叫车以避开停车场拥堵。",
-        "🌇 环球影城与格里菲斯只隔一座山——园区快收尾时，开15分钟就能赶上日落。"
+        "🌇 环球影城与格里菲斯只隔一座山——园区快收尾时，开15分钟就能赶上日落。",
+        "🥩 今晚是奢华大餐——提前预订 NIKU X（市中心，下午5点开门，距环球影城和格里菲斯都约20分钟）。空着肚子去：A5 和牛 + 海鲜随意续、无限量。"
       ],
       stops:[
         {name:"Breakfast before the park", name_zh:"进园前的早餐", time:"7:45 AM", dur:"~45 min", lat:33.9979, lng:-118.4655, img:"images/stop-breakfast-la.jpg", flexible:true, note:"Early fuel before the gates — they open at 9 and Universal's 30–40 min out. Gjusta in Venice is the all-star bakery/deli for grab-and-go (egg sandwiches, pastries). Huckleberry in Santa Monica is the sit-down bakery-café if there's time. Or just eat once you're there at Universal CityWalk.", note_zh:"开门前先补充能量——9点开门，环球影城还有30–40分钟车程。威尼斯的 Gjusta 是明星烘焙熟食店，适合外带（蛋三明治、点心）。时间够的话，圣莫尼卡的 Huckleberry 是可坐下的烘焙咖啡馆。或者干脆到了环球影城在 CityWalk 里吃。"},
         {name:"Universal Studios Hollywood", name_zh:"好莱坞环球影城", time:"9:00 AM", dur:"~7 hrs", lat:34.1381, lng:-118.3534, img:"images/stop-universal.jpg", note:"The working studio theme park — Super Nintendo World and the Wizarding World of Harry Potter, the world-famous back-lot Studio Tour, Jurassic World, and the Simpsons. A full day; pace it and hydrate.", note_zh:"仍在运作的影城主题乐园——超级任天堂世界、哈利波特魔法世界、举世闻名的后场片场之旅、侏罗纪世界，还有辛普森一家。玩上一整天；注意节奏，多补水。", book:true},
         {name:"Hollywood Walk of Fame", name_zh:"好莱坞星光大道", dur:"flex", lat:34.102073, lng:-118.3409501, img:"images/stop-walk-of-fame.jpg", note:"Optional, on the way from Universal to Griffith: the stars on Hollywood Blvd + the TCL Chinese Theatre handprints. Crowded and gritty — a quick in-and-out photo if you've got energy left.", note_zh:"可选，从环球影城去格里菲斯途中：好莱坞大道上的星星，加上 TCL 中国剧院的手印。人多又杂乱——若还有精力，就快进快出拍张照。"},
         {name:"Lake Hollywood Park", name_zh:"Lake Hollywood 公园", dur:"flex", lat:34.1268907, lng:-118.3259167, img:"images/stop-hollywood-sign.jpg", note:"Optional: the best no-hike, close-up view of the Hollywood Sign — a grassy park looking straight up at the 1923 letters, right on the way up to Griffith.", note_zh:"可选：不用徒步就能近距离看好莱坞标志的最佳地点——一座草坪公园，正对着1923年的那几个大字母，就在上格里菲斯的路上。"},
-        {name:"Griffith Observatory", name_zh:"格里菲斯天文台", time:"7:45 PM", dur:"~2 hrs", lat:34.1184341, lng:-118.3003935, img:"images/day5-griffith.jpg", note:"Sunset + city-lights finale, Hollywood Sign in view — and the La La Land planetarium itself. Free; open till 10 PM. Grab dinner in Los Feliz on the way up (picks below).", note_zh:"日落加城市灯光的压轴，好莱坞标志尽收眼底——还有《爱乐之城》里那座天文馆本馆。免费；开放到晚上10点。上山途中在 Los Feliz 吃晚饭（推荐见下）。"}
+        {name:"NIKU X — A5 wagyu + seafood splurge", name_zh:"NIKU X——A5 和牛 + 海鲜奢华自助", time:"5:30 PM", dur:"~2 hrs", lat:34.0506, lng:-118.2606, img:"images/stop-niku-x.jpg", book:true, note:"The trip's big splurge. An all-you-can-eat A5 wagyu yakiniku + luxury seafood buffet — king crab, lobster, oysters, sushi — in the Wilshire Grand tower downtown, where you grill premium wagyu at your own table, unlimited. The casino-buffet-meets-wagyu feast you've been after. Opens 5 PM; ~20 min from both Universal and Griffith, so eat here then head up for the Griffith sunset (or flip it — see sunset first, then come down for a relaxed late dinner; open till 11). Book ahead.", note_zh:"本趟的奢华大餐。市中心 Wilshire Grand 大厦里的 A5 和牛烤肉 + 高级海鲜自助——帝王蟹、龙虾、生蚝、寿司——在自己餐桌上烤顶级和牛，随意续、无限量。正是你想要的“赌场自助 × 和牛”盛宴。下午5点开门；距环球影城和格里菲斯都约20分钟，可先在这吃、再上山看格里菲斯日落（或反过来——先看日落，再下山慢慢吃；营业到晚上11点）。需提前预订。"},
+        {name:"Griffith Observatory", name_zh:"格里菲斯天文台", time:"7:45 PM", dur:"~2 hrs", lat:34.1184341, lng:-118.3003935, img:"images/day5-griffith.jpg", note:"Sunset + city-lights finale, Hollywood Sign in view — and the La La Land planetarium itself. Free; open till 10 PM. Dinner is the NIKU X splurge below the hill (or a casual Los Feliz pick — see below).", note_zh:"日落加城市灯光的压轴，好莱坞标志尽收眼底——还有《爱乐之城》里那座天文馆本馆。免费；开放到晚上10点。晚餐是山下的 NIKU X 大餐（或在 Los Feliz 简单吃一家——见下）。"}
       ],
-      crawlTitle:"🍽️ Dinner picks near Griffith (Los Feliz / Thai Town)", crawlTitle_zh:"🍽️ 格里菲斯附近的晚餐之选（Los Feliz / 泰国城）",
-      crawlIntro:"After the park, eat ~10 min from the observatory, then head up for sunset. Pick one.", crawlIntro_zh:"出园后，在距天文台约10分钟的地方吃饭，再上山看日落。挑一家。",
+      crawlTitle:"🍽️ Casual alternative near Griffith (Los Feliz / Thai Town)", crawlTitle_zh:"🍽️ 格里菲斯附近的低调备选（Los Feliz / 泰国城）",
+      crawlIntro:"Skipping the NIKU X splurge? Eat ~10 min from the observatory instead, then head up for sunset. Pick one.", crawlIntro_zh:"不去 NIKU X 大吃一顿？那就在距天文台约10分钟的地方吃，再上山看日落。挑一家。",
       food_crawl_options:[
         {name:"Little Dom's", lat:34.1108665, lng:-118.2872699, note:"Beloved Los Feliz Italian-American — cozy, family-friendly (the easy pick)", note_zh:"Los Feliz 深受喜爱的意式美式餐馆——温馨、适合带家人（省心之选）"},
         {name:"Messhall Kitchen", lat:34.111298, lng:-118.2875992, note:"Closest to the park entrance — camp-themed, burgers/BBQ, big crowd-pleasing menu", note_zh:"离园区入口最近——露营主题，汉堡/烧烤，菜单大众又讨喜"},
@@ -890,6 +900,7 @@ const DATA = {
         {name:"Holbox", time:"12:30 PM", dur:"~75 min", lat:34.0173544, lng:-118.2783867, img:"images/stop-holbox.jpg", note:"Michelin-starred mariscos counter at Mercado La Paloma — tostadas, ceviche, aguachile. Counter service, no reservation. The day's main meal.", note_zh:"Mercado La Paloma 里的米其林星级海鲜柜台——脆饼、酸橘汁腌海鲜、辣椒汁海鲜。柜台点餐，不接受预订。今天的正餐。", book:false},
         {name:"The Getty", name_zh:"盖蒂中心（The Getty）", time:"2:45 PM", dur:"~2.5 hrs", lat:34.0773438, lng:-118.4732648, img:"images/day4-getty.jpg", note:"World-class art, architecture, gardens, and city-to-ocean views up on the hill. Free; parking ~$25; a tram ride up. Closes 5:30 — then dinner and the short hop to LAX. (Luggage stays in the car — you've checked out.)", note_zh:"山上世界级的艺术、建筑、花园，以及从城市到海洋的景观。免费；停车约25美元；乘缆车上山。5:30 关门——然后吃晚饭，短途前往洛杉矶机场。（行李留在车里——你们已退房。）"}
       ],
+      endPin:{name:"LAX — red-eye home", name_zh:"洛杉矶机场（LAX）——红眼回家", lat:33.9416, lng:-118.4085, note:"Straight down the 405 from the Getty · ~13 mi, 30–40 min", note_zh:"从盖蒂中心沿 405 一路向南 · 约13英里，30–40分钟"},
       crawlTitle:"🍽️ Last-bite picks before LAX", crawlTitle_zh:"🍽️ 去机场前的最后一餐之选",
       crawlIntro:"Optional dinner on the way to the airport — all an easy hop to LAX. Pick one.", crawlIntro_zh:"去机场途中的可选晚餐——都离洛杉矶机场很近。挑一家。",
       food_crawl_options:[
@@ -1103,6 +1114,17 @@ function initDayMap(d, color){
       `<b>${tr(s,'name')}</b>${s.time ? "<br>"+s.time : ""}<br><a href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener">${ui('mapDir')}</a>`);
     pts.push([s.lat, s.lng]);
   });
+  if(d.endPin){
+    const ep = d.endPin;
+    const eicon = L.divIcon({className:"", iconSize:[26,26], iconAnchor:[13,13],
+      html:`<div class="pin end">✈</div>`});
+    L.marker([ep.lat, ep.lng], {icon:eicon}).addTo(map).bindPopup(
+      `<b>${tr(ep,'name')}</b>${ep.note ? "<br>"+tr(ep,'note') : ""}<br><a href="${mapsUrl(ep.lat,ep.lng)}" target="_blank" rel="noopener">${ui('mapDir')}</a>`);
+    pts.push([ep.lat, ep.lng]);
+    // faint straight connector from the last stop to the endpoint — it's a drop, not a sightseeing leg
+    const last = d.stops[d.stops.length-1];
+    L.polyline([[last.lat,last.lng],[ep.lat,ep.lng]], {color, weight:2, opacity:.4, dashArray:'3,7'}).addTo(map);
+  }
   map.fitBounds(pts, {padding:[34,34], maxZoom:14});
   if(d.noCar){
     // No-car day (transit + on foot): show a simple dashed connector, no driving route/stats
