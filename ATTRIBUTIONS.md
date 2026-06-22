@@ -52,3 +52,7 @@ are traveler-supplied photos, used here for personal, non-commercial trip planni
 | `images/stop-haight-ashbury.jpg` | Tobias Kleinlercher / Wikipedia | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Haight-Ashbury_signs_(San_Francisco)_(TK2).JPG) |
 | `images/stop-morro-rock.jpg` | Mike Peel (www.mikepeel.net) | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Morro_Bay_2015_017.jpg) |
 | `images/stop-universal.jpg` | Breakfast221 | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Hogwarts_-_Wizarding_World_of_Harry_Potter_-_Hollywood.jpg) |
+| `images/stop-garrapata.jpg` | Joe Mabel | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Pacific_Coast_in_Garrapata_State_Park_02.jpg) |
+| `images/stop-henry-miller.jpg` | Fabrice Florin | CC BY-SA 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:Henry_Miller_Memorial_Library_(47055608744).jpg) |
+| `images/stop-sand-dollar.jpg` | U.S. National Archives | Public domain | [Commons](https://commons.wikimedia.org/wiki/File:Route_1_-_Big_Sur_Coast_Highway_-_Sand_Dollar_Picnic_Area_and_Beach_-_NARA_-_7721426.jpg) |
+| `images/stop-ragged-point.jpg` | Terry Lucas | CC BY 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Ragged_Point_Inn_(125936139).jpeg) |
