@@ -435,6 +435,15 @@ section{padding:46px 0; position:relative; scroll-margin-top:64px;}
 .pin{border-radius:50% 50% 50% 0; transform:rotate(-45deg);
   border:2px solid #fff; box-shadow:0 2px 5px rgba(0,0,0,.35);}
 
+/* Big Sur close-up photo map */
+#bigsurMap{height:clamp(380px,54vw,540px); width:100%; border-radius:var(--r); border:1px solid var(--line);
+  box-shadow:0 3px 20px -14px var(--shadow); z-index:1; margin-top:4px;}
+.bs-pop{width:212px;}
+.bs-pop img{width:100%; height:104px; object-fit:cover; border-radius:9px; display:block; margin-bottom:7px; background:var(--sand-deep);}
+.bs-pop b{font-family:var(--fdisp); font-size:1rem; display:block; line-height:1.2;}
+.bs-pop span{display:block; font-size:.83rem; color:var(--ink-soft); margin:4px 0 7px; line-height:1.4;}
+.bs-pop a{font-weight:700; font-size:.82rem;}
+
 /* ---------- Lodging ---------- */
 .lodge{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
 .lodge .card{display:flex; flex-direction:column;}
@@ -642,6 +651,15 @@ footer .small{font-size:.8rem; margin-top:8px;}
   <p class="sec-sub reveal" data-en="Every stop, pinned and colored by day. Tap a pin for directions." data-zh="每个停留点都已标注，并按天用颜色区分。点按图钉即可导航。">Every stop, pinned and colored by day. Tap a pin for directions.</p>
   <div id="map" class="reveal"></div>
   <div class="map-legend reveal" id="mapLegend"></div>
+</section>
+
+<hr class="divider wrap" />
+
+<!-- ===== Big Sur close-up map ===== -->
+<section id="bigsur-sec" class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">📸</span><h2 data-en="Big Sur, up close" data-zh="大苏尔，近看">Big Sur, up close</h2></div>
+  <p class="sec-sub reveal" data-en="The 90-mile cliff drive where the reels are shot — north (Carmel) to south (Cambria). Tap a pin to see the spot and why people stop. 📸 marks the classic photo stops." data-zh="那段90英里、刷屏短视频的悬崖海岸——从北端（Carmel）到南端（Cambria）。点按图钉查看景点及人们为何停留。📸 标记经典拍照点。">The 90-mile cliff drive where the reels are shot — north (Carmel) to south (Cambria). Tap a pin to see the spot and why people stop. 📸 marks the classic photo stops.</p>
+  <div id="bigsurMap" class="reveal"></div>
 </section>
 
 <hr class="divider wrap" />
@@ -953,6 +971,7 @@ const store = {
 /* ============ I18N (EN / 简体中文) ============ */
 let LANG = store.get("lang", "en");
 let MAIN_MAP = null;
+let BS_MAP = null;
 // Translate a data field: returns `${key}_zh` in Chinese mode, else the English field.
 const tr = (o,k)=> (o && LANG==="zh" && o[k+"_zh"]!=null) ? o[k+"_zh"] : (o ? o[k] : undefined);
 // Translate a stop's duration string (e.g. "~90 min" → "约90分钟").
@@ -1000,13 +1019,14 @@ function applyStatic(){
 function teardownMaps(){
   document.querySelectorAll(".day").forEach(c=>{ if(c._map){ try{c._map.remove();}catch(e){} c._map=null; } });
   if(MAIN_MAP){ try{MAIN_MAP.remove();}catch(e){} MAIN_MAP=null; }
+  if(BS_MAP){ try{BS_MAP.remove();}catch(e){} BS_MAP=null; }
 }
 // Re-render everything in the current language (used on toggle; maps torn down + rebuilt).
 function renderAll(){
   teardownMaps();
   ["#flightCards","#dayList","#lodgeCards","#priorityList","#otherList","#noteCards","#mapLegend"].forEach(s=>{ const n=$(s); if(n) n.innerHTML=""; });
   applyStatic();
-  renderFlights(); renderDays(); renderLodging(); renderChecklist(); renderNotes(); renderMap();
+  renderFlights(); renderDays(); renderLodging(); renderChecklist(); renderNotes(); renderMap(); renderBigSurMap();
   document.querySelectorAll(".reveal").forEach(n=>n.classList.add("in"));
   lazyImages();
 }
@@ -1317,6 +1337,42 @@ function renderMap(){
   });
 }
 
+/* ============ BIG SUR CLOSE-UP PHOTO MAP ============ */
+// North → south along Highway 1. photo:true = an iconic "reel" stop (orange pin + 📸).
+const BIGSUR_SPOTS = [
+  {name:"Carmel-by-the-Sea", lat:36.5552, lng:-121.9233, img:"images/stop-carmel.jpg", why:"Storybook village where the coast drive begins — coffee + a white-sand beach.", why_zh:"海岸自驾的起点小镇——咖啡与白沙滩。"},
+  {name:"Point Lobos", name_zh:"罗伯斯角", lat:36.5163, lng:-121.9416, img:"images/stop-point-lobos.jpg", photo:true, why:"Turquoise coves, cypress groves & otters — the 'crown jewel' (reserve ahead).", why_zh:"碧绿海湾、柏树林与海獭——“皇冠明珠”（需提前预约）。"},
+  {name:"Garrapata State Park", name_zh:"加拉帕塔州立公园", lat:36.4628, lng:-121.9303, img:"images/stop-garrapata.jpg", photo:true, why:"Free roadside cliffs, coves and a hidden beach.", why_zh:"免费的路边悬崖、海湾与隐秘海滩。"},
+  {name:"Bixby Creek Bridge", name_zh:"Bixby Creek 桥", lat:36.3715, lng:-121.9019, img:"images/day2-bixby.jpg", photo:true, why:"THE iconic Big Sur bridge — the most-filmed shot on the whole coast.", why_zh:"大苏尔的标志性大桥——整段海岸上被拍最多的画面。"},
+  {name:"Pfeiffer Beach", lat:36.2378, lng:-121.8159, img:"images/stop-pfeiffer-beach.jpg", photo:true, why:"Purple-tinged sand + the Keyhole Rock arch the sun blazes through.", why_zh:"带紫色的沙滩 + 阳光穿透的 Keyhole 拱石。"},
+  {name:"Henry Miller Library", name_zh:"亨利·米勒图书馆", lat:36.2204, lng:-121.7553, img:"images/stop-henry-miller.jpg", why:"Quirky free bookstore + coffee tucked in the redwoods, next to Nepenthe.", why_zh:"红杉林中古怪有趣的免费书店加咖啡，紧邻 Nepenthe。"},
+  {name:"Nepenthe", lat:36.2218, lng:-121.7593, img:"images/stop-nepenthe.jpg", why:"Cliffside lunch with a 40-mile ocean view — the classic Big Sur table.", why_zh:"悬崖边午餐，坐拥40英里海景——大苏尔的经典餐位。"},
+  {name:"McWay Falls", name_zh:"McWay 瀑布", lat:36.1578, lng:-121.6722, img:"images/stop-mcway-falls.jpg", photo:true, why:"An 80-ft waterfall onto a hidden cove — the other big reel classic.", why_zh:"80英尺瀑布落入隐秘海湾——另一张刷屏经典。"},
+  {name:"Sand Dollar Beach", name_zh:"沙钱海滩", lat:35.9252, lng:-121.4709, img:"images/stop-sand-dollar.jpg", why:"Big Sur's largest beach (a stairway down to the sand).", why_zh:"大苏尔最大的海滩（一段台阶下到沙滩）。"},
+  {name:"Ragged Point", name_zh:"破碎角", lat:35.7799, lng:-121.3265, img:"images/stop-ragged-point.jpg", why:"Clifftop views + the last gas, food & restrooms before the remote stretch.", why_zh:"悬崖顶景观 + 偏远路段前最后的加油、餐食与洗手间。"},
+  {name:"Elephant Seals · Piedras Blancas", name_zh:"象海豹 · Piedras Blancas", lat:35.6612, lng:-121.2566, img:"images/day3-hearst.jpg", why:"Hundreds of elephant seals on the sand — free, flat boardwalk (grandparent-easy).", why_zh:"沙滩上数百只象海豹——免费、平坦的木栈道（长辈也轻松）。"},
+  {name:"Cambria · Moonstone Beach", name_zh:"Cambria · Moonstone Beach", lat:35.5648, lng:-121.0975, img:"images/stop-cambria.jpg", why:"Your overnight — a pretty pine-and-sea village to close the big day.", why_zh:"你的过夜地——松林与海的小镇，为漫长的一天收尾。"}
+];
+function renderBigSurMap(){
+  const node = document.getElementById("bigsurMap");
+  if(!node) return;
+  const map = L.map(node, {scrollWheelZoom:false}).setView([36.05, -121.65], 9);
+  BS_MAP = map;
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+    {attribution:'&copy; OpenStreetMap &copy; CARTO', subdomains:"abcd", maxZoom:19}).addTo(map);
+  const pts = [];
+  BIGSUR_SPOTS.forEach(s=>{
+    const icon = L.divIcon({className:"", iconSize:[18,18], iconAnchor:[9,16],
+      html:`<div class="pin" style="width:16px;height:16px;background:${s.photo?'#e7642d':'#1f6f86'}"></div>`});
+    L.marker([s.lat,s.lng], {icon}).addTo(map).bindPopup(
+      `<div class="bs-pop"><img src="${s.img}" alt=""><b>${s.photo?'📸 ':''}${tr(s,'name')}</b><span>${tr(s,'why')}</span><a href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener">${ui('mapDir')}</a></div>`,
+      {maxWidth:240});
+    pts.push([s.lat,s.lng]);
+  });
+  map.fitBounds(pts, {padding:[34,28]});
+  drawRoute(map, BIGSUR_SPOTS, '#c0492b', 3);   // Highway 1 driving line through the spots
+}
+
 /* ============ REVEAL ON SCROLL ============ */
 function initReveal(){
   const io = new IntersectionObserver((entries)=>{
@@ -1350,6 +1406,7 @@ renderLodging();
 renderChecklist();
 renderNotes();
 renderMap();
+renderBigSurMap();
 initReveal();
 lazyImages();
 
