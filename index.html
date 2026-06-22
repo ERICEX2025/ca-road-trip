@@ -767,6 +767,7 @@ const DATA = {
       ],
       ends_with:"Into Cambria by ~6 PM — a quiet dinner and an early night.", ends_with_zh:"约下午6点抵达 Cambria——安静吃顿晚饭，早点休息。",
       stops:[
+        {name:"Holy Nata — pastéis de nata", name_zh:"Holy Nata——葡式蛋挞", time:"7:00 AM", dur:"~20 min", lat:37.7906, lng:-122.4033, note:"Breakfast before the big drive — the Portuguese egg-tart run. Holy Nata (8 Trinity Pl, two blocks from the Triton) bakes the city's best pastéis de nata: caramel-blistered custard in shatter-crisp pastry, original or pistachio. Open 7 AM on Tuesday, so grab a box right at the door and still roll south by 7:30. Eat them warm in the car as the coast opens up.", note_zh:"出发长途前的早餐——葡式蛋挞专程。Holy Nata（8 Trinity Pl，离 Triton 两个街区）烤出全城最好的 pastéis de nata（葡式蛋挞）：焦糖斑驳的蛋奶馅配酥脆掉渣的挞皮，有原味和开心果味。周二早7点开门，开门即到、拿一盒，依然能在 7:30 出发南下。在车上趁热吃，看海岸渐渐展开。"},
         {name:"Carmel-by-the-Sea", time:"9:30 AM", dur:"~45 min", lat:36.5552, lng:-121.9233, img:"images/stop-carmel.jpg", note:"A quick stretch in the storybook village before the cliffs — coffee on Ocean Ave, a peek at white-sand Carmel Beach. Then it's onto Highway 1.", note_zh:"在悬崖路段之前，到这座童话般的小镇舒展一下——在 Ocean Ave 喝杯咖啡，看一眼白沙的 Carmel Beach。然后驶上1号公路。"},
         {name:"More Big Sur stops — your pick", name_zh:"更多大苏尔停留点——任你挑", dur:"flex", lat:36.5000, lng:-121.9400, flexible:true, note:"Worthwhile pull-overs scattered along the drive — add any that fit your timing and energy. (For the adventurous: Salmon Creek Falls in the far south is a short hike + swim.)", note_zh:"散布在沿途、值得一停的地方——按时间和体力随意加入。（想冒险的话：最南段的 Salmon Creek 瀑布需短途徒步、可下水。）",
           options:[
@@ -1007,6 +1008,7 @@ function renderAll(){
   applyStatic();
   renderFlights(); renderDays(); renderLodging(); renderChecklist(); renderNotes(); renderMap();
   document.querySelectorAll(".reveal").forEach(n=>n.classList.add("in"));
+  lazyImages();
 }
 
 /* ============ RENDER: FLIGHTS ============ */
@@ -1114,10 +1116,10 @@ function renderDays(){
         ? `<div class="time">${s.time}<br><span style="font-weight:400;color:var(--ink-faint);font-size:.78rem">${trDur(s.dur)}</span></div>`
         : `<div class="time tba">${ui('flex')}<br><span style="font-weight:400;font-size:.78rem">${trDur(s.dur)}</span></div>`;
       const thumb = s.img
-        ? `<a class="stop-thumb" href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener" style="background-image:url('${s.img}')" aria-label="${tr(s,'name')}"></a>`
+        ? `<a class="stop-thumb" href="${mapsUrl(s.lat,s.lng)}" target="_blank" rel="noopener" data-bg="${s.img}" aria-label="${tr(s,'name')}"></a>`
         : `<span class="stop-thumb empty" aria-hidden="true"></span>`;
       const optCard = (o)=>`<a class="opt-card" href="${mapsUrl(o.lat,o.lng)}" target="_blank" rel="noopener" aria-label="${tr(o,'name')}">
-              <span class="opt-img" style="background-image:url('${o.img}')"></span>
+              <span class="opt-img" data-bg="${o.img}"></span>
               <span class="opt-cap"><span class="opt-name">${tr(o,'name')}</span>${o.sub?`<span class="opt-sub">${tr(o,'sub')}</span>`:""}</span>
             </a>`;
       let toggleInput="", toggleBadge="", optExtra="";
@@ -1158,7 +1160,7 @@ function renderDays(){
 
     card.innerHTML = `
       <button class="day-head" aria-expanded="${!!openState[d.day]}" aria-label="${ui('dayLabel',d.day)}: ${tr(d,'title')}">
-        <div class="cover-img" style="background-image:url('${cover.img}')" role="img" aria-label="${tr(cover,'cap')}"></div>
+        <div class="cover-img" data-bg="${cover.img}" role="img" aria-label="${tr(cover,'cap')}"></div>
         <div class="cover-scrim"></div>
         <div class="chev">›</div>
         <div class="cover-text">
@@ -1189,7 +1191,7 @@ function renderDays(){
       card.querySelector(".day-head").setAttribute("aria-expanded", open);
       const st = store.get("days_open", {1:true});
       st[d.day] = open; store.set("days_open", st);
-      if(open) ensureMap();
+      if(open){ ensureMap(); loadBgIn(card); }
       syncExpandLabel();
     });
 
@@ -1212,7 +1214,7 @@ $("#expandAll").addEventListener("click", ()=>{
     c.classList.toggle("is-open", !allOpen);
     c.querySelector(".day-head").setAttribute("aria-expanded", !allOpen);
     st[c.dataset.day] = !allOpen;
-    if(!allOpen && c._ensureMap) c._ensureMap();
+    if(!allOpen){ if(c._ensureMap) c._ensureMap(); loadBgIn(c); }
   });
   store.set("days_open", st);
   syncExpandLabel();
@@ -1326,6 +1328,20 @@ function initReveal(){
   });
 }
 
+/* ============ LAZY IMAGES — background photos load as you scroll near them ============ */
+let _imgIO = null;
+function setBg(el){ const u = el.getAttribute("data-bg"); if(u){ el.style.backgroundImage = `url('${u}')`; el.removeAttribute("data-bg"); } }
+// Force-load every deferred image inside a subtree (used when a day/options expands)
+function loadBgIn(root){ (root||document).querySelectorAll("[data-bg]").forEach(setBg); }
+function lazyImages(){
+  if(!("IntersectionObserver" in window)){ loadBgIn(); return; }   // no IO support → just load all
+  if(_imgIO) _imgIO.disconnect();
+  _imgIO = new IntersectionObserver((entries, obs)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ setBg(e.target); obs.unobserve(e.target); } });
+  }, {rootMargin:"500px"});   // start fetching ~500px before it scrolls into view
+  document.querySelectorAll("[data-bg]").forEach(el=>_imgIO.observe(el));
+}
+
 /* ============ INIT ============ */
 applyStatic();
 renderFlights();
@@ -1335,6 +1351,7 @@ renderChecklist();
 renderNotes();
 renderMap();
 initReveal();
+lazyImages();
 
 // Language toggle (EN / 简体中文) — re-renders everything in the chosen language.
 $("#langToggle")?.addEventListener("click", ()=>{
