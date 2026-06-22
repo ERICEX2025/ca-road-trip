@@ -56,3 +56,6 @@ are traveler-supplied photos, used here for personal, non-commercial trip planni
 | `images/stop-henry-miller.jpg` | Fabrice Florin | CC BY-SA 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:Henry_Miller_Memorial_Library_(47055608744).jpg) |
 | `images/stop-sand-dollar.jpg` | U.S. National Archives | Public domain | [Commons](https://commons.wikimedia.org/wiki/File:Route_1_-_Big_Sur_Coast_Highway_-_Sand_Dollar_Picnic_Area_and_Beach_-_NARA_-_7721426.jpg) |
 | `images/stop-ragged-point.jpg` | Terry Lucas | CC BY 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Ragged_Point_Inn_(125936139).jpeg) |
+| `images/stop-cambria.jpg` | Stilfehler | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Cambria,_CA_23.jpg) |
+| `images/stop-breakfast-pastry.jpg` | Bahnfrend | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Pastries_with_coffee,_Roti%27O,_Surabaya_Pasarturi,_2025_(01).jpg) |
+| `images/stop-breakfast-la.jpg` | Infrogmation of New Orleans | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Hippie_Kitchen_Jefferson_LA_Oct_2018_Breakfast_Burrito.jpg) |
