@@ -835,7 +835,7 @@ const DATA = {
         {name:"Sapp Coffee Shop", lat:34.1020795, lng:-118.3032657, note:"Thai Town legend — boat noodles, cash-cheap, no frills", note_zh:"泰国城传奇——船面，现金便宜，朴实无华"},
         {name:"Pa Ord Noodle", lat:34.0985106, lng:-118.3438446, note:"Thai Town gem — roasted duck + noodles, strip-mall classic", note_zh:"泰国城的宝藏——烧鸭加面，商业街里的经典小店"}
       ]},
-    { day:6, date:"Fri Jul 31", date_zh:"7月31日(周五)", title:"Downtown Core → Getty → Red-eye", title_zh:"市中心核心 → 盖蒂中心 → 红眼航班",
+    { day:6, redeye:true, date:"Fri Jul 31", date_zh:"7月31日(周五)", title:"Downtown Core → Getty → Red-eye", title_zh:"市中心核心 → 盖蒂中心 → 红眼航班",
       summary:"The last day: Downtown's historic core in the morning — the 1917 food hall, the Bradbury atrium, Angels Flight, The Broad and a Michelin lunch at Holbox — then up to the Getty in the afternoon before the short hop to LAX.",
       summary_zh:"最后一天：上午逛市中心的历史核心区——1917年的美食市集、Bradbury 大楼中庭、天使缆车、The Broad 美术馆，还有在 Holbox 吃一顿米其林午餐——下午再上盖蒂中心，然后短途前往洛杉矶机场。",
       tipsTitle:"🧭 Last-day logistics", tipsTitle_zh:"🧭 最后一天的安排",
@@ -1088,7 +1088,7 @@ function renderDays(){
 
     const badges = [];
     if(d.overnight) badges.push(`<span class="minibadge moon">🌙 ${ui('overnightLabel')} · ${tr(d,'overnight')}</span>`);
-    if(d.ends_with) badges.push(`<span class="minibadge plane">${ui('redeye')}</span>`);
+    if(d.redeye) badges.push(`<span class="minibadge plane">${ui('redeye')}</span>`);
 
     const stopsHtml = d.stops.map((s,si)=>{
       const timeHtml = s.time
