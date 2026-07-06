@@ -904,16 +904,16 @@ const DATA = {
 };
 
 const FLIGHTS = [
-  { tag:"Eric · flying separately", tag_zh:"Eric · 单独出行", from:"BOS", to:"SFO", when:"Out ~Jul 23–24 · back ~Aug 2–3", when_zh:"去程约7月23–24日 · 返程约8月2–3日",
-    note:"Heads out ahead of the family and flies home later — sorting his own arrangements.",
-    note_zh:"比家人早几天出发，也更晚回程——自行安排行程。",
-    pill:{cls:"info", text:"Earlier out · later back", text_zh:"更早出发 · 更晚返回"} },
-  { tag:"Family outbound · booked", tag_zh:"全家去程 · 已订", from:"BOS", to:"SFO", when:"Wed Jul 29 · land ~noon", when_zh:"7月29日(周三)· 约中午抵达",
-    note:"Cash nonstop · ~$128/pp", note_zh:"现金购票直飞 · 每人约128美元",
-    pill:{cls:"ok", text:"Booked ✓", text_zh:"已预订 ✓"} },
-  { tag:"Family return", tag_zh:"全家返程", from:"LAX", to:"BOS", when:"Mon Aug 3 · ~9 PM red-eye", when_zh:"8月3日(周一)· 约晚9点红眼航班",
-    note:"Cash red-eye · ~$142/pp · arrive Boston Tue Aug 4", note_zh:"现金红眼 · 每人约142美元 · 8月4日(周二)抵达波士顿",
-    pill:{cls:"ok", text:"~$142/pp", text_zh:"每人约142美元"} }
+  { tag:"Eric · flying separately", tag_zh:"Eric · 单独出行", from:"BOS", to:"SFO", when:"Out ~Jul 23–24 · back Mon Aug 3 red-eye", when_zh:"去程约7月23–24日 · 返程8月3日(周一)红眼",
+    note:"Out ahead of the family, home on the same Aug 3 red-eye. Outbound sponsored by YC (free); return $200.",
+    note_zh:"比家人早出发，返程搭同一班8月3日红眼。去程由 YC 赞助（免费）；返程200美元。",
+    pill:{cls:"info", text:"Out free (YC) · $200 back", text_zh:"去程免费(YC) · 返程200美元"} },
+  { tag:"Family outbound · booked", tag_zh:"全家去程 · 已订", from:"BOS", to:"SFO", when:"Wed Jul 29 · land 11:54 AM", when_zh:"7月29日(周三)· 11:54 抵达",
+    note:"Cash nonstop (JetBlue) · $770.40 total for 6 (~$128/pp)", note_zh:"现金直飞（捷蓝）· 6人共 $770.40（每人约128美元）",
+    pill:{cls:"ok", text:"$770.40 · booked ✓", text_zh:"$770.40 · 已订 ✓"} },
+  { tag:"Family return", tag_zh:"全家返程", from:"LAX", to:"BOS", when:"Mon Aug 3 · 9:00 PM red-eye", when_zh:"8月3日(周一)· 晚9:00 红眼航班",
+    note:"Cash red-eye · $150/pp × 6 = $900 · arrive Boston 5:30 AM Tue Aug 4", note_zh:"现金红眼 · 每人150美元 × 6 = 900美元 · 8月4日(周二)5:30 抵达波士顿",
+    pill:{cls:"ok", text:"$900 · 6 seats", text_zh:"$900 · 6 座"} }
 ];
 
 const LODGING = [
@@ -929,8 +929,8 @@ const LODGING = [
 ];
 
 const CHECKLIST = [
-  { id:"ret",   text:"Family return flight LAX→BOS", text_zh:"全家返程航班 洛杉矶→波士顿", meta:"Cash red-eye · Mon Aug 3 · ~$142/pp · AA miles saved for Hong Kong", meta_zh:"现金红眼 · 8月3日(周一)· 每人约142美元 · 美航里程留给香港", priority:true },
-  { id:"out",   text:"Family outbound nonstop BOS→SFO", text_zh:"全家去程直飞 波士顿→旧金山", meta:"Cash nonstop · Wed Jul 29 · booked ✓", meta_zh:"现金直飞 · 7月29日(周三)· 已预订 ✓", priority:true },
+  { id:"ret",   text:"Family return flight LAX→BOS", text_zh:"全家返程航班 洛杉矶→波士顿", meta:"Cash red-eye · Mon Aug 3, 9 PM · $150/pp × 6 = $900 · AA miles saved for Hong Kong", meta_zh:"现金红眼 · 8月3日(周一)晚9点 · 每人150美元 × 6 = 900美元 · 美航里程留给香港", priority:true },
+  { id:"out",   text:"Family outbound nonstop BOS→SFO", text_zh:"全家去程直飞 波士顿→旧金山", meta:"Cash nonstop · Wed Jul 29 · $770.40 total for 6 · booked ✓", meta_zh:"现金直飞 · 7月29日(周三)· 6人共 $770.40 · 已预订 ✓", priority:true },
   { id:"univ",  text:"Universal Studios tickets (Sun Aug 2)", text_zh:"环球影城门票（8月2日周日）", meta:"Buy online ahead · consider an Express pass for summer", meta_zh:"提前网购 · 夏天可考虑 Express 快速通行证", priority:true },
   { id:"sierra", text:"Cafe Sierra reservation — dinner for 7 (Sun Aug 2)", text_zh:"Cafe Sierra 订位——7人晚餐（8月2日周日）", meta:"At the Hilton by Universal · weekend-only · book on OpenTable, 7-tops fill fast", meta_zh:"环球影城旁希尔顿酒店内 · 仅周末 · OpenTable 预订，7人桌很快订满", priority:true },
   { id:"car",   text:"One-way minivan rental · SF → LAX", text_zh:"单程七座商务车租车 · 旧金山 → 洛杉矶机场", meta:"Pick up Thu AM, downtown SF · Costco (Alamo Pacifica, ~$994, pay-later, free 2nd driver) · track on AutoSlash · pay with a card that covers rental CDW", meta_zh:"周四上午在旧金山市区取车 · Costco（Alamo Pacifica，约994美元，可后付、免费第二驾驶员）· 用 AutoSlash 跟踪 · 用含租车碰撞险的信用卡付款", priority:false },
