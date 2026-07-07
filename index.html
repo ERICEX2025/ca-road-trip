@@ -681,7 +681,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
 <!-- ===== Lodging ===== -->
 <section id="lodging" class="wrap">
   <div class="sec-head reveal"><span class="sec-num">04</span><h2 data-en="Where we sleep" data-zh="住宿安排">Where we sleep</h2></div>
-  <p class="sec-sub reveal" data-en="SF is booked ✓ — the coast night and LA still to lock. Jot your picks below — notes save in this browser." data-zh="旧金山已预订 ✓——海岸过夜与洛杉矶待定。在下方记下你的选择——备注会保存在此浏览器中。">SF is booked ✓ — the coast night and LA still to lock. Jot your picks below — notes save in this browser.</p>
+  <p class="sec-sub reveal" data-en="SF and the coast night are booked ✓. Just LA left to lock. Jot your picks below; notes save in this browser." data-zh="旧金山与海岸过夜已预订 ✓。只剩洛杉矶待定。在下方记下你的选择；备注会保存在此浏览器中。">SF and the coast night are booked ✓. Just LA left to lock. Jot your picks below; notes save in this browser.</p>
   <div class="lodge" id="lodgeCards"></div>
 </section>
 
@@ -788,7 +788,7 @@ const DATA = {
     { day:3, date:"Fri Jul 31", date_zh:"7月31日(周五)", title:"Coast Drive I · The Big Sur Cliffs", title_zh:"海岸自驾(一)· 大苏尔的悬崖",
       summary:"The big scenic push — straight down Highway 1 through Big Sur to an overnight in Cambria, so tomorrow's run into LA is short and you reach the beaches by afternoon. Long but unforgettable.",
       summary_zh:"最壮观的一段——沿1号公路一路穿过大苏尔，到 Cambria 过夜，这样明天进洛杉矶的路程就短，下午就能到海滩。路途漫长，但难以忘怀。",
-      overnight:"Cambria / Morro Bay",
+      overnight:"Cayucos",
       tipsTitle:"🧭 Before you drive", tipsTitle_zh:"🧭 出发上路前",
       tips:[
         "🚗 Long day — about 6 hrs of driving plus stops. Coffee + a light bite at the house, roll out by ~8, and save a proper breakfast for Lafayette Bakery when you reach Carmel.",
@@ -802,7 +802,7 @@ const DATA = {
         "⛽ 在 Carmel/Monterey 加满油——大苏尔加油站稀少（约每加仑6美元），且有很长一段完全没有。",
         "📵 大苏尔大部分路段没有手机信号——出发前先下载离线地图。"
       ],
-      ends_with:"Into Cambria by ~6 PM — a quiet dinner and an early night.", ends_with_zh:"约傍晚6点抵达 Cambria——安静吃顿晚饭，早点休息。",
+      ends_with:"Into the Cayucos beach house by ~5 PM, dinner in town, and an easy beach-house night.", ends_with_zh:"约傍晚5点住进 Cayucos 海滨别墅，在镇上吃晚饭，度过悠闲的海滨之夜。",
       stops:[
         {name:"17-Mile Drive · Pebble Beach", name_zh:"17英里路 · 圆石滩", time:"10:15 AM", dur:"~60 min", lat:36.5686, lng:-121.9668, img:"images/stop-point-lobos.jpg", note:"Your taste of the Monterey Peninsula — a scenic private loop through Pebble Beach ($12/car, reimbursed if you dine there). Enter at Monterey, wind past the coastline and the famous Lone Cypress, and exit the Carmel gate straight onto your route south. No hiking — just drive, pull over, snap photos. (July mornings can be foggy on this coast; it burns off by late morning.)", note_zh:"你们对蒙特雷半岛的初体验——一段穿过圆石滩（Pebble Beach）的私人景观环线（每车12美元，若在园区内用餐可返还）。从 Monterey 进入，沿海岸绕行、经过著名的 Lone Cypress 孤柏，再从 Carmel 门驶出，正好接上南下的路线。无需徒步——开车、靠边、拍照即可。（七月早晨这段海岸多雾，临近中午才散。）"},
         {name:"Lafayette Bakery — Carmel breakfast", name_zh:"Lafayette Bakery——Carmel 早餐", time:"11:15 AM", dur:"~45 min", lat:36.5388, lng:-121.9008, img:"images/stop-breakfast-pastry.jpg", note:"Roll into Carmel with a proper French breakfast — Lafayette Bakery & Café, a family-run Lyon-to-Carmel spot in the Barnyard (right off Highway 1): warm croissants, café au lait, and homemade pastries. Grab a couple of their sandwiches to-go too — food's sparse down the Big Sur coast, so this doubles as your picnic lunch.", note_zh:"进 Carmel 就来顿地道的法式早餐——Lafayette Bakery & Café，一家从里昂来到 Carmel、家族经营的面包房，位于 Barnyard（就在1号公路旁）：热可颂、欧蕾咖啡和自制点心。顺便买几份三明治外带——大苏尔一路吃的很少，正好当野餐午餐。"},
@@ -820,7 +820,7 @@ const DATA = {
         {name:"Nepenthe", time:"", dur:"flex", lat:36.2218365, lng:-121.7592895, img:"images/stop-nepenthe.jpg", optional:true, note:"Optional now that lunch is in Carmel — but this famous Big Sur cliffside terrace, with a 40-mile ocean view, is a lovely coffee-or-a-drink pull-over if you want a break (grab-and-go from Café Kevah just below if there's a wait).", note_zh:"既然午餐改在 Carmel，这里就成了可选——但这处著名的大苏尔悬崖露台、40英里海景，若想歇歇脚，是喝杯咖啡或小酌的好去处（要等位就到下方的 Café Kevah 外带）。"},
         {name:"McWay Falls", name_zh:"McWay 瀑布", time:"1:45 PM", dur:"~30 min", lat:36.1578259, lng:-121.6721628, img:"images/stop-mcway-falls.jpg", note:"The Big Sur stop not to skip — an 80-ft waterfall dropping onto a hidden cove, and it's just a 5-minute walk from the road to the famous overlook. Highest reward-per-minute on the whole drive (~$10 day-use, cash).", note_zh:"大苏尔最不该错过的一站——80英尺高的瀑布落入隐秘海湾，从公路只需步行5分钟就到那个著名的观景点。全程性价比最高的一停（日间使用费约10美元，现金）。"},
         {name:"Elephant Seal Vista · San Simeon", name_zh:"象海豹观景台 · San Simeon", time:"3:15 PM", dur:"~30 min", lat:35.6612, lng:-121.2566, img:"images/day3-hearst.jpg", note:"Free boardwalk at Piedras Blancas — hundreds of elephant seals on the sand, just north of Cambria. The last stop before you check in for the night.", note_zh:"Piedras Blancas 的免费木栈道——沙滩上数百只象海豹，就在 Cambria 以北。入住过夜前的最后一站。"},
-        {name:"Dinner in Cambria", name_zh:"Cambria 晚餐", time:"6:30 PM", dur:"~75 min", lat:35.5556, lng:-121.0876, img:"images/stop-cambria.jpg", flexible:true, note:"A quiet small-town dinner to close the big coast day. Robin's is the easy crowd-pleaser — a leafy garden patio and a globe-trotting, veggie-friendly menu. Linn's is the homey Cambria classic: comfort food and the famous olallieberry pie. Or for seafood, The Sea Chest on Moonstone Beach is the cult oyster bar — cash only, no reservations, so the line forms before it opens at 5:30.", note_zh:"为漫长的海岸日画上句点的安静小镇晚餐。Robin's 最稳妥讨喜——绿意盎然的花园露台，菜式环球、也照顾素食。Linn's 是温馨的 Cambria 经典：家常舒心菜，还有招牌的 olallieberry（露莓）派。喜欢海鲜的话，Moonstone Beach 海滨的 The Sea Chest 是人气生蚝吧——只收现金、不接受预订，5:30 开门前就开始排队。"}
+        {name:"Dinner in Cayucos or Cambria", name_zh:"Cayucos 或 Cambria 晚餐", time:"6:30 PM", dur:"~75 min", lat:35.4427, lng:-121.0607, img:"images/stop-cambria.jpg", flexible:true, note:"A quiet small-town dinner to close the big coast day. You're staying in Cayucos, which has walkable spots right by the house: Ruddell's Smokehouse for smoked-fish tacos, or Schooners Wharf on the beach. Or it's about 15 min back up to Cambria for the classics: Robin's (leafy patio, veggie-friendly), Linn's (comfort food and olallieberry pie), or The Sea Chest oyster bar on Moonstone Beach (cash only, no reservations, so the line forms before it opens at 5:30).", note_zh:"为漫长的海岸日画上句点的安静小镇晚餐。你们住在 Cayucos，房子旁就有可步行的餐馆：Ruddell's Smokehouse 的烟熏鱼塔可，或海滩上的 Schooners Wharf。或往北约15分钟回 Cambria 吃经典：Robin's（绿意露台、照顾素食）、Linn's（家常菜与 olallieberry 露莓派），或 Moonstone Beach 海滨的 The Sea Chest 生蚝吧（只收现金、不接受预订，5:30 开门前就开始排队）。"}
       ]},
     { day:4, date:"Sat Aug 1", date_zh:"8月1日(周六)", title:"Coast Drive II · Cambria to LA Beaches", title_zh:"海岸自驾(二)· 从 Cambria 到洛杉矶海滩",
       summary:"A short, easy run down into LA — Morro Rock, the Malibu coast — arriving on the Westside by early afternoon, with the whole evening for the beaches: Santa Monica Pier, Venice, sunset on the sand, and dinner on Abbot Kinney.",
@@ -936,9 +936,9 @@ const LODGING = [
   { loc:"San Francisco", loc_zh:"旧金山", title:"Whole house in Daly City ✓ Booked", title_zh:"Daly City 整套房 ✓ 已预订", nights:"Wed + Thu — 2 nights", nights_zh:"周三 + 周四——2晚",
     hint:"327 Crocker Ave, Daly City — a whole 5-bed / 3-bath house, so everyone gets their own bed, plus a full kitchen, backyard, and 4 free parking spaces. A safe residential neighborhood ~15 min south of the city and 5 min from SFO. Guest Favorite (4.87 · 422 reviews) — $1,171 all-in, confirmed (HM9DMHYZ59). Grab the rental car right at SFO on arrival so you can drive straight there.",
     hint_zh:"327 Crocker Ave, Daly City——整套 5 卧 / 3 卫的房子，人人都有自己的床，还有齐全的厨房、后院和 4 个免费停车位。安全的住宅区，距市区约15分钟、距 SFO 仅5分钟。Guest Favorite（4.87 · 422 条评价）——$1,171 全包，已确认（HM9DMHYZ59）。落地后直接在 SFO 取租车，开过去即可。" },
-  { loc:"Cambria / Morro Bay", title:"Coast-drive overnight", title_zh:"海岸自驾中途过夜", nights:"Fri — 1 night", nights_zh:"周五——1晚",
-    hint:"Pushed south so Saturday's run into LA is short and you reach the beaches by afternoon. Sleep in cozy Cambria or Morro Bay (under the Rock), just past Big Sur. Book ahead — peak summer.",
-    hint_zh:"特意往南安排，好让周六进洛杉矶的路程短、下午就能到海滩。住在舒适的 Cambria 或 Morro Bay（巨岩脚下），刚过大苏尔。需提前预订——盛夏旺季。" },
+  { loc:"Cayucos", loc_zh:"Cayucos（卡尤科斯）", title:"Cayucos beach house ✓ Booked", title_zh:"Cayucos 海滨别墅 ✓ 已预订", nights:"Fri — 1 night", nights_zh:"周五——1晚",
+    hint:"360 North Ocean Ave, Cayucos. A 4-bedroom beach house (sleeps 10) steps from the sand, pier, and downtown, with ocean views, a full kitchen, a BBQ, and a game room (pool table and arcade). Guest Favorite (4.97), Superhost. Check-in Fri 4 PM, checkout Sat 10 AM. Cayucos sits between Cambria and Morro Bay, about 7 min from Morro Rock for Saturday's start.",
+    hint_zh:"360 North Ocean Ave，Cayucos。一栋 4 卧的海滨别墅（可住10人），离沙滩、栈桥和小镇中心只有几步，带海景、全套厨房、烧烤架，还有游戏室（台球桌和街机）。Guest Favorite（4.97）、超赞房东。周五下午4点入住，周六上午10点退房。Cayucos 位于 Cambria 与 Morro Bay 之间，距 Morro Rock 约7分钟，正好接上周六的行程。" },
   { loc:"Los Angeles", loc_zh:"洛杉矶", title:"Santa Monica / Venice (Westside)", title_zh:"圣莫尼卡 / 威尼斯（西区）", nights:"Sat + Sun — 2 nights", nights_zh:"周六 + 周日——2晚",
     hint:"Land here off the coast drive Saturday (Getty on the way in). Sunday is Universal, the Cafe Sierra feast, and the Griffith sunset. Monday: downtown's historic core and an easy Westside afternoon, then a 20-min hop to LAX for the ~9 PM red-eye. The Mon red-eye covers the last night.",
     hint_zh:"周六结束海岸自驾后落脚于此（盖蒂在进城途中顺道）。周日是环球影城、Cafe Sierra 大餐和格里菲斯日落。周一：市中心历史核心区加西区轻松的下午，然后20分钟到洛杉矶机场赶约晚9点的红眼航班。周一的红眼航班顶替了最后一晚住宿。" }
@@ -951,7 +951,7 @@ const CHECKLIST = [
   { id:"sierra", text:"Cafe Sierra reservation — dinner for 7 (Sun Aug 2)", text_zh:"Cafe Sierra 订位——7人晚餐（8月2日周日）", meta:"At the Hilton by Universal · weekend-only · book on OpenTable, 7-tops fill fast", meta_zh:"环球影城旁希尔顿酒店内 · 仅周末 · OpenTable 预订，7人桌很快订满", priority:true },
   { id:"car",   text:"One-way minivan rental · SF → LAX", text_zh:"单程七座商务车租车 · 旧金山 → 洛杉矶机场", meta:"Pick up Thu AM, downtown SF · Costco (Alamo Pacifica, ~$994, pay-later, free 2nd driver) · track on AutoSlash · pay with a card that covers rental CDW", meta_zh:"周四上午在旧金山市区取车 · Costco（Alamo Pacifica，约994美元，可后付、免费第二驾驶员）· 用 AutoSlash 跟踪 · 用含租车碰撞险的信用卡付款", priority:false },
   { id:"triton",text:"SF lodging ✓ BOOKED — Daly City house", text_zh:"旧金山住宿 ✓ 已预订——Daly City 整套房", meta:"327 Crocker Ave · $1,171 all-in · conf. HM9DMHYZ59", meta_zh:"327 Crocker Ave · $1,171 全包 · 确认号 HM9DMHYZ59", priority:false },
-  { id:"mid",   text:"Cambria / Morro Bay overnight — 1 night (Fri)", text_zh:"Cambria / Morro Bay 过夜——1晚（周五）", meta:"The coast-drive overnight", meta_zh:"海岸自驾途中过夜", priority:false },
+  { id:"mid",   text:"Coast night ✓ BOOKED — Cayucos beach house (Fri)", text_zh:"海岸过夜 ✓ 已预订——Cayucos 海滨别墅（周五）", meta:"360 N Ocean Ave · 4BR, sleeps 10 · check-in Fri 4 PM", meta_zh:"360 N Ocean Ave · 4卧可住10人 · 周五下午4点入住", priority:false },
   { id:"la",    text:"LA hotel — Westside, 2 nights (Sat + Sun)", text_zh:"洛杉矶酒店——西区，2晚（周六 + 周日）", meta:"Santa Monica / Venice", meta_zh:"圣莫尼卡 / 威尼斯", priority:false },
   { id:"gjelina",text:"Gjelina (or RVR) reservation (Sat Aug 1)", text_zh:"Gjelina（或 RVR）订位（8月1日周六）", meta:"Reserve ahead", meta_zh:"提前预订", priority:false }
 ];
