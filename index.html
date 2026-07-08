@@ -352,24 +352,13 @@ section{padding:46px 0; position:relative; scroll-margin-top:64px;}
   background:var(--sand-deep); color:var(--ink-faint);
   padding:3px 10px; border-radius:999px; white-space:nowrap; border:1px solid var(--line);
 }
-/* Per-day spend receipt at the bottom of each day card */
-.dayspend{
-  margin-top:18px; padding:15px 18px; border-radius:12px; max-width:520px;
-  background:linear-gradient(180deg,#eef2e2,var(--sand)); border:1px solid var(--line);
-  font-family:var(--fdisp);
-}
-.dayspend h4{margin:0 0 6px; font-weight:600; font-size:1.02rem;}
-.dayspend .row{
-  display:flex; justify-content:space-between; align-items:baseline; gap:14px;
-  padding:6px 0; font-size:.88rem; color:var(--ink-soft); border-bottom:1px dashed var(--line);
-}
-.dayspend .row b{font-weight:600; color:var(--ink); white-space:nowrap;}
-.dayspend .row.total{
-  border-bottom:0; border-top:2px solid currentColor; margin-top:2px; padding-top:9px;
-  font-weight:700; color:var(--ink); font-size:.96rem;
-}
-.dayspend .row.total b{font-weight:700;}
-.dayspend .foot{margin:8px 0 0; font-size:.74rem; color:var(--ink-faint); font-family:var(--fbody);}
+/* Compact by-day spend list inside the Trip cost card */
+#costByDay{margin-top:16px; border-top:1px solid rgba(128,128,128,.25); padding-top:12px;}
+#costByDay .byday-head{font-size:.78rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); padding:0 2px 4px;}
+#costByDay .byday-row{display:flex; justify-content:space-between; gap:14px; padding:8px 2px; font-size:.95rem; color:var(--ink-soft); border-bottom:1px dashed rgba(128,128,128,.25);}
+#costByDay .byday-row:last-of-type{border-bottom:0;}
+#costByDay .byday-row b{color:var(--ink); font-weight:600; white-space:nowrap;}
+#costByDay .byday-foot{margin:8px 2px 0; font-size:.74rem; color:var(--ink-faint); font-family:var(--fbody);}
 .dir{
   display:inline-flex; align-items:center; gap:6px; margin-top:9px;
   font-size:.8rem; font-weight:600; color:var(--ocean);
@@ -721,6 +710,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
     <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 2px;border-bottom:1px solid rgba(128,128,128,.18);font-weight:700"><span data-en="Flights, stays, car &amp; tickets" data-zh="机票、住宿、租车与门票">Flights, stays, car &amp; tickets</span><b>~$7,300–7,500</b></div>
     <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 2px;border-bottom:1px solid rgba(128,128,128,.18);opacity:.7"><span data-en="🍽️ Meals, fees, parking &amp; gas (est)" data-zh="🍽️ 餐费、门票、停车与油费（估）">🍽️ Meals, fees, parking &amp; gas (est)</span><b>~$4,200–6,100</b></div>
     <div style="display:flex;justify-content:space-between;gap:14px;padding:13px 2px 4px;border-top:2px solid currentColor;font-size:1.15rem"><span data-en="Grand total (est)" data-zh="总计（估）">Grand total (est)</span><b>~$11,500–13,600</b></div>
+    <div id="costByDay"></div>
   </div>
 </section>
 
@@ -1113,13 +1103,13 @@ const UI = {
   booked:         {en:(n,t)=>`${n} of ${t} booked`,          zh:(n,t)=>`已预订 ${n} / ${t}`},
   miDriving:      {en:(mi,l)=>`≈ ${mi} mi · ${l} driving`,   zh:(mi,l)=>`≈ ${mi} 英里 · 驾车 ${l}`},
   dayLabel:       {en:(n)=>`Day ${n}`,                       zh:(n)=>`第 ${n} 天`},
-  daySpend:       {en:"💵 Day spend — estimated, all 7",     zh:"💵 当日花费——7人估算"},
-  dayTotal:       {en:"Day total (est)",                     zh:"当日合计（估）"},
-  bookedTag:      {en:"booked ✓",                            zh:"已订 ✓"},
-  spendFoot:      {en:"All-in for all 7: meals, tickets, parking, gas & the night's lodging share · optional lines count in the high end only · flights & the minivan are under Trip cost.", zh:"全家7人的当日全包花费：餐费、门票、停车、油费与当晚住宿分摊 · 可选项只计入上限 · 机票与租车见「行程花费」。"}
+  byDay:          {en:"💵 By day — estimated, all-in for 7", zh:"💵 按天——7人全包估算"},
+  byDayFoot:      {en:"Each day covers meals, tickets, parking, gas & that night's lodging share · flights & the minivan sit in the rows above.", zh:"每天含餐费、门票、停车、油费与当晚住宿分摊 · 机票与租车见上方各行。"}
 };
 const fmtUsd = n => "$" + n.toLocaleString("en-US");
 const fmtRange = (lo,hi) => lo===hi ? `~${fmtUsd(lo)}` : `~${fmtUsd(lo)}–${fmtUsd(hi)}`;
+// All-in day estimate (meals, tickets, parking, gas + the night's lodging); optional lines count in the high end only
+const daySpendRange = (d)=>{ let lo=0, hi=0; (d.spend||[]).forEach(l=>{ if(!l.optional) lo+=l.lo; hi+=l.hi; }); return [lo,hi]; };
 const ui = (k,...a)=>{ const v=UI[k]; if(!v) return k; const x=(v[LANG]!=null?v[LANG]:v.en); return typeof x==="function"?x(...a):x; };
 // Swap all static (HTML-authored) elements that carry data-en / data-zh.
 function applyStatic(){
@@ -1140,7 +1130,7 @@ function renderAll(){
   teardownMaps();
   ["#flightCards","#dayList","#lodgeCards","#priorityList","#otherList","#noteCards","#mapLegend"].forEach(s=>{ const n=$(s); if(n) n.innerHTML=""; });
   applyStatic();
-  renderFlights(); renderDays(); renderLodging(); renderChecklist(); renderNotes(); renderMap(); renderBigSurMap();
+  renderFlights(); renderDays(); renderCostByDay(); renderLodging(); renderChecklist(); renderNotes(); renderMap(); renderBigSurMap();
   document.querySelectorAll(".reveal").forEach(n=>n.classList.add("in"));
   lazyImages();
 }
@@ -1256,11 +1246,8 @@ function renderDays(){
     if(d.overnight) badges.push(`<span class="minibadge moon">🌙 ${ui('overnightLabel')} · ${tr(d,'overnight')}</span>`);
     if(d.redeye) badges.push(`<span class="minibadge plane">${ui('redeye')}</span>`);
 
-    // Day spend estimate: all-in for the day (lodging share + tickets included); optional lines count in the high end only
-    const spendLines = d.spend || [];
-    let spendLo = 0, spendHi = 0;
-    spendLines.forEach(l => { if(!l.optional) spendLo += l.lo; spendHi += l.hi; });
-    if(spendLines.length) badges.push(`<span class="minibadge money">💵 ${fmtRange(spendLo, spendHi)}</span>`);
+    const [spendLo, spendHi] = daySpendRange(d);
+    if(spendHi) badges.push(`<span class="minibadge money">💵 ${fmtRange(spendLo, spendHi)}</span>`);
 
     const stopsHtml = d.stops.map((s,si)=>{
       const timeHtml = s.time
@@ -1298,18 +1285,6 @@ function renderDays(){
       ? `<div class="daytips"><h4>${tr(d,'tipsTitle')}</h4><ul>${tr(d,'tips').map(t=>`<li>${t}</li>`).join("")}</ul></div>`
       : "";
 
-    const spendHtml = spendLines.length ? `
-      <div class="dayspend">
-        <h4>${ui('daySpend')}</h4>
-        ${spendLines.map(l=>{
-          const tag = l.booked ? ` <span class="opt-badge">${ui('bookedTag')}</span>`
-                    : (l.optional ? ` <span class="opt-badge">${ui('optional')}</span>` : "");
-          return `<div class="row"><span>${tr(l,'label')}${tag}</span><b>${fmtRange(l.lo,l.hi)}</b></div>`;
-        }).join("")}
-        <div class="row total"><span>${ui('dayTotal')}</span><b>${fmtRange(spendLo,spendHi)}</b></div>
-        <p class="foot">${ui('spendFoot')}</p>
-      </div>` : "";
-
     let extra = "";
     if(d.food_crawl_options){
       extra += `<div class="crawl"><h4>${tr(d,'crawlTitle')}</h4>
@@ -1340,7 +1315,7 @@ function renderDays(){
         ${d.transit
           ? `<a class="route-btn" href="${gmapsTransit(d.transit)}" target="_blank" rel="noopener">${TRAIN_SVG} ${ui('bart')}</a><span class="route-stats">🚆 ${tr(d.transit,'stat')}</span>`
           : (d.noCar?"":`<a class="route-btn" href="${gmapsRoute(d.stops)}" target="_blank" rel="noopener">${CAR_SVG} ${ui('drive')}</a><span class="route-stats" id="stats-day-${d.day}"></span>`)}
-        ${tipsHtml}${stopsHtml}${spendHtml}${extra}</div></div></div>`;
+        ${tipsHtml}${stopsHtml}${extra}</div></div></div>`;
 
     // Lazy-init the day map (Leaflet needs a visible container to size correctly)
     const ensureMap = ()=>{
@@ -1382,6 +1357,18 @@ $("#expandAll").addEventListener("click", ()=>{
   store.set("days_open", st);
   syncExpandLabel();
 });
+
+/* ============ RENDER: TRIP COST · BY DAY ============ */
+function renderCostByDay(){
+  const wrap = $("#costByDay");
+  if(!wrap) return;
+  wrap.innerHTML = `<div class="byday-head">${ui('byDay')}</div>` +
+    DATA.days.map(d=>{
+      const [lo,hi] = daySpendRange(d);
+      return `<div class="byday-row"><span>${ui('dayLabel',d.day)} · ${tr(d,'date')}</span><b>${fmtRange(lo,hi)}</b></div>`;
+    }).join("") +
+    `<p class="byday-foot">${ui('byDayFoot')}</p>`;
+}
 
 /* ============ RENDER: LODGING ============ */
 function renderLodging(){
@@ -1545,6 +1532,7 @@ function lazyImages(){
 applyStatic();
 renderFlights();
 renderDays();
+renderCostByDay();
 renderLodging();
 renderChecklist();
 renderNotes();
