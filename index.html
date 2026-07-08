@@ -370,7 +370,6 @@ section{padding:46px 0; position:relative; scroll-margin-top:64px;}
   padding:6px 0; font-size:.88rem; color:var(--ink-soft); border-bottom:1px dashed var(--line);
 }
 .dayspend .row b{font-weight:600; color:var(--ink); white-space:nowrap;}
-.dayspend .row.dim{opacity:.6;}
 .dayspend .row.total{
   border-bottom:0; border-top:2px solid currentColor; margin-top:2px; padding-top:9px;
   font-weight:700; color:var(--ink); font-size:.96rem;
@@ -716,7 +715,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
 <!-- ===== Trip cost ===== -->
 <section id="cost" class="wrap">
   <div class="sec-head reveal"><span class="sec-num">05</span><h2 data-en="Trip cost" data-zh="行程花费">Trip cost</h2></div>
-  <p class="sec-sub reveal" data-en="Real figures for flights, lodging, car, and tickets for all 7. Meals, gas, and parking are estimated day by day — see the 💵 total on each day card, rolled up at the bottom here." data-zh="机票、住宿、租车和门票为全 7 人实数。餐费、油费、停车按天估算——见每张日卡上的 💵 合计，并在本表底部汇总。">Real figures for flights, lodging, car, and tickets for all 7. Meals, gas, and parking are estimated day by day — see the 💵 total on each day card, rolled up at the bottom here.</p>
+  <p class="sec-sub reveal" data-en="Real figures for flights, lodging, car, and tickets for all 7; meals, gas, and parking are estimated. Each day card's 💵 total is that day's all-in spend — the night's lodging share and tickets included — so the six days + flights + the minivan ≈ the grand total." data-zh="机票、住宿、租车和门票为全 7 人实数；餐费、油费、停车为估算。每张日卡的 💵 合计是当天的全包花费——含当晚住宿分摊与门票——因此六天相加，再加机票与租车，即约等于总计。">Real figures for flights, lodging, car, and tickets for all 7; meals, gas, and parking are estimated. Each day card's 💵 total is that day's all-in spend — the night's lodging share and tickets included — so the six days + flights + the minivan ≈ the grand total.</p>
   <div class="card reveal" style="max-width:660px; font-family:var(--fdisp);">
     <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 2px;border-bottom:1px solid rgba(128,128,128,.18)"><span data-en="✈️ Flights · round trip, 7 people" data-zh="✈️ 机票 · 往返，7人">✈️ Flights · round trip, 7 people</span><b>$1,870.40</b></div>
     <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 2px;border-bottom:1px solid rgba(128,128,128,.18)"><span data-en="🏠 SF · Daly City house · 2 nights" data-zh="🏠 旧金山 · Daly City 整套房 · 2晚">🏠 SF · Daly City house · 2 nights</span><b>$1,171.00</b></div>
@@ -726,7 +725,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
     <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 2px;border-bottom:1px solid rgba(128,128,128,.18);font-weight:700"><span data-en="Booked so far" data-zh="已订小计">Booked so far</span><b>$6,548.28</b></div>
     <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 2px;border-bottom:1px solid rgba(128,128,128,.18);opacity:.7"><span data-en="🎢 Universal tickets · 7 people (to book)" data-zh="🎢 环球影城门票 · 7人（待订）">🎢 Universal tickets · 7 people (to book)</span><b>~$770–980</b></div>
     <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 2px;border-bottom:1px solid rgba(128,128,128,.18);font-weight:700"><span data-en="Flights, stays, car &amp; tickets" data-zh="机票、住宿、租车与门票">Flights, stays, car &amp; tickets</span><b>~$7,300–7,500</b></div>
-    <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 2px;border-bottom:1px solid rgba(128,128,128,.18);opacity:.7"><span data-en="🍽️ Meals, fees, parking &amp; gas · est from the day cards" data-zh="🍽️ 餐费、门票、停车与油费 · 按日卡估算">🍽️ Meals, fees, parking &amp; gas · est from the day cards</span><b>~$4,200–6,100</b></div>
+    <div style="display:flex;justify-content:space-between;gap:14px;padding:11px 2px;border-bottom:1px solid rgba(128,128,128,.18);opacity:.7"><span data-en="🍽️ Meals, fees, parking &amp; gas (est)" data-zh="🍽️ 餐费、门票、停车与油费（估）">🍽️ Meals, fees, parking &amp; gas (est)</span><b>~$4,200–6,100</b></div>
     <div style="display:flex;justify-content:space-between;gap:14px;padding:13px 2px 4px;border-top:2px solid currentColor;font-size:1.15rem"><span data-en="Grand total (est)" data-zh="总计（估）">Grand total (est)</span><b>~$11,500–13,600</b></div>
   </div>
 </section>
@@ -779,13 +778,14 @@ const DATA = {
       summary_zh:"全家11:54落地——Eric 已从 San Bruno 提前到，在 SFO 取上七座商务车并接上大家，10分钟即到 Daly City 的房子放下行李。整个下午都留给近在咫尺的城西：Ocean Beach 的炸鱼薯条、Lands End 悬崖、金门公园里的日本茶园、Haight-Ashbury 漫步、Khao Tiew 泰餐，以及双峰（Twin Peaks）上的日落压轴。",
       spend:[
         {lo:150, hi:180, label:"Lunch — Hook Fish Co.", label_zh:"午餐——Hook Fish Co."},
-        {lo:80,  hi:100, label:"Japanese Tea Garden entry", label_zh:"日本茶园门票"},
+        {lo:94,  hi:94,  label:"Japanese Tea Garden entry", label_zh:"日本茶园门票"},
         {lo:220, hi:280, label:"Dinner — Khao Tiew", label_zh:"晚餐——Khao Tiew"},
-        {lo:70,  hi:90,  optional:true, label:"HK dessert — Golden Island", label_zh:"港式甜品——金岛咖啡"}
+        {lo:70,  hi:90,  optional:true, label:"HK dessert — Golden Island", label_zh:"港式甜品——金岛咖啡"},
+        {lo:586, hi:586, booked:true, label:"🏠 Daly City house — night 1 of 2", label_zh:"🏠 Daly City 房子——第1晚（共2晚）"}
       ],
       stops:[
         {name:"Land at SFO · pick up the minivan", name_zh:"抵达 SFO · 取七座商务车", time:"11:54 AM", dur:"~45 min", lat:37.6213, lng:-122.3790, img:"images/stop-rental-car.jpg", note:"The family's JetBlue nonstop from Boston lands at 11:54 AM. Eric — already in town, 5 min away in San Bruno — meets everyone and picks up the Costco Travel minivan right at the airport (Alamo, in the SFO rental center). No BART, no transfers: load up and you're on wheels from the start.", note_zh:"全家从波士顿直飞的捷蓝航班11:54落地。Eric 已提前到，住在5分钟车程外的 San Bruno，在机场接上大家并取车——Costco Travel 预订的七座商务车（Alamo，就在 SFO 租车中心）。不用 BART、不用换乘：装好行李，立刻有车代步。"},
-        {name:"Drop bags — Daly City house", name_zh:"放行李——Daly City 的房子", time:"12:30 PM", dur:"~30 min", lat:37.7046, lng:-122.4574, img:"images/stop-daly-city-house.jpg", note:"A 10-minute drive from SFO to 327 Crocker Ave. Check-in isn't till 4, but the host lets you drop luggage in the garage free from 12:30 — so stash the bags, freshen up, and head straight out for the afternoon (full check-in when you're back for the night).", note_zh:"从 SFO 开约10分钟到 327 Crocker Ave。正式入住4点起，但房东允许从12:30 起免费把行李放进车库——放下行李、简单梳洗，直接出门玩下午（晚上回来再正式入住）。"},
+        {name:"Drop bags — Daly City house", name_zh:"放行李——Daly City 的房子", time:"12:30 PM", dur:"~30 min", cost:[586,586], lat:37.7046, lng:-122.4574, img:"images/stop-daly-city-house.jpg", note:"A 10-minute drive from SFO to 327 Crocker Ave. Check-in isn't till 4, but the host lets you drop luggage in the garage free from 12:30 — so stash the bags, freshen up, and head straight out for the afternoon (full check-in when you're back for the night).", note_zh:"从 SFO 开约10分钟到 327 Crocker Ave。正式入住4点起，但房东允许从12:30 起免费把行李放进车库——放下行李、简单梳洗，直接出门玩下午（晚上回来再正式入住）。"},
         {name:"Hook Fish Co. — beach lunch", name_zh:"Hook Fish Co.——海滩午餐", time:"1:00 PM", dur:"~45 min", cost:[150,180], lat:37.7635, lng:-122.5060, img:"images/stop-ocean-beach.jpg", note:"Land hungry? First stop is lunch in the Outer Sunset — Hook Fish Co. (4542 Irving): incredibly light fried fish & chips, with the boat each catch came from listed. It's walk-in / counter-only (no reservations) with tiny seating and no real dine-in — for a group, order online ahead to skip the wait, then picnic a few blocks over on Ocean Beach. ~10 min from the house.", note_zh:"落地就饿？第一站在 Outer Sunset 吃午餐——Hook Fish Co.（Irving 街4542号）：炸鱼薯条极其酥脆清爽，还会标明每条鱼来自哪艘渔船。这里只能现场排队 / 柜台点单（不接受预订）、座位很少、基本没有堂食——多人的话最好提前在网上下单以免排队，再外带走几个街区到 Ocean Beach 沙滩上野餐。离房子约10分钟。"},
         {name:"Lands End & Sutro Baths", name_zh:"Lands End 与 Sutro Baths", time:"2:00 PM", dur:"~45 min", lat:37.7800, lng:-122.5118, img:"images/stop-sutro-baths.jpg", note:"Right by Ocean Beach (~10 min) — a quick stop at the city's wild northwestern corner. The Lands End Lookout and the overlook down to the haunting Sutro Baths ruins give you the cliffs and Golden Gate views without committing to the full hike — easy for everyone.", note_zh:"就在 Ocean Beach 旁（约10分钟）——快速一停，看城市荒野般的西北角。Lands End Lookout 与俯瞰令人着迷的 Sutro Baths 废墟的观景点，不用走完整条步道就能看到悬崖与金门大桥——老少都轻松。"},
         {name:"Golden Gate Park + Japanese Tea Garden", name_zh:"金门公园 + 日本茶园", time:"2:45 PM", dur:"~90 min", cost:[94,94], lat:37.7702, lng:-122.4703, img:"images/stop-golden-gate-park.jpg", note:"From Ocean Beach the great park runs straight inland — head for the Japanese Tea Garden (koi ponds, a pagoda and the tea house, an easy lovely stroll). No reservation needed in late July; just buy at the door: $16 adult, $7 senior (65+) and youth (12-17), $3 child (5-11), under-5 free — about $94 for your group (5 adults + your 2 grandparents at the senior rate). Then add whatever appeals: the de Young tower (free observation deck), Stow Lake, or the Botanical Garden. Green, flat and central to your west-side afternoon.", note_zh:"从 Ocean Beach 起，这座大公园一路向内陆延伸——先去日本茶园（锦鲤池、宝塔和茶室，轻松惬意的漫步）。七月底不用订位，到门口买票即可：成人 $16，长者（65+）与青少年（12-17）$7，儿童（5-11）$3，4岁及以下免费——你们（5位成人 + 2位长者）约 $94。再随喜好加逛：de Young 美术馆塔楼（观景台免费）、Stow Lake，或植物园。绿意盎然、地势平坦，是西区下午的中心。"},
@@ -802,7 +802,8 @@ const DATA = {
         {lo:140, hi:385, label:"Dim sum — Chinatown or Yank Sing", label_zh:"点心——唐人街或 Yank Sing"},
         {lo:90,  hi:140, label:"Oysters — Hog Island", label_zh:"生蚝——Hog Island"},
         {lo:280, hi:420, label:"Dinner — Chinatown banquet (R&G)", label_zh:"晚餐——唐人街家宴（R&G）"},
-        {lo:40,  hi:70,  label:"Parking — downtown garages", label_zh:"停车——市中心停车楼"}
+        {lo:40,  hi:70,  label:"Parking — downtown garages", label_zh:"停车——市中心停车楼"},
+        {lo:585, hi:585, booked:true, label:"🏠 Daly City house — night 2 of 2", label_zh:"🏠 Daly City 房子——第2晚（共2晚）"}
       ],
       tipsTitle:"🚗 Before you set out", tipsTitle_zh:"🚗 出发前",
       tips:[
@@ -852,7 +853,8 @@ const DATA = {
         {lo:10,  hi:10,  label:"McWay Falls day-use", label_zh:"McWay 瀑布日间使用费"},
         {lo:10,  hi:25,  optional:true, label:"Point Lobos / Pfeiffer day-use", label_zh:"Point Lobos / Pfeiffer 日间使用费"},
         {lo:210, hi:300, label:"Dinner — Cayucos or Cambria", label_zh:"晚餐——Cayucos 或 Cambria"},
-        {lo:60,  hi:90,  label:"Gas — fill up in Carmel + top-ups", label_zh:"油费——Carmel 加满＋途中补给"}
+        {lo:60,  hi:90,  label:"Gas — fill up in Carmel + top-ups", label_zh:"油费——Carmel 加满＋途中补给"},
+        {lo:1313, hi:1313, booked:true, label:"🏠 Cayucos beach house — 1 night", label_zh:"🏠 Cayucos 海滨别墅——1晚"}
       ],
       tipsTitle:"🧭 Before you drive", tipsTitle_zh:"🧭 出发上路前",
       tips:[
@@ -884,6 +886,7 @@ const DATA = {
         {name:"Nepenthe", time:"", dur:"flex", lat:36.2218365, lng:-121.7592895, img:"images/stop-nepenthe.jpg", optional:true, note:"Optional now that lunch is in Carmel — but this famous Big Sur cliffside terrace, with a 40-mile ocean view, is a lovely coffee-or-a-drink pull-over if you want a break (grab-and-go from Café Kevah just below if there's a wait).", note_zh:"既然午餐改在 Carmel，这里就成了可选——但这处著名的大苏尔悬崖露台、40英里海景，若想歇歇脚，是喝杯咖啡或小酌的好去处（要等位就到下方的 Café Kevah 外带）。"},
         {name:"McWay Falls", name_zh:"McWay 瀑布", time:"2:30 PM", dur:"~30 min", cost:[10,10], lat:36.1578259, lng:-121.6721628, img:"images/stop-mcway-falls.jpg", note:"The Big Sur stop not to skip — an 80-ft waterfall dropping onto a hidden cove, and it's just a 5-minute walk from the road to the famous overlook. Highest reward-per-minute on the whole drive (~$10 day-use, cash).", note_zh:"大苏尔最不该错过的一站——80英尺高的瀑布落入隐秘海湾，从公路只需步行5分钟就到那个著名的观景点。全程性价比最高的一停（日间使用费约10美元，现金）。"},
         {name:"Elephant Seal Vista · San Simeon", name_zh:"象海豹观景台 · San Simeon", time:"4:00 PM", dur:"~30 min", lat:35.6612, lng:-121.2566, img:"images/day3-hearst.jpg", note:"Free boardwalk at Piedras Blancas — hundreds of elephant seals on the sand, just north of Cambria. The last stop before you check in for the night.", note_zh:"Piedras Blancas 的免费木栈道——沙滩上数百只象海豹，就在 Cambria 以北。入住过夜前的最后一站。"},
+        {name:"Check in — Cayucos beach house", name_zh:"入住——Cayucos 海滨别墅", time:"5:15 PM", dur:"—", cost:[1313,1313], lat:35.4506, lng:-120.9086, img:"", note:"Roll into Cayucos and check into the beach house: 360 North Ocean Ave, a 4-bedroom house (sleeps 10) steps from the sand, the pier and downtown, with ocean views, a full kitchen, a BBQ, and a game room (pool table + arcade). Check-in from 4 PM — drop the bags, stretch out, then it's a short walk or drive to dinner.", note_zh:"开进 Cayucos，入住海滨别墅：360 North Ocean Ave，4卧（可住10人），离沙滩、栈桥和小镇中心只有几步，带海景、全套厨房、烧烤架和游戏室（台球桌＋街机）。下午4点起可入住——放下行李、舒展一下，然后步行或短驾去吃晚饭。"},
         {name:"Dinner in Cayucos or Cambria", name_zh:"Cayucos 或 Cambria 晚餐", time:"6:30 PM", dur:"~75 min", cost:[210,300], lat:35.4490, lng:-120.9048, img:"images/stop-cambria.jpg", flexible:true, note:"A quiet small-town dinner to close the big coast day. You're staying in Cayucos, which has walkable spots right by the house: Ruddell's Smokehouse for smoked-fish tacos, or Schooners Wharf on the beach. Or it's about 15 min back up to Cambria for the classics: Robin's (leafy patio, veggie-friendly), Linn's (comfort food and olallieberry pie), or The Sea Chest oyster bar on Moonstone Beach (cash only, no reservations, so the line forms before it opens at 5:30).", note_zh:"为漫长的海岸日画上句点的安静小镇晚餐。你们住在 Cayucos，房子旁就有可步行的餐馆：Ruddell's Smokehouse 的烟熏鱼塔可，或海滩上的 Schooners Wharf。或往北约15分钟回 Cambria 吃经典：Robin's（绿意露台、照顾素食）、Linn's（家常菜与 olallieberry 露莓派），或 Moonstone Beach 海滨的 The Sea Chest 生蚝吧（只收现金、不接受预订，5:30 开门前就开始排队）。"}
       ]},
     { day:4, date:"Sat Aug 1", date_zh:"8月1日(周六)", title:"Coast Drive II · Cayucos to LA Beaches", title_zh:"海岸自驾(二)· 从 Cayucos 到洛杉矶海滩",
@@ -895,7 +898,8 @@ const DATA = {
         {lo:80,  hi:150, optional:true, label:"Pacific Park rides & games", label_zh:"Pacific Park 游乐项目与游戏"},
         {lo:350, hi:500, label:"Dinner — Abbot Kinney (Gjelina & co.)", label_zh:"晚餐——Abbot Kinney（Gjelina 等）"},
         {lo:20,  hi:40,  label:"Beach parking lots", label_zh:"海滩停车场"},
-        {lo:50,  hi:70,  label:"Gas — Cayucos → LA", label_zh:"油费——Cayucos → 洛杉矶"}
+        {lo:50,  hi:70,  label:"Gas — Cayucos → LA", label_zh:"油费——Cayucos → 洛杉矶"},
+        {lo:600, hi:600, booked:true, label:"🏠 Hollywood 3BR — night 1 of 2", label_zh:"🏠 好莱坞3卧——第1晚（共2晚）"}
       ],
       tipsTitle:"🧭 Before you drive", tipsTitle_zh:"🧭 出发上路前",
       tips:[
@@ -915,7 +919,7 @@ const DATA = {
         {name:"El Matador State Beach", name_zh:"El Matador 州立海滩", time:"12:30 PM", dur:"~60 min", lat:34.0381, lng:-118.8773, img:"images/stop-el-matador.jpg", note:"Drop onto the Malibu coast: sea caves, arches, and sea stacks below the bluff — the prettiest beach stop on the way in. A staircase down to the sand; small lot, so arrive early.", note_zh:"落到马里布海岸：崖下的海蚀洞、拱门和海蚀柱——进城途中最美的海滩停留点。一段楼梯下到沙滩；停车场小，要早到。"},
         {name:"Santa Monica Pier", name_zh:"圣莫尼卡码头", time:"2:30 PM", dur:"~90 min", cost:[80,150], lat:34.0082821, lng:-118.4987585, img:"images/stop-santa-monica-pier.jpg", note:"The full carnival: Pacific Park right on the pier has the Pacific Wheel (a solar-powered ferris wheel out over the water), a small roller coaster, midway games, and an arcade. The original Muscle Beach rings and bars are just south on the sand, plus the end of Route 66 and the beach itself. Bags stay in the van (the house is inland in Hollywood), so just park and hit the pier.", note_zh:"整套嘉年华：码头上的 Pacific Park 有太平洋摩天轮（架在海面上的太阳能摩天轮）、小型过山车、游戏摊和游戏厅。南边沙滩上就是最初的 Muscle Beach 健身吊环和单杠，还有66号公路终点和海滩本身。行李留在车上（住处在内陆的好莱坞），停好车直接逛码头。"},
         {name:"Venice Beach Boardwalk", name_zh:"威尼斯海滩木栈道", time:"4:30 PM", dur:"~2.5 hrs", lat:33.9909254, lng:-118.4774439, img:"images/stop-venice-boardwalk.jpg", note:"The scene: Muscle Beach (the famous outdoor gym), the skate park, the basketball and handball courts, street performers and artists, all right down the sand from Santa Monica. Stroll inland to Abbot Kinney for dinner (picks below) and catch the sunset on the sand.", note_zh:"热闹现场：Muscle Beach（著名的户外健身场）、滑板公园、篮球场和手球场、街头艺人和艺术家，全都在沿沙滩离圣莫尼卡不远处。往内陆走到 Abbot Kinney 吃晚饭（推荐见下），在沙滩上看日落。"},
-        {name:"Check in — the Hollywood house", name_zh:"入住——好莱坞的房子", time:"9:00 PM", dur:"—", lat:34.0997, lng:-118.3202, img:"images/stop-hollywood-house.jpg", note:"After dinner, drive up to home base for the next two nights: 6055 Sunset Blvd, a 3-bed / 3-bath Hollywood townhome with a full kitchen, AC, and a gated 2-car garage. Self check-in with the smartlock, park the minivan in the garage, and settle in — Universal's just ~15 min away for tomorrow.", note_zh:"晚饭后开车上到接下来两晚的大本营：6055 Sunset Blvd，一栋 3 卧 3 卫的好莱坞联排别墅，带全套厨房、空调和带门禁的双车位车库。用智能锁自助入住，把七座车停进车库，安顿下来——明天的环球影城就在约15分钟外。"}
+        {name:"Check in — the Hollywood house", name_zh:"入住——好莱坞的房子", time:"9:00 PM", dur:"—", cost:[600,600], lat:34.0997, lng:-118.3202, img:"images/stop-hollywood-house.jpg", note:"After dinner, drive up to home base for the next two nights: 6055 Sunset Blvd, a 3-bed / 3-bath Hollywood townhome with a full kitchen, AC, and a gated 2-car garage. Self check-in with the smartlock, park the minivan in the garage, and settle in — Universal's just ~15 min away for tomorrow.", note_zh:"晚饭后开车上到接下来两晚的大本营：6055 Sunset Blvd，一栋 3 卧 3 卫的好莱坞联排别墅，带全套厨房、空调和带门禁的双车位车库。用智能锁自助入住，把七座车停进车库，安顿下来——明天的环球影城就在约15分钟外。"}
       ],
       crawlTitle:"🍽️ First-night dinner picks (Venice / Santa Monica)", crawlTitle_zh:"🍽️ 第一晚晚餐之选（威尼斯 / 圣莫尼卡）",
       crawlIntro:"All in Venice / Santa Monica — pick one after sunset, then it's ~40 min up to the Hollywood house.", crawlIntro_zh:"都在威尼斯 / 圣莫尼卡——日落后挑一家，然后约40分钟开去好莱坞的住处。",
@@ -933,8 +937,9 @@ const DATA = {
         {lo:170,  hi:220,  label:"Breakfast — Los Feliz", label_zh:"早餐——Los Feliz"},
         {lo:120,  hi:180,  label:"Lunch & snacks inside Universal", label_zh:"环球影城园内午餐与小食"},
         {lo:1100, hi:1250, label:"Dinner — Cafe Sierra buffet ($139 + 15% pp)", label_zh:"晚餐——Cafe Sierra 自助（每人 $139 + 15%）"},
-        {lo:770,  hi:980,  inTripCost:true, label:"Universal tickets × 7", label_zh:"环球影城门票 × 7"},
-        {lo:30,   hi:50,   label:"Universal parking", label_zh:"环球影城停车"}
+        {lo:770,  hi:980,  label:"Universal tickets × 7 (to book)", label_zh:"环球影城门票 × 7（待订）"},
+        {lo:30,   hi:50,   label:"Universal parking", label_zh:"环球影城停车"},
+        {lo:600,  hi:600,  booked:true, label:"🏠 Hollywood 3BR — night 2 of 2", label_zh:"🏠 好莱坞3卧——第2晚（共2晚）"}
       ],
       tipsTitle:"🎢 Before the park", tipsTitle_zh:"🎢 进园前",
       tips:[
@@ -1116,8 +1121,8 @@ const UI = {
   dayLabel:       {en:(n)=>`Day ${n}`,                       zh:(n)=>`第 ${n} 天`},
   daySpend:       {en:"💵 Day spend — estimated, all 7",     zh:"💵 当日花费——7人估算"},
   dayTotal:       {en:"Day total (est)",                     zh:"当日合计（估）"},
-  inTripCost:     {en:"in Trip cost",                        zh:"已计入行程花费"},
-  spendFoot:      {en:"Meals, tickets, parking & gas for all 7 · optional lines count in the high end only · flights, stays & the car are under Trip cost.", zh:"全家7人的餐费、门票、停车与油费 · 可选项只计入上限 · 机票、住宿与租车见「行程花费」。"}
+  bookedTag:      {en:"booked ✓",                            zh:"已订 ✓"},
+  spendFoot:      {en:"All-in for all 7: meals, tickets, parking, gas & the night's lodging share · optional lines count in the high end only · flights & the minivan are under Trip cost.", zh:"全家7人的当日全包花费：餐费、门票、停车、油费与当晚住宿分摊 · 可选项只计入上限 · 机票与租车见「行程花费」。"}
 };
 const fmtUsd = n => "$" + n.toLocaleString("en-US");
 const fmtRange = (lo,hi) => lo===hi ? `~${fmtUsd(lo)}` : `~${fmtUsd(lo)}–${fmtUsd(hi)}`;
@@ -1257,10 +1262,10 @@ function renderDays(){
     if(d.overnight) badges.push(`<span class="minibadge moon">🌙 ${ui('overnightLabel')} · ${tr(d,'overnight')}</span>`);
     if(d.redeye) badges.push(`<span class="minibadge plane">${ui('redeye')}</span>`);
 
-    // Day spend estimate: optional lines count in the high end only; "in Trip cost" lines aren't summed
+    // Day spend estimate: all-in for the day (lodging share + tickets included); optional lines count in the high end only
     const spendLines = d.spend || [];
     let spendLo = 0, spendHi = 0;
-    spendLines.forEach(l => { if(l.inTripCost) return; if(!l.optional) spendLo += l.lo; spendHi += l.hi; });
+    spendLines.forEach(l => { if(!l.optional) spendLo += l.lo; spendHi += l.hi; });
     if(spendLines.length) badges.push(`<span class="minibadge money">💵 ${fmtRange(spendLo, spendHi)}</span>`);
 
     const stopsHtml = d.stops.map((s,si)=>{
@@ -1303,9 +1308,9 @@ function renderDays(){
       <div class="dayspend">
         <h4>${ui('daySpend')}</h4>
         ${spendLines.map(l=>{
-          const tag = l.inTripCost ? ` <span class="opt-badge">${ui('inTripCost')}</span>`
+          const tag = l.booked ? ` <span class="opt-badge">${ui('bookedTag')}</span>`
                     : (l.optional ? ` <span class="opt-badge">${ui('optional')}</span>` : "");
-          return `<div class="row${l.inTripCost?' dim':''}"><span>${tr(l,'label')}${tag}</span><b>${fmtRange(l.lo,l.hi)}</b></div>`;
+          return `<div class="row"><span>${tr(l,'label')}${tag}</span><b>${fmtRange(l.lo,l.hi)}</b></div>`;
         }).join("")}
         <div class="row total"><span>${ui('dayTotal')}</span><b>${fmtRange(spendLo,spendHi)}</b></div>
         <p class="foot">${ui('spendFoot')}</p>
