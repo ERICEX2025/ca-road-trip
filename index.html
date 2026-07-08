@@ -352,24 +352,24 @@ section{padding:46px 0; position:relative; scroll-margin-top:64px;}
   background:var(--sand-deep); color:var(--ink-faint);
   padding:3px 10px; border-radius:999px; white-space:nowrap; border:1px solid var(--line);
 }
-/* Per-day spend receipt at the bottom of each day card */
+/* Per-day spend — same callout family as the tips block, rows in the Trip cost card's style */
 .dayspend{
-  margin-top:18px; padding:15px 18px; border-radius:12px; max-width:520px;
-  background:linear-gradient(180deg,#eef2e2,var(--sand)); border:1px solid var(--line);
-  font-family:var(--fdisp);
+  margin-top:18px; padding:15px 18px 13px; border-radius:12px;
+  background:linear-gradient(180deg,#fdf3e2,var(--sand)); border:1px solid var(--line);
 }
-.dayspend h4{margin:0 0 6px; font-weight:600; font-size:1.02rem;}
+.dayspend h4{margin:0 0 5px; font-family:var(--fdisp); font-weight:600; font-size:1.02rem;}
+.dayspend .rows{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr)); column-gap:44px;}
 .dayspend .row{
   display:flex; justify-content:space-between; align-items:baseline; gap:14px;
-  padding:6px 0; font-size:.88rem; color:var(--ink-soft); border-bottom:1px dashed var(--line);
+  padding:7px 2px; font-family:var(--fdisp); font-size:.88rem; color:var(--ink-soft);
+  border-bottom:1px solid rgba(128,128,128,.18);
 }
 .dayspend .row b{font-weight:600; color:var(--ink); white-space:nowrap;}
 .dayspend .row.total{
-  border-bottom:0; border-top:2px solid currentColor; margin-top:2px; padding-top:9px;
-  font-weight:700; color:var(--ink); font-size:.96rem;
+  border-bottom:0; padding:9px 2px 0; font-weight:700; color:var(--ink); font-size:.98rem;
 }
 .dayspend .row.total b{font-weight:700;}
-.dayspend .foot{margin:8px 0 0; font-size:.74rem; color:var(--ink-faint); font-family:var(--fbody);}
+.dayspend .foot{margin:6px 2px 0; font-size:.74rem; color:var(--ink-faint);}
 .dir{
   display:inline-flex; align-items:center; gap:6px; margin-top:9px;
   font-size:.8rem; font-weight:600; color:var(--ocean);
@@ -1301,11 +1301,11 @@ function renderDays(){
     const spendHtml = spendLines.length ? `
       <div class="dayspend">
         <h4>${ui('daySpend')}</h4>
-        ${spendLines.map(l=>{
+        <div class="rows">${spendLines.map(l=>{
           const tag = l.booked ? ` <span class="opt-badge">${ui('bookedTag')}</span>`
                     : (l.optional ? ` <span class="opt-badge">${ui('optional')}</span>` : "");
           return `<div class="row"><span>${tr(l,'label')}${tag}</span><b>${fmtRange(l.lo,l.hi)}</b></div>`;
-        }).join("")}
+        }).join("")}</div>
         <div class="row total"><span>${ui('dayTotal')}</span><b>${fmtRange(spendLo,spendHi)}</b></div>
         <p class="foot">${ui('spendFoot')}</p>
       </div>` : "";
