@@ -498,13 +498,7 @@ section{padding:46px 0; position:relative; scroll-margin-top:64px;}
 .lodge textarea:focus{outline:2px solid var(--sunset); outline-offset:1px; background:#fff;}
 .lodge label{font-size:.7rem; color:var(--ink-faint); display:block; margin-bottom:5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase;}
 
-/* ---------- Checklist ---------- */
-.check-grid{display:grid; gap:26px; grid-template-columns:1fr 1fr;}
-@media(max-width:760px){.check-grid{grid-template-columns:1fr;}}
-.check-col h3{font-family:var(--fdisp); font-weight:600; font-size:1.15rem; margin:0 0 6px;
-  display:flex; align-items:center; gap:9px;}
-.check-col.priority h3{color:var(--sunset);}
-.check-col .colsub{font-size:.82rem; color:var(--ink-faint); margin:0 0 14px;}
+/* ---------- Bookings & confirmations ---------- */
 .task{
   display:flex; gap:13px; align-items:flex-start; padding:12px 14px; border-radius:12px;
   background:var(--paper); border:1px solid var(--line); margin-bottom:9px; cursor:pointer;
@@ -520,6 +514,9 @@ section{padding:46px 0; position:relative; scroll-margin-top:64px;}
 .task.done .box{background:var(--sage); border-color:var(--sage);}
 .task.done .box svg{opacity:1; transform:scale(1);}
 .task.done .label{text-decoration:line-through; color:var(--ink-faint);}
+.task.confirmed{cursor:default;}
+.task.confirmed .box{background:var(--sage); border-color:var(--sage);}
+.task.confirmed .box svg{opacity:1; transform:scale(1);}
 .task .label{font-size:.94rem; line-height:1.4;}
 .task .label .meta{display:block; font-size:.78rem; color:var(--ink-faint); margin-top:2px; font-style:italic;}
 .task.priority .label .meta{color:var(--sunset);}
@@ -625,7 +622,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
       <a href="#days" data-en="Itinerary" data-zh="行程">Itinerary</a>
       <a href="#map" data-en="Map" data-zh="地图">Map</a>
       <a href="#lodging" data-en="Stays" data-zh="住宿">Stays</a>
-      <a href="#checklist" data-en="Checklist" data-zh="清单">Checklist</a>
+      <a href="#checklist" data-en="Bookings" data-zh="预订">Bookings</a>
       <a href="#notes" data-en="Good to know" data-zh="须知">Good to know</a>
     </div>
   </div>
@@ -730,24 +727,16 @@ footer .small{font-size:.8rem; margin-top:8px;}
 
 <hr class="divider wrap" />
 
-<!-- ===== Checklist ===== -->
+<!-- ===== Bookings & confirmations ===== -->
 <section id="checklist" class="wrap">
-  <div class="sec-head reveal"><span class="sec-num">06</span><h2 data-en="Booking checklist" data-zh="预订清单">Booking checklist</h2></div>
+  <div class="sec-head reveal"><span class="sec-num">06</span><h2 data-en="Bookings & confirmations" data-zh="预订与确认">Bookings &amp; confirmations</h2></div>
+  <p class="sec-sub reveal" data-en="Everything's locked in. This is the record to keep on your phone; the restaurants we're winging." data-zh="全部都订好了。这份记录留在手机上备查；餐厅就随缘。">Everything's locked in. This is the record to keep on your phone; the restaurants we're winging.</p>
   <div class="progress reveal">
     <span id="progressLabel">0 of 0 booked</span>
     <span class="bar"><i id="progressBar"></i></span>
   </div>
-  <div class="check-grid">
-    <div class="check-col priority reveal">
-      <h3 data-en="🔖 Priority & time-sensitive" data-zh="🔖 优先 · 时效性强">🔖 Priority &amp; time-sensitive</h3>
-      <p class="colsub" data-en="Dynamic pricing or limited supply — do these first." data-zh="动态定价或数量有限——请优先处理。">Dynamic pricing or limited supply — do these first.</p>
-      <div id="priorityList"></div>
-    </div>
-    <div class="check-col reveal">
-      <h3 data-en="Everything else" data-zh="其余事项">Everything else</h3>
-      <p class="colsub" data-en="Still needed, but a little more forgiving." data-zh="同样要办，但时间上稍宽松。">Still needed, but a little more forgiving.</p>
-      <div id="otherList"></div>
-    </div>
+  <div class="reveal" style="max-width:680px">
+    <div id="confList"></div>
   </div>
 </section>
 
@@ -763,7 +752,7 @@ footer .small{font-size:.8rem; margin-top:8px;}
 
 <footer class="wrap">
   <p class="sig" data-en="Drive slow. Pull over often." data-zh="慢慢开，常停车。">Drive slow. Pull over often.</p>
-  <p class="small" data-en="SF → Big Sur → LA · July 2026 · checklist & stay notes save to this browser" data-zh="旧金山 → 大苏尔 → 洛杉矶 · 2026年7月 · 清单与住宿备注保存在此浏览器">SF → Big Sur → LA · July 2026 · checklist &amp; stay notes save to this browser</p>
+  <p class="small" data-en="SF → Big Sur → LA · July 2026 · your stay notes save to this browser" data-zh="旧金山 → 大苏尔 → 洛杉矶 · 2026年7月 · 住宿备注保存在此浏览器">SF → Big Sur → LA · July 2026 · your stay notes save to this browser</p>
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -1041,12 +1030,10 @@ const CHECKLIST = [
   { id:"ret",   text:"Family return flight LAX→BOS ✓ booked", text_zh:"全家返程航班 洛杉矶→波士顿 ✓ 已订", meta:"Cash red-eye · Mon Aug 3, 9 PM · $150/pp × 6 = $900", meta_zh:"现金红眼 · 8月3日(周一)晚9点 · 每人150美元 × 6 = 900美元", priority:true },
   { id:"out",   text:"Family outbound nonstop BOS→SFO", text_zh:"全家去程直飞 波士顿→旧金山", meta:"Cash nonstop · Wed Jul 29 · $770.40 total for 6 · booked ✓", meta_zh:"现金直飞 · 7月29日(周三)· 6人共 $770.40 · 已预订 ✓", priority:true },
   { id:"univ",  text:"Universal tickets ✓ BOOKED (Sun Aug 2)", text_zh:"环球影城门票 ✓ 已订（8月2日周日）", meta:"7 × $144 student rate · $1,008 total · general admission, no Express", meta_zh:"7 × $144 学生价 · 共 $1,008 · 普通入场，无 Express", priority:false },
-  { id:"sierra", text:"Cafe Sierra reservation — dinner for 7 (Sun Aug 2)", text_zh:"Cafe Sierra 订位——7人晚餐（8月2日周日）", meta:"At the Hilton by Universal · weekend-only · book on OpenTable, 7-tops fill fast", meta_zh:"环球影城旁希尔顿酒店内 · 仅周末 · OpenTable 预订，7人桌很快订满", priority:true },
   { id:"car",   text:"One-way minivan rental · SF → LAX", text_zh:"单程七座商务车租车 · 旧金山 → 洛杉矶机场", meta:"BOOKED $977.06 · Costco #C495511800 · Alamo #2121852385 · pick up Wed Jul 29 12:30 PM, SFO rental center (booked drop: LAX Mon Aug 3 8 PM — plan to return ~7) · flight B6 833 attached · track on AutoSlash · renter needs license + credit card in their name + the Costco card at the counter", meta_zh:"已订 $977.06 · Costco 订单号 C495511800 · Alamo 订单号 2121852385 · 7月29日(周三)12:30 在 SFO 租车中心取车（订单还车时间：8月3日(周一)晚8点，实际计划7点前后还）· 已关联航班 B6 833 · 用 AutoSlash 跟踪 · 取车时需驾驶员本人的驾照和信用卡，以及 Costco 会员卡", priority:false },
   { id:"triton",text:"SF lodging ✓ BOOKED — Daly City house", text_zh:"旧金山住宿 ✓ 已预订——Daly City 整套房", meta:"327 Crocker Ave · $1,171 all-in · conf. HM9DMHYZ59", meta_zh:"327 Crocker Ave · $1,171 全包 · 确认号 HM9DMHYZ59", priority:false },
   { id:"mid",   text:"Coast night ✓ BOOKED — Cayucos beach house (Fri)", text_zh:"海岸过夜 ✓ 已预订——Cayucos 海滨别墅（周五）", meta:"360 N Ocean Ave · 4BR, sleeps 10 · check-in Fri 4 PM", meta_zh:"360 N Ocean Ave · 4卧可住10人 · 周五下午4点入住", priority:false },
-  { id:"la",    text:"LA lodging ✓ BOOKED — Hollywood 3BR (Sat + Sun)", text_zh:"洛杉矶住宿 ✓ 已预订——好莱坞 3卧（周六 + 周日）", meta:"6055 Sunset Blvd 90028 · 3BR/3BA · $1,185.54 · self check-in", meta_zh:"6055 Sunset Blvd 90028 · 3卧3卫 · $1,185.54 · 自助入住", priority:false },
-  { id:"gjelina",text:"Gjelina (or RVR) reservation (Sat Aug 1)", text_zh:"Gjelina（或 RVR）订位（8月1日周六）", meta:"Reserve ahead", meta_zh:"提前预订", priority:false }
+  { id:"la",    text:"LA lodging ✓ BOOKED — Hollywood 3BR (Sat + Sun)", text_zh:"洛杉矶住宿 ✓ 已预订——好莱坞 3卧（周六 + 周日）", meta:"6055 Sunset Blvd 90028 · 3BR/3BA · $1,185.54 · self check-in", meta_zh:"6055 Sunset Blvd 90028 · 3卧3卫 · $1,185.54 · 自助入住", priority:false }
 ];
 
 const NOTES = [
@@ -1142,7 +1129,7 @@ function teardownMaps(){
 // Re-render everything in the current language (used on toggle; maps torn down + rebuilt).
 function renderAll(){
   teardownMaps();
-  ["#flightCards","#dayList","#lodgeCards","#priorityList","#otherList","#noteCards","#mapLegend"].forEach(s=>{ const n=$(s); if(n) n.innerHTML=""; });
+  ["#flightCards","#dayList","#lodgeCards","#confList","#noteCards","#mapLegend"].forEach(s=>{ const n=$(s); if(n) n.innerHTML=""; });
   applyStatic();
   renderFlights(); renderDays(); renderLodging(); renderChecklist(); renderNotes(); renderMap(); renderBigSurMap();
   document.querySelectorAll(".reveal").forEach(n=>n.classList.add("in"));
@@ -1411,28 +1398,20 @@ function renderLodging(){
 /* ============ RENDER: CHECKLIST ============ */
 const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 function renderChecklist(){
-  const done = store.get("checklist", {});
-  const pr = $("#priorityList"), ot = $("#otherList");
+  const list = $("#confList");
   CHECKLIST.forEach(t=>{
-    const row = el("div","task"+(t.priority?" priority":"")+(done[t.id]?" done":""));
+    const row = el("div","task confirmed");
     row.innerHTML = `
       <div class="box">${CHECK_SVG}</div>
       <div class="label">${tr(t,'text')}<span class="meta">${tr(t,'meta')}</span></div>`;
-    row.addEventListener("click", ()=>{
-      const isDone = row.classList.toggle("done");
-      const d = store.get("checklist", {}); d[t.id]=isDone; store.set("checklist", d);
-      updateProgress();
-    });
-    (t.priority?pr:ot).appendChild(row);
+    list.appendChild(row);
   });
   updateProgress();
 }
 function updateProgress(){
-  const done = store.get("checklist", {});
   const total = CHECKLIST.length;
-  const n = CHECKLIST.filter(t=>done[t.id]).length;
-  $("#progressLabel").textContent = ui('booked', n, total);
-  $("#progressBar").style.width = (n/total*100)+"%";
+  $("#progressLabel").textContent = ui('booked', total, total);
+  $("#progressBar").style.width = "100%";
 }
 
 /* ============ RENDER: NOTES ============ */
