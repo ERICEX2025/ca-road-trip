@@ -784,11 +784,12 @@ const DATA = {
     { day:2, date:"Thu Jul 30", date_zh:"7月30日(周四)", title:"The Rest of the City · Bridge, Wharf & Chinatown", title_zh:"城市另一半——大桥、码头与唐人街",
       summary:"Start downtown with Holy Nata's egg tarts and a Chinatown walk — Dragon Gate and Grant Ave — then a dim sum feast (Chinatown or Yank Sing), oysters at Hog Island, and the Fisherman's Wharf sea lions, up through the Marina and the Presidio, and all the way out to the Golden Gate Bridge for the golden-hour finale — then a Japantown wander and a traditional Cantonese family dinner back in Chinatown to close the night.",
       summary_zh:"从市中心开场：Holy Nata 的葡式蛋挞加一段唐人街漫步——天下为公牌坊、都板街——再吃一顿点心（唐人街或 Yank Sing）、在 Hog Island 来点生蚝、到渔人码头看海狮，向上穿过 Marina 与普雷西迪奥，一路来到金门大桥迎接金色黄昏的压轴——顺道逛逛日本町，最后回唐人街吃一顿正宗粤式家宴收尾。",
+      spendTitle:"💵 Day spend — as paid (receipts)", spendTitle_zh:"💵 当日花费——实付（按小票）",
       spend:[
-        {lo:35,  hi:50,  label:"Egg tarts — Holy Nata", label_zh:"蛋挞——Holy Nata"},
-        {lo:140, hi:385, label:"Dim sum — Chinatown or Yank Sing", label_zh:"点心——唐人街或 Yank Sing"},
-        {lo:90,  hi:140, label:"Oysters — Hog Island", label_zh:"生蚝——Hog Island"},
-        {lo:280, hi:420, label:"Dinner — Chinatown banquet (R&G)", label_zh:"晚餐——唐人街家宴（R&G）"},
+        {lo:44.25,  hi:44.25,  paid:true, label:"Egg tarts — Holy Nata, 12 pasteis", label_zh:"蛋挞——Holy Nata，12个"},
+        {lo:243.54, hi:243.54, paid:true, label:"Lunch — Pings Bistro, Fremont (Sichuan)", label_zh:"午餐——Pings Bistro 川菜（Fremont）"},
+        {lo:306.77, hi:306.77, paid:true, label:"Dinner — Hog Island Oyster Co.", label_zh:"晚餐——Hog Island 生蚝"},
+        {lo:115.23, hi:115.23, paid:true, label:"Late supper — R&G Lounge", label_zh:"宵夜——R&G Lounge"},
         {lo:40,  hi:70,  label:"Parking — downtown garages", label_zh:"停车——市中心停车楼"},
         {lo:585, hi:585, booked:true, label:"🏠 Daly City house — night 2 of 2", label_zh:"🏠 Daly City 房子——第2晚（共2晚）"}
       ],
@@ -1107,6 +1108,7 @@ const UI = {
   daySpend:       {en:"💵 Day spend — estimated, all 7",     zh:"💵 当日花费——7人估算"},
   dayTotal:       {en:"Day total (est)",                     zh:"当日合计（估）"},
   bookedTag:      {en:"booked ✓",                            zh:"已订 ✓"},
+  paidTag:        {en:"paid ✓",                              zh:"已付 ✓"},
   spendFoot:      {en:"All-in for all 7: meals, tickets, parking, gas & the night's lodging share · optional lines count in the high end only · flights & the minivan are under Trip cost.", zh:"全家7人的当日全包花费：餐费、门票、停车、油费与当晚住宿分摊 · 可选项只计入上限 · 机票与租车见「行程花费」。"}
 };
 const fmtUsd = n => "$" + n.toLocaleString("en-US");
@@ -1291,11 +1293,12 @@ function renderDays(){
 
     const spendHtml = spendLines.length ? `
       <div class="dayspend">
-        <h4>${ui('daySpend')}</h4>
+        <h4>${d.spendTitle ? tr(d,'spendTitle') : ui('daySpend')}</h4>
         <div class="rows">${spendLines.map(l=>{
-          const tag = l.booked ? ` <span class="opt-badge">${ui('bookedTag')}</span>`
-                    : (l.optional ? ` <span class="opt-badge">${ui('optional')}</span>` : "");
-          return `<div class="row"><span>${tr(l,'label')}${tag}</span><b>${fmtRange(l.lo,l.hi)}</b></div>`;
+          const tag = l.paid ? ` <span class="opt-badge">${ui('paidTag')}</span>`
+                    : (l.booked ? ` <span class="opt-badge">${ui('bookedTag')}</span>`
+                    : (l.optional ? ` <span class="opt-badge">${ui('optional')}</span>` : ""));
+          return `<div class="row"><span>${tr(l,'label')}${tag}</span><b>${l.paid ? fmtUsd(l.lo) : fmtRange(l.lo,l.hi)}</b></div>`;
         }).join("")}</div>
         <div class="row total"><span>${ui('dayTotal')}</span><b>${fmtRange(spendLo,spendHi)}</b></div>
         <p class="foot">${ui('spendFoot')}</p>
